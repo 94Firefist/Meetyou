@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.comment.ICommentDAO">
+
+
+<!-- 이벤트 코맨트 가져오기 -->
+	<select id="getComment" resultType="com.test.comment.CommentDTO">
+		SELECT LCOMMENT_ID, LREVIEW_ID, LMEMBER_ID, REVIEW_SEQ, REVIEW_LEV, COMMENT_DATE, COMMENT_CONTENT, LEVENT_ID, MEMBER_REALID, MBPROFILE_URL, LOCKCHECK
+		FROM VIEW_COMMENT
+		<where>
+			LEVENT_ID = #{levent_id, jdbcType=VARCHAR}
+		</where>
+		ORDER BY REVIEW_SEQ
+	</select>
+	
+<!-- 이벤트 리뷰 가져오기 -->
+	<select id="getReview" resultType="com.test.comment.ReviewDTO">
+		SELECT LREVIEW_ID, REVIEW_DATE, REVIEW_CONTENT, LMEMBER_ID, MEMBER_REALID, LEVENT_ID, MBPROFILE_URL, LOCKCHECK
+		FROM VIEW_REVIEW
+		<where>
+			LEVENT_ID = #{levent_id, jdbcType=VARCHAR}
+		</where>
+		ORDER BY LREVIEW_ID
+	</select>
+	
+<!-- 글쓰기 권한 확인 -->
+	<select id="canWrite" resultType="String">
+		SELECT COUNT(*)
+		FROM VIEW_PANALTY
+		<where>
+			PANALTYTY_ID = 1
+			AND MEM = #{id, jdbcType=VARCHAR}
+			AND SYSDATE BETWEEN REPPRO_DATE AND LASTDAY
+		</where>
+	</select>	
+	
+	<!-- 리뷰 쓸 권한 확인 -->
+	<select id="writeReview" resultType="String">
+		SELECT COUNT(E.EVEATTEND_ID) - COUNT(R.LREVIEW_ID) AS POWER
+		FROM EVEATTEND E LEFT OUTER JOIN REVIEW R
+		  ON E.EVEATTEND_ID = R.EVEATTEND_ID
+		WHERE LEVENT_ID=#{levent_id, jdbcType=VARCHAR}
+		  AND ATTEND_ID=1
+		  AND LMEMBER_ID=#{id, jdbcType=VARCHAR}
+	</select>
+	
+	<!-- 리뷰쓰기 -->
+	<insert id="insertReview">
+		INSERT INTO REVIEW(EVEATTEND_ID, REVIEW_CONTENT)
+		VALUES((SELECT EVEATTEND_ID FROM EVEATTEND WHERE LEVENT_ID = #{levent_id, jdbcType=VARCHAR} AND LMEMBER_ID = #{lmember_id, jdbcType=VARCHAR})
+		,#{review_content, jdbcType=VARCHAR})
+	</insert>
+	
+	<!-- 댓글쓰기 -->
+	
+	<parameterMap type="hashmap" id="commentMap">
+		<parameter property="lreview_id" mode="IN"  jdbcType="INTEGER"	javaType="java.lang.String"/>
+		<parameter property="lmember_id" mode="IN"  jdbcType="INTEGER"	javaType="java.lang.String"/>
+		<parameter property="review_seq" mode="IN"  jdbcType="INTEGER"	javaType="java.lang.String"/>
+		<parameter property="review_lev" mode="IN"  jdbcType="INTEGER"	javaType="java.lang.String"/>
+		<parameter property="comment_content" mode="IN"  jdbcType="VARCHAR"	javaType="java.lang.String"/>
+	</parameterMap>
+	
+	<select id="insertComment" statementType="CALLABLE" parameterMap="commentMap">
+		{ call COMMENT_INSERT(?, ?, ?, ?, ?) }
+	</select>
+	
+	
+	
+
+</mapper>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.admin.IAdminDAO">
+
+<!-- 공지사항 -->
+	<!-- 리스트 -->
+		<select id="noticeList" resultType="com.test.admin.NoticeDTO">
+		
+			SELECT ROWNUMBER, NOTICEID, TITLE, NOTICEDATE, ADMINID, HITCOUNT
+			FROM
+			(
+			SELECT ROWNUM ROWNUMBER, NOTICEID, TITLE, NOTICEDATE, ADMINID, HITCOUNT 
+			FROM NOTICEVIEW
+			)
+			WHERE ROWNUMBER BETWEEN #{startPage} AND #{countPage}
+			ORDER BY ROWNUMBER
+		</select>	
+		
+	<!-- 데이터 전체 갯수 -->
+		<select id="noticePageCount" resultType="java.lang.Integer">
+			SELECT COUNT(*)
+			FROM NOTICEVIEW
+		</select>
+	
+	<!-- 추가 -->
+		<insert id="noticeAdd">
+			INSERT INTO NOTICE(NOTICE_ID, LMEMBER_ID, NOTICE_TITLE, NOTICE_CONTENT) 
+			VALUES (NOTICESEQ.NEXTVAL, 1, #{title}, #{content})
+		</insert>
+	<!-- 수정 -->
+		<update id="noticeModify">
+			UPDATE NOTICE 
+			SET NOTICE_TITLE = #{title}, NOTICE_CONTENT = #{content}
+			WHERE NOTICE_ID = #{noticeId}
+		</update>	
+	<!-- 삭제 -->
+		<delete id="noticeRemove">
+			DELETE FROM NOTICE WHERE NOTICE_ID = #{noticeId}
+		</delete>
+	<!-- 내용 -->
+		<select id="getNoticeContent" resultType="com.test.admin.NoticeDTO">
+			SELECT NOTICE_TITLE AS TITLE, NOTICE_CONTENT AS CONTENT
+			 FROM NOTICE
+			 WHERE NOTICE_ID = #{noticeId}
+		</select>
+	
+
+<!-- 문의사항 -->
+	<!-- 리스트 -->
+		<select id="qnaList" resultType="com.test.admin.QNADTO">
+			SELECT ROWNUMBER, QNAID, TITLE, QNADATE, USERNAME, HANDLING, CONTENT
+			FROM
+			(
+			SELECT ROWNUM ROWNUMBER, NO AS QNAID, TITLE, QNADATE, USERNAME, RESULT AS HANDLING, CONTENT
+			FROM INQUIREVIEW
+			)
+			WHERE ROWNUMBER BETWEEN #{startPage} AND #{countPage}
+			ORDER BY ROWNUMBER
+		</select>
+		
+	<!-- 데이터 전체 갯수 -->
+		<select id="pageCount" resultType="java.lang.Integer">
+			SELECT COUNT(*)
+			FROM INQUIREVIEW
+		</select>
+	<!-- 추가  -->
+		<insert id="qnaAdd">
+			INSERT INTO INQUIRE_RE(INQUIRE_RE_ID, INQUIRE_ID, LMEMBER_ID, INQUIRE_RE_TITLE, INQUIRE_RE_CONTENT)
+			VALUES(INQUIRE_RESEQ.NEXTVAL, #{qnaId}, 1, #{title}, #{content})
+		</insert>
+	<!-- 내용 -->
+		<select id="qnaContent" resultType="String">
+			SELECT CONTENT 
+			FROM INQUIREVIEW 
+			WHERE NO = #{qnaId}
+		</select>
+
+
+<!-- FAQ -->
+	<!-- 리스트 -->
+		<select id="faqList" resultType="com.test.admin.FAQDTO">
+			SELECT ROWNUMBER, FAQID, TITLE, HITCOUNT
+			FROM
+			(
+			SELECT ROWNUM ROWNUMBER, FAQ_ID AS FAQID, FAQ_TITLE AS TITLE, FAQ_HIT AS HITCOUNT
+			FROM FAQVIEW
+			)
+			WHERE ROWNUMBER BETWEEN #{startPage} AND #{countPage}
+			ORDER BY ROWNUMBER
+		</select>
+	<!-- 데이터 전체 갯수 -->
+		<select id="faqPageCount" resultType="java.lang.Integer">
+			SELECT COUNT(*)
+			FROM FAQVIEW
+		</select>	
+	<!-- 추가 -->
+		<insert id="faqAdd">
+			INSERT INTO FAQ(FAQ_ID, LMEMBER_ID, FAQ_TITLE, FAQ_CONTENT)
+			VALUES(FAQSEQ.NEXTVAL, 1, #{title}, #{content})
+		</insert>
+	<!-- 수정 -->
+		<update id="faqModify">
+			UPDATE FAQ
+			SET FAQ_TITLE = #{title}, FAQ_CONTENT = #{content}
+			WHERE FAQ_ID = #{faqId}
+		</update>
+	<!-- 삭제 -->
+		<delete id="faqRemove">
+			DELETE FROM FAQ WHERE FAQ_ID = #{faqId}
+		</delete>
+	<!-- 내용 -->
+		<select id="getFAQContent" resultType="com.test.admin.FAQDTO">
+			SELECT FAQ_TITLE AS TITLE, FAQ_CONTENT AS CONTENT
+			FROM FAQ
+			WHERE FAQ_ID = #{faqId}
+		</select>
+
+
+
+		
+<!-- 상품 -->
+	<!-- 리스트 -->                  
+		<select id="paymentList" resultType="com.test.admin.PaymentDTO">
+			SELECT ROWNUMBER, USERID, NAME, COUNT, PRICE, PAYMENTDATE, HANDLING, PAYNO
+			FROM
+			(
+			SELECT ROWNUM ROWNUMBER, USERID, NAME, COUNT, PRICE, PAYMENTDATE, HANDLING, PAYNO
+			FROM PRODUCTVIEW
+			)
+			WHERE ROWNUMBER BETWEEN #{startPage} AND #{countPage}
+			ORDER BY ROWNUMBER
+		</select>
+	<!-- 데이터 전체 갯수 -->
+		<select id="paymentPageCount" resultType="java.lang.Integer">
+			SELECT COUNT(*)
+			FROM PRODUCTVIEW
+		</select>		
+		 
+	<!-- 수정(환불) -->
+		<update id="paymentModify">
+			UPDATE SHOPLIST 
+			SET REFUND = 1
+			WHERE SHOPLIST_ID = #{paymentId}
+		</update>
+</mapper>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.personal.IPersonalControlDAO">
+
+
+<!-- 나의 관리정보리스트 -->
+	<select id="controlList" resultType="com.test.personal.PersonalControlDTO">
+		select m.lmember_id as lmember_id, m.member_realid as member_realid, m.member_email as member_email, m.member_name as member_name, m.member_tel as member_tel, m.public_fri as public_fri, m.public_grl as public_grl, m.public_email as public_email, m.public_tel as public_tel
+		, m.public_br as public_br, c.citype_id as citype_id, c.city_name as city_name, m.member_info as member_info, m.member_birth as member_birth
+		from mu_member m join city_type c
+		on m.CITYPE_ID  = c.citype_id
+		where LMEMBER_ID=  #{keynumber}	
+	</select>
+
+<!-- 나의 관심사리스트 -->
+   <select id="controlInterestList" resultType="com.test.personal.PersonalControlDTO">
+   		SELECT MC.lmember_id as lmember_id, C.category_content as category_content, MC.mbcategory_id as mbcategory_id, c.category_code as category_code
+		FROM TBL_CATEGORY C JOIN MBCATEGORY MC
+		ON C.CATEGORY_CODE = MC.CATEGORY_CODE
+		WHERE MC.LMEMBER_ID = #{keynumber}	
+   </select>	
+   
+<!-- 모든 관심사리스트-->
+ <select id="interestList" resultType="com.test.personal.PersonalControlDTO">
+ 	select category_code, category_content
+    from TBL_CATEGORY
+ </select>   
+ 
+<!-- 모든 지역리스트 -->
+<select id="cityList" resultType="com.test.personal.PersonalControlDTO">
+	select citype_id, city_name
+	from city_type
+</select>
+	
+<!-- 나의 기본정보수정하기 -->
+<update id="controlMyinfo">
+	update mu_member
+	set MEMBER_EMAIL = #{email}, MEMBER_TEL = #{tel}, Member_info = #{info} , CITYPE_ID = #{city}, public_email = #{emailOpen}, public_tel = #{telOpen}, public_br = #{birthOpen}
+	where lmember_id = #{keynumber}
+</update>	
+
+<!-- 나의 관심사 삭제하기  -->
+<delete id="controlMyinterestRemove">
+	 delete
+ 	from mbcategory
+ 	where LMEMBER_ID= #{keynumber} and MBCATEGORY_ID = #{mbcategory_id}
+</delete>
+
+<!-- 나의 관심사 수정하기  -->
+<update id="controlMyinterestModify">
+	update mbcategory 
+	set category_code = #{category_code}
+	where LMEMBER_ID = #{keynumber} and MBCATEGORY_ID = #{mbcategory_id}
+</update>
+
+<!-- 나의 관심사 추가하기 -->
+<insert id="controlMyinterestInsert">
+	insert into MBCATEGORY(MBCATEGORY_ID, LMEMBER_ID, CATEGORY_CODE) values(MBCATEGORYseq.nextval, #{keynumber}, #{category_code})
+</insert>
+
+</mapper>

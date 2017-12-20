@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.admin.IReportDAO2">
+
+
+	<insert id="reportSelList">
+		INSERT INTO REPPRO(REPPRO_ID, LMEMBER_ID, REPORT_ID, PANALTYPOL_ID, REPPRO_CONTENT)
+		VALUES( REPPROSEQ.NEXTVAL, #{limember_id}, #{report_id}, #{rep_panaltypol}, #{reppro_content, jdbcType=VARCHAR})
+	</insert>
+
+
+	<select id="proDetailId" resultType="com.test.admin.ReportDTO2">
+		SELECT REPTYPE_NAME AS REP_TYPE, PANALTYPOL_CONTENT AS REP_PANALTY ,PANALTYTY_CONTENT AS REP_PANALTYPOL
+		, PANALTYDAY AS REP_DAY, REPPRO_DATE, REPPRO_CONTENT AS reppro_content, MASTER AS limember_id
+		FROM VREPPROINFO2
+		WHERE REPPRO_ID = #{reppro_id}
+	</select>
+
+</mapper>

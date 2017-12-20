@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.personal.IPersonalCheckDAO">
+
+
+<!-- 페이지 주인 공개 여부 -->
+	<select id="hostCheckList" resultType="com.test.personal.PersonalCheckDTO">
+		SELECT PUBLIC_FRI AS FRIENDPUBLIC, PUBLIC_GRL AS GROUPPUBLIC
+		     , PUBLIC_EMAIL AS EMAILPUBLIC, PUBLIC_TEL AS TELPUBLIC
+		     , PUBLIC_BR AS BIRPUBLIC
+		FROM MU_MEMBER
+		WHERE LMEMBER_ID = #{hostId}	
+	</select>
+
+
+<!-- 친구여부 (주인, 접속자) -->
+	<select id="friendCheck" resultType="java.lang.Integer">
+		SELECT COUNT(LMEMBER_ID)
+		FROM MU_MEMBER
+		WHERE LMEMBER_ID IN ( SELECT LIMEMBER_ID
+		                        FROM TEST_FRINDLISTI
+		                        WHERE LUMEMBER_ID = #{hostId}
+		                          AND FRSTATUS_ID = 2       
+		                        UNION
+		                        SELECT LUMEMBER_ID
+		                        FROM TEST_FRINDLISTI
+		                        WHERE LIMEMBER_ID = #{hostId}
+		                          AND FRSTATUS_ID = 2 )    
+		                          AND LMEMBER_ID = #{guestId}
+	</select>
+	
+<!-- 같은 그룹 수 -->
+	<select id="sameGroupCount" resultType="java.lang.Integer">
+		SELECT count(*)
+		FROM GRLIST G JOIN MU_MEMBER M
+		ON M.LMEMBER_ID = G.LMEMBER_ID
+		WHERE M.LMEMBER_ID = #{hostId}
+		  AND LGROUP_ID IN (SELECT LGROUP_ID FROM GRLIST WHERE LMEMBER_ID = #{guestId})
+	</select>
+
+
+
+	
+	
+<!-- 같은 그룹번호(주인, 손님) -->
+	<!-- <select id="sameGroupCheck" resultType="com.test.personal.PersonalCheckDTO">
+		SELECT LGROUP_ID
+		FROM GRLIST G JOIN MU_MEMBER M
+		ON M.LMEMBER_ID = G.LMEMBER_ID
+		WHERE M.LMEMBER_ID = #{hostId}
+		  AND LGROUP_ID IN ( SELECT LGROUP_ID FROM GRLIST WHERE LMEMBER_ID = #{guestId} )
+		ORDER BY LGROUP_ID
+	</select> -->	
+</mapper>

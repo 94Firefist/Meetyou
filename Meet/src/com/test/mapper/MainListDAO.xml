@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.main.IMainListDAO">
+
+
+<!-- 검색바 관심사 -->
+	<select id="interestList" resultType="com.test.main.CategoryDTO">
+		SELECT CATEGORY_CODE, CATEGORY_CONTENT
+		FROM TBL_CATEGORY
+		ORDER BY CATEGORY_CODE
+	</select>
+
+<!-- 검색바 지역 -->
+	<select id="cityList" resultType="com.test.main.CityDTO">
+		SELECT CITYPE_ID, CITY_NAME
+		FROM CITY_TYPE
+		ORDER BY CITYPE_ID
+	</select>
+
+<!-- 파워링크 -->
+	<select id="powerList" resultType="com.test.main.EventDTO">
+		SELECT LEVENT_ID, EVENT_NAME, LGROUP_ID, LMEMBER_ID, LOAD_NAME, EVEPROFILE_URL, CATEGORY_CONTENT, TAG
+		FROM VIEW_PO
+		ORDER BY LEVENT_ID
+	</select>
+	
+
+	
+<!-- 이벤트 리스트 출력 -->
+	<select id="eventList" resultType="com.test.main.EventDTO" >
+		SELECT LEVENT_ID, EVENT_NAME, LGROUP_ID, LMEMBER_ID, PUBLIC_EVE, EVENT_DATE
+		, EVENT_MAXATTEND, EVENT_MINM, LOAD_NAME, COUNT, MENCOUNT, AGEAVG, CATEGORY_CODE, TAG, CITY_NAME
+		, (SELECT COUNT(*) FROM VIEW_LOCK WHERE LUMEMBER_ID = LEVENT_ID) AS LOCKCHECK
+		FROM VIEW_EVENTLIST
+		<where>
+			<if test="city != null and city != ''">
+				<bind name="load" value="'%' + city + '%'"/>
+				CITY_NAME LIKE #{load}
+			</if>
+			
+			<choose>
+				<when test="search=='true'">
+					<if test="genderOption=='true'">
+						<choose>
+							<when test="gender=='true'">
+								AND MENCOUNT/(DECODE(COUNT, 0, -1, COUNT))*100 >= #{genderRate}
+							</when>
+							<otherwise>
+								AND (COUNT-MENCOUNT)/(DECODE(COUNT, 0, -1, COUNT))*100 >= #{genderRate}
+							</otherwise>
+						</choose>
+					</if>
+					
+					
+					<if test="ageOption=='true'">
+						<choose> 
+							<when test="ageMin != null &amp;&amp; ageMax != null">
+								AND AGEAVG BETWEEN #{ageMin} AND #{ageMax}
+							</when>
+							<when test="ageMin != null &amp;&amp; ageMax == null">
+								AND AGEAVG >= #{ageMin}
+							</when>
+							<when test="ageMax != null &amp;&amp; ageMin == null">
+								AND #{ageMax} >= AGEAVG
+							</when>
+						</choose>
+					</if>
+					
+					
+					<if test="dateOption=='true'">
+						<choose>
+							<when test="dateMin != null &amp;&amp; dateMax != null">
+								AND EVENT_DATE BETWEEN TO_DATE(#{dateMin},'YYYY/MM/DD') AND TO_DATE(#{dateMax},'YYYY-MM-DD')
+							</when>
+							<when test="dateMin != null &amp;&amp; dateMax == null">
+								AND EVENT_DATE >= TO_DATE(#{dateMin},'YYYY/MM/DD')
+							</when>
+							<when test="dateMax != null &amp;&amp; dateMin == null">
+								AND TO_DATE(#{dateMax},'YYYY/MM/DD') >= EVENT_DATE
+							</when>
+						</choose>
+					</if>
+					
+					
+					<if test="moneyOption=='true'">
+						<choose>
+							<when test="moneyMin != null &amp;&amp; moneyMax != null">
+								AND EVENT_MINM BETWEEN #{moneyMin} AND #{moneyMax}
+							</when>
+							<when test="moneyMin != null &amp;&amp; moneyMax == null">
+								AND EVENT_MINM >= #{moneyMin}
+							</when>
+							<when test="moneyMax != null &amp;&amp; moneyMin == null">
+								AND #{moneyMax} >= EVENT_MINM
+							</when>
+						</choose>
+					</if>
+					
+					
+					<if test="interestOption=='true'">
+						AND CATEGORY_CODE IN 
+						<foreach item="ca" collection="interestCK"  open="(" separator=","  close=")">
+							#{ca}
+						</foreach>
+					</if>
+					
+					
+					<if test="tagOption=='true'">
+						AND LEVENT_ID IN (SELECT LEVENT_ID FROM EVETAG WHERE EVETAG_NAME IN
+						<foreach item="ta" collection="tags" open="(" separator="," close=")">
+							#{ta}
+						</foreach>
+						)
+					</if>
+					
+					
+				</when>
+			</choose>
+			
+			
+			<if test="keyword != null and keyword !=''">
+				<foreach collection="keyword" item="keys" index="index" open="AND(" separator=" OR " close=")">
+					<bind name="key" value="'%' + keys + '%'"/>
+					EVENT_NAME LIKE #{key}
+				</foreach>
+			</if>
+			
+			AND EVENT_DATE > SYSDATE
+		</where>
+			ORDER BY EVENT_DATE ASC
+<!-- 		<choose> -->
+<!-- 			<when test="sortType.equals('day_asc')"> -->
+<!-- 				ORDER BY EVENT_DATE ASC -->
+<!-- 			</when> -->
+<!-- 			<when test="sortType.equals('day_desc')"> -->
+<!-- 				ORDER BY EVENT_DATE DESC -->
+<!-- 			</when> -->
+<!-- 			<when test="sortType.equals('price_asc')"> -->
+<!-- 				ORDER BY EVENT_MINM ASC -->
+<!-- 			</when> -->
+<!-- 			<when test="sortType.equals('price_desc')"> -->
+<!-- 				ORDER BY EVENT_MINM DESC -->
+<!-- 			</when> -->
+<!-- 			<when test="sortType.equals('people_asc')"> -->
+<!-- 				ORDER BY COUNT ASC -->
+<!-- 			</when> -->
+<!-- 			<when test="sortType.equals('people_desc')"> -->
+<!-- 				ORDER BY COUNT DESC -->
+<!-- 			</when> -->
+<!-- 		</choose> -->
+	</select>
+
+
+
+
+<!-- 그룹 리스트 출력 -->
+	<select id="groupList" resultType="com.test.main.GroupDTO" >
+		<![CDATA[SELECT LGROUP_ID, GROUP_NAME,GROUP_CREDATE, PUBLIC_GR, CITY_NAME, COUNT, CHANGEMEMBER, HISTORY_ATTEND
+			, (CHANGEMEMBER*0.2 + HISTORY_ATTEND*0.8) AS SCORE
+			, SUBSTR(TAG,0,DECODE(INSTR(TAG, '#', 2,3),0,90,INSTR(TAG, '#', 2,3)-2)) AS TAG
+			, GRPROFILE_URL, (SELECT COUNT(*) FROM VIEW_LOCK WHERE LUMEMBER_ID = LGROUP_ID) AS LOCKCHECK
+			FROM VIEW_GROUPLIST]]>
+		<where>
+			<if test="city != null and city != ''">
+				<bind name="load" value="'%' + city + '%'"/>
+				CITY_NAME LIKE #{load}
+			</if>
+			
+			<if test="keyword != null and keyword !=''">
+			
+				<foreach collection="keyword" item="keys">
+					<bind name="key" value="'%' + keys + '%'"/>
+					OR LGROUP_ID IN (SELECT LGROUP_ID FROM GRTAG WHERE GRTAG_NAME LIKE #{key})
+					OR GROUP_NAME LIKE #{key}
+				</foreach>
+			</if>
+		</where>
+	</select>
+
+<!-- 이벤트 주인 찾기 -->
+	<select id="whoEvent" resultType="com.test.main.EventDTO">
+		SELECT LGROUP_ID, LMEMBER_ID
+		FROM EVENT
+		<where>
+			LEVENT_ID = #{levent_id}
+		</where>
+	</select>
+
+</mapper>
