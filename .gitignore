@@ -19,22 +19,3 @@ ehthumbs.db
 Thumbs.db
  
 # 이클립스에서 생성하는 프로젝트 정보 파일 제외
-.metadata
-bin/
-tmp/
-*.tmp
-*.bak
-*.swp
-*~.nib
-local.properties
-.settings/
-.loadpath
-.recommenders
-.project
-.externalToolBuilders/
-*.launch
-.classpath
-.factorypath
-.buildpath
-.target
-/MeetU/
