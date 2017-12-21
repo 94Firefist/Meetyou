@@ -2012,7 +2012,7 @@ public class GroupFormController
 		// 이미지 저장 경로 설정
 		String root = session.getServletContext().getRealPath("/");
 		String pathname = root + File.separator + "uploads" + File.separator + "image";
-		
+
 		// 데이터 가져오기
 		String memberId = (String) session.getAttribute("keynumber");
 		String drag = request.getParameter("dragv");
