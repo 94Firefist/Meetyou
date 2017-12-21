@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.personal.IPersonalTimelineDAO">
+	
+
+<!-- 본인 개최 이벤트 -->
+	<select id="hostEventList" resultType="com.test.personal.PersonalTimelineDTO">
+		SELECT LMEMBER_ID AS EVENTHOSTID
+			 , PUBLIC_EVE AS EVENTOPEN
+		     , LEVENT_ID AS EVENTID, EVENT_NAME AS EVENTNAME
+		     , ( SELECT LOAD_NAME FROM CITY WHERE CITY_CODE = E.CITY_CODE ) AS EVENTADDR
+		     , EVENT_PLACE AS EVENTPLACE
+		     , TO_CHAR(EVENT_DATE, 'MM"월" DD"일" DAY') AS EVENTDATE1, TO_CHAR(EVENT_DATE, 'HH24 : MI') AS EVENTDATE2
+		     , ( SELECT COUNT(*) FROM EVEATTEND WHERE LEVENT_ID = E.LEVENT_ID ) AS GUESTCOUNT
+		     , EVENT_MAXATTEND AS MAXGUESTCOUNT    
+		FROM EVENT E
+		WHERE EVESTATUS_ID = 1             
+		AND NVL(LGROUP_ID, 0) = 0          
+		AND LMEMBER_ID = #{hostId}                
+		ORDER BY EVENT_DATE
+	</select>
+
+
+<!-- 참여 예정 리스트 -->
+	<select id="hostInEventList" resultType="com.test.personal.PersonalTimelineDTO">
+		SELECT E.LMEMBER_ID AS EVENTHOSTID
+		     , E.PUBLIC_EVE AS EVENTOPEN
+		     , E.LEVENT_ID AS EVENTID, E.EVENT_NAME AS EVENTNAME
+		     , ( SELECT LOAD_NAME FROM CITY WHERE CITY_CODE = E.CITY_CODE ) AS EVENTADDR
+		     , E.EVENT_PLACE AS EVENTPLACE
+		     , TO_CHAR(E.EVENT_DATE, 'MM"월" DD"일" DAY') AS EVENTDATE1, TO_CHAR(E.EVENT_DATE, 'HH24 : MI') AS EVENTDATE2
+		     , ( SELECT COUNT(*) FROM EVEATTEND WHERE LEVENT_ID = E.LEVENT_ID ) AS GUESTCOUNT
+		     , E.EVENT_MAXATTEND AS MAXGUESTCOUNT  
+		FROM EVENT E JOIN EVEATTEND EA
+		ON E.LEVENT_ID = EA.LEVENT_ID
+		WHERE EA.LMEMBER_ID = #{hostId}
+		AND EA.ATTEND_ID = 1                 
+		AND E.EVENT_DATE > SYSDATE
+		AND E.EVESTATUS_ID = 1                  
+		ORDER BY EVENT_DATE
+	</select>
+
+
+</mapper>

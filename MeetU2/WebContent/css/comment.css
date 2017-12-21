@@ -1,0 +1,161 @@
+@charset "UTF-8";
+
+.comment-box {
+   margin-top: 30px !important;
+}
+
+.mediaa-left>.img {
+   width: 50px;
+   height: 50px;
+   background-size: 100% 100%;
+}
+
+.comment-box .mediaa-left {
+   padding-right: 10px;
+   width: 65px;
+}
+
+.comment-box .mediaa-body .b_content {
+   border: 1px solid #ddd;
+   padding: 10px;
+}
+
+.comment-box .mediaa-body .mediaa .b_content {
+   margin-bottom: 0;
+}
+
+.comment-box .mediaa-heading {
+   background-color: #f5f5f5;
+   border: 1px solid #ddd;
+   padding: 7px 10px;
+   position: relative;
+   margin-bottom: -1px;
+}
+
+.comment-box .mediaa-heading:before {
+   content: "";
+   width: 12px;
+   height: 12px;
+   background-color: #f5f5f5;
+   border: 1px solid #ddd;
+   border-width: 1px 0 0 1px;
+   -webkit-transform: rotate(-45deg);
+   transform: rotate(-45deg);
+   position: absolute;
+   top: 10px;
+   left: -6px;
+}
+
+.mediaa {
+   margin-top: 15px
+}
+
+.mediaa:first-child {
+   margin-top: 0
+}
+
+.mediaa, .mediaa-body {
+   /*    overflow: hidden; */
+   zoom: 1
+}
+
+.mediaa-body {
+   width: 100%;
+   min-width: 240px;
+}
+
+.mediaa-body, .mediaa-left {
+   display: table-cell;
+   vertical-align: top;
+}
+
+.mediaa-heading {
+   margin-top: 0;
+   margin-bottom: 5px;
+   font-size: medium;
+   font-weight: bold;
+   height: 36px;
+}
+
+.row {
+   margin-right: -15px;
+   margin-left: -15px
+}
+
+.b_content {
+   margin: 0;
+   overflow: hidden;
+}
+
+.recommentbtn {
+   float: right;
+   text-decoration: none;
+   font-size: small;
+   vertical-align: bottom;
+   margin-right: 10px;
+   margin-top: 2px;
+   cursor: pointer;
+}
+
+.writer {
+   float: left;
+}
+
+.writedate {
+   float: left;
+   margin-left: 10px;
+   font-size: small;
+   font-weight: normal;
+}
+
+/* --------------------------------- */
+
+.writeform {
+   margin-top: 10px;
+   border: 0;
+   width: 100%;
+   overflow: hidden;
+   background-color: #e0e0e0;
+}
+
+.writeform textarea {
+   width: 96%;
+   resize: none;
+   min-height: 100px;
+   position: relative;
+   margin: 12px;
+   padding: 5px;
+   outline: none;
+   border: 0px;
+}
+
+
+.commentbtn {
+   float: right;
+   width: 70px;
+   background-color: #181818;
+   text-decoration: none;
+   color: white;
+   text-align: center;
+   height: 35px;
+   padding: auto;
+   font-weight: bold;
+}
+
+.btnspace
+{
+   border-top: 1px solid #b6b6b6;
+   overflow: hidden;
+}
+
+.btnspace span
+{
+   margin: 5px;
+   font-size: small;
+}
+
+.btnspace .txt_write
+{
+   color: red;
+}
+

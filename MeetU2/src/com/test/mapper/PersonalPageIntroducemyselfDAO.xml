@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.personal.IPersonalPageIntroducemyselfDAO">
+
+
+<!-- 개인정보 -->
+<select id="userInfo" resultType="com.test.personal.PersonalPageIntroducemyselfDTO">
+	SELECT MEMBER_NAME AS USERNAME, TO_CHAR(MEMBER_BIRTH, 'YYYY-MM-DD') AS USERBIR
+	     , MEMBER_TEL AS USERTEL, MEMBER_INFO AS USERCONTENT, MEMBER_EMAIL AS USEREMAIL
+	FROM MU_MEMBER
+	WHERE LMEMBER_ID = #{userNumber}
+</select>
+
+
+
+</mapper>
