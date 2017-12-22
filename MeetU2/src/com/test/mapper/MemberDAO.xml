@@ -84,8 +84,14 @@
    
    <!-- 관리자페이지에서 회원리스트 출력 -->
    <select id="adminMemberList" resultType="com.test.members.MemberDTO">
-      SELECT lmember_id, member_realid ,joinGrCount ,joinDate, atEvent, curEveAttend,curLogIn
-      FROM VIEW_MEMBERLIST
+      	SELECT lmember_id, member_realid ,joinGrCount ,joinDate, atEvent, curEveAttend,curLogIn, COUNTING
+		FROM
+		(
+				SELECT lmember_id, member_realid ,joinGrCount ,joinDate, atEvent, curEveAttend,curLogIn, ROWNUM AS COUNTING
+			    FROM VIEW_MEMBERLIST
+			    ORDER BY LMEMBER_ID DESC
+		)
+		WHERE ((#{pageNum} - 1) * 10 + 10) >= COUNTING AND COUNTING >= ((#{pageNum} - 1) * 10 + 1)
    </select>
    
    <select id="myprofile" resultType="java.lang.String">
@@ -93,4 +99,8 @@
 	FROM MBPROFILE
 	WHERE LMEMBER_ID = #{keynumber}
    </select>
+   <select id="memberPageCount" resultType="java.lang.Integer">
+   SELECT COUNT(*)
+	FROM MU_MEMBER
+	</select>
 </mapper>
