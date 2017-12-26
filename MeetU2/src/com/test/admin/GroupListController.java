@@ -6,29 +6,29 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
 
 import com.test.admin.GroupDTO;
 import com.test.admin.IGroupDAO;
 
-
-public class GroupListController implements Controller
+@Controller
+public class GroupListController
 {
-	private IGroupDAO dao;
-
-	public void setDao(IGroupDAO dao)
-	{
-		this.dao = dao;
-	}
+	@Autowired
+	private SqlSession sqlsession;
 	
-	ArrayList<GroupDTO> groupList = new ArrayList<GroupDTO>();
+	
 
-	@Override
-	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception
+	@RequestMapping(value="/grouplist.action")
+	public ModelAndView handleRequest(HttpServletRequest request)
 	{
+		ArrayList<GroupDTO> groupList = new ArrayList<GroupDTO>();
 		 ModelAndView mav = new ModelAndView();
-		 
+		 IGroupDAO dao = sqlsession.getMapper(IGroupDAO.class);
 		 AdminPage adminpage = new AdminPage();
 		 try
 		{
@@ -46,9 +46,9 @@ public class GroupListController implements Controller
 			int endPage = sePage[1];
 			int totalPage = sePage[2];
 			
-			HashMap<String, Integer> stMap = new HashMap<String, Integer>();
-			stMap.put("startPage", (page-1)*10+1);
-			stMap.put("countPage", page*countPage);
+			HashMap<String,String> stMap = new HashMap<String,String>();
+			stMap.put("startPage", String.valueOf((page-1)*10+1));
+			stMap.put("countPage", String.valueOf(page*countPage));
 			
 			groupList = dao.group_List(stMap);
 			

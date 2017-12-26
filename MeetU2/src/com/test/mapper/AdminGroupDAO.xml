@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.admin.IGroupDAO">
+	<select id="group_List" resultType="com.test.admin.GroupDTO">
+		SELECT * 
+					 FROM(SELECT ROWNUM AS ROWNUMBER, G.* FROM 
+					 (SELECT LGROUP_ID AS GROUP_ID, GROUP_NAME 
+					 , (SELECT LMEMBER_ID FROM GRLIST WHERE GRPOWER_ID='1' AND LGROUP_ID=T.LGROUP_ID) AS member_id 
+					 , (SELECT COUNT(*) FROM GRLIST WHERE LGROUP_ID=T.LGROUP_ID) AS group_memberCount 
+					 , TO_CHAR(GROUP_CREDATE, 'YYYY-MM-DD') AS group_credate 
+					 , (SELECT CITY_NAME FROM CITY_TYPE WHERE CITYPE_ID = T.CITYPE_ID) AS group_citypeName 
+					 , (SELECT LISTAGG(CATEGORY_CONTENT, '/') WITHIN GROUP(ORDER BY LGROUP_ID) 
+					    FROM VGRCAT WHERE LGROUP_ID=T.LGROUP_ID GROUP BY LGROUP_ID) AS group_category 
+					 , (SELECT GRPUBLIC_NAME FROM GRPUBLIC WHERE T.PUBLIC_GR = GRPUBLIC_ID) AS public_gr 
+					 FROM TBL_GROUP T 
+					 ORDER BY LGROUP_ID
+					 )G) 
+		 WHERE ROWNUMBER BETWEEN #{startPage} AND #{countPage}  
+		 ORDER BY ROWNUMBER
+		
+	</select>
+
+
+	<select id="groupCount"  resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM TBL_GROUP
+	</select>
+
+ 	
+ 	
+</mapper>
