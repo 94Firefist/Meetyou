@@ -177,7 +177,7 @@ $(document).ready(
 						<div
 							style="border: 4px solid black; height: 100%; width: 100%; margin-top: 2%; padding: 1%;"
 							class="w3-container">
-							<%-- 
+							
 							<!-- 핑크 -->
 							<div class=""
 								style="height: 10%; width: 100%; padding: 2%; margin-bottom: 2%;">
@@ -200,7 +200,7 @@ $(document).ready(
 								
 							
 							</div> <!-- 핑크 -->
-							--%>	
+							
 
 
 

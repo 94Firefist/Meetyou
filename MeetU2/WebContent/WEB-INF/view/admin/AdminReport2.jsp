@@ -248,7 +248,7 @@
 					action="/reportList2.action" method="post">
 					<div style="height: 98%; width: 100%; margin-top: 2%; padding: 1%;"
 						class="w3-container">
-						<%--
+					
 						<div
 							style="width: 100%; height: 40px; padding: 1%;">
 	
@@ -268,7 +268,7 @@
 	<!-- 						</div> -->
 	
 						</div>
-						--%>
+						
 						
 						<!-- Tab panes -->
 					<div class="tab-content"

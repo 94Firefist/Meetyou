@@ -25,7 +25,7 @@ public class GroupDelController
 		 
 		 String group_id = request.getParameter("group_id");
 
-		 dao.groupDel(group_id);
+		 //dao.groupDel(group_id);
 			
 		 mav.setViewName("redirect:grouplist.action");
 		
