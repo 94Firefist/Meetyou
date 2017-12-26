@@ -142,6 +142,8 @@
 						
 						<c:forEach var="posEventDto" items="${posEventDtos}">
 						<!-- 이벤트1 -->
+						
+
 							<div id="pastEvent1"
 							style="width: 840px; height: 120px; border-radius: 20px; margin-bottom: 15px;">
 
