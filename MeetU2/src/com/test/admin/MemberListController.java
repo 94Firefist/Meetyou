@@ -43,9 +43,13 @@ public class MemberListController
 		int endPage = sePage[1];
 		int totalPage = sePage[2];
 		
+		HashMap<String, Integer> stMap = new HashMap<String, Integer>();
+		stMap.put("startPage", (page-1)*10+1);
+		stMap.put("countPage", page*countPage);
+		
 		ModelAndView mav = new ModelAndView();
 		ArrayList<MemberDTO> memberLists = new ArrayList<MemberDTO>();
-		memberLists = dao.adminMemberList(page + "");
+		memberLists = dao.adminMemberList(stMap);
 		
 		mav.addObject("page", page);
 		 mav.addObject("memberList", memberLists);

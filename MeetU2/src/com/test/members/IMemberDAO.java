@@ -21,7 +21,7 @@ public interface IMemberDAO
 	//1.회원 삭제 int memberDel(String member_id);
 	public int memberDel(String member_id) throws SQLException, ClassNotFoundException;
 	//2.회원출력 adminmemberList
-	public ArrayList<MemberDTO> adminMemberList(String pageNum) throws SQLException, ClassNotFoundException;
+	public ArrayList<MemberDTO> adminMemberList(HashMap<String, Integer> stMap) throws SQLException, ClassNotFoundException;
 	// 페이징처리 갯수
 	public int memberPageCount();
 	
