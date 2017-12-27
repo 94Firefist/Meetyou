@@ -122,7 +122,6 @@ $(document).ready(
 			
 		});
 		
-		
 	})
 </script>
 
@@ -172,7 +171,7 @@ $(document).ready(
 					</div>
 
 					<!-- 리스트 ////////////////////////////////////////////////////////////////////// -->
-					<form action="/groupSearchForm.action" method="post" id="groupSearchForm"
+					<form action="/grouplist.action" method="post" id="groupSearchForm"
 						style="height: 80%; width: 100%;">
 						<div
 							style="border: 4px solid black; height: 100%; width: 100%; margin-top: 2%; padding: 1%;"
@@ -187,8 +186,8 @@ $(document).ready(
 								<div class="grNameSel"
 									style=" float: left; height: 100%; width: 30%; display: inline; margin-top: 0.5%; margin-right: 1%;">
 									
-									
-									<input id="grNameInput" name="grNameInput" class="" type="text"
+					
+									<input id="groupName" name="groupName" class="" type="text"
 										style="width: 60%; height:100%;" placeholder="그룹명을 입력하세요.">
 									<button id="grNameSearch" type="button" style="width: 30%; height:100%;"
 										class="ui-button ui-corner-all">검색</button>

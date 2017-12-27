@@ -46,9 +46,18 @@ public class GroupListController
 			int endPage = sePage[1];
 			int totalPage = sePage[2];
 			
+			String groupName = request.getParameter("groupName");
+			
+			System.out.println(String.valueOf((page-1)*10+1));
+			System.out.println(String.valueOf(page*countPage));
+			
 			HashMap<String,String> stMap = new HashMap<String,String>();
 			stMap.put("startPage", String.valueOf((page-1)*10+1));
 			stMap.put("countPage", String.valueOf(page*countPage));
+			if(groupName != null) {
+				stMap.put("GROUPNAME", groupName);
+			}
+			
 			
 			groupList = dao.group_List(stMap);
 			
