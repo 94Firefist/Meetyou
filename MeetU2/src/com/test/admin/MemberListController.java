@@ -60,7 +60,7 @@ public class MemberListController
 		 mav.setViewName("WEB-INF/view/admin/AdminMemberMain.jsp");
 		
 		 return mav;
-		
+		 
 	}
 	
 	
