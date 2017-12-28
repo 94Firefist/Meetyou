@@ -53,7 +53,7 @@ public class LoginController
 			
 			// 아이디 유효 체크
 			if(dto==null)
-				return "redirect:/loginform.action?fail=fail";
+				return "redirect:/loginform.action?fail=fail&page="+page;
 			
 			// 비번번호 유효한지 확인
 			if(dto.getMember_pw().equals(pw))
@@ -68,7 +68,7 @@ public class LoginController
 			}
 			else
 			{
-				return "redirect:/loginform.action?fail=fail";
+				return "redirect:/loginform.action?fail=fail&page="+page;
 			}
 			
 			return "redirect:"+page;
@@ -86,7 +86,7 @@ public class LoginController
 	{
 		String page = request.getParameter("page");
 		String fail = request.getParameter("fail");
-		
+
 		if(page==null || page.equals(""))
 			page = "/maingroup.action";
 		
