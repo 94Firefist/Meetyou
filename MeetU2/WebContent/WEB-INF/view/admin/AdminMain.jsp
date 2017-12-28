@@ -3,6 +3,7 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
+	String groupName = request.getParameter("groupName");
 %>
 <!DOCTYPE html>
 <html>
@@ -76,29 +77,21 @@ $(document).ready(
 
 <!-- 회원검색시 -->
 <script type="text/javascript">
+	
 	$(document).ready(function()
 	{
-		$("#err").css("display", "none");
-		$(".btnSearch").click(function()
+		// 검색 키워드 남기기
+		if(<%=groupName != null%>)
 		{
-
-			if ($("#grNameInput").val() == "")
-			{
-				$("#err").css("display", "inline");
-				return;
-			} else
-			{
-				$("#err").css("display", "none");
-			}
-			$("#groupSearchForm").submit();
-		});
+			$("#groupName").val("<%=groupName%>");
+		}
 		
-		/* 페이징 처리 */
-		$(".paging").click(function()
+		
+		$("#grNameSearch").click(function()
 		{
-			//alert($(this).html());
-			var url = "grouplist.action?pageNum=" + $(this).html();
-			$(this).attr("href", url);
+			// 공백이면 전체가 검색되도록 에러메세지 삭제
+			$("#groupName").val($("#groupName").val().trim());
+			$("#groupSearchForm").submit();
 		});
 		
 		
@@ -185,15 +178,11 @@ $(document).ready(
 								 
 								<div class="grNameSel"
 									style=" float: left; height: 100%; width: 30%; display: inline; margin-top: 0.5%; margin-right: 1%;">
-									
 					
 									<input id="groupName" name="groupName" class="" type="text"
 										style="width: 60%; height:100%;" placeholder="그룹명을 입력하세요.">
 									<button id="grNameSearch" type="button" style="width: 30%; height:100%;"
 										class="ui-button ui-corner-all">검색</button>
-									<div style="width: 10%; height: 100%; float: left; padding-top: 0.5%; padding-left: 0;">
-										<span id="err" class="err" style="text-align: center; color: red;">항목을 입력해야 합니다.</span>
-									</div> 
 									
 								</div>
 								
@@ -276,35 +265,35 @@ $(document).ready(
 											<ul class="pagination pagination-sm">
 												
 												<c:if test="${startPage > 1 }">
-													<li><a href="/grouplist.action?page=1"><span aria-hidden="true">«</span><span
+													<li><a href="/grouplist.action?groupName=${groupName}&page=1"><span aria-hidden="true">«</span><span
 															class="sr-only">Previous</span></a></li>
 												</c:if>
 												
 												<c:if test="${page > 1 }">
-												<li><a href="/grouplist.action?page=${page-1 }"><span aria-hidden="true">〈</a></li>
+												<li><a href="/grouplist.action?groupName=${groupName}&page=${page-1 }"><span aria-hidden="true">〈</a></li>
 												</c:if>
 												
 												
 												<c:forEach var="item" begin="${startPage }" end="${endPage }" step="1">
 													<c:choose>
 														<c:when test="${item == page }">
-															<li class="active"><a href="/grouplist.action?page=${item }">${item }</a></li>
+															<li class="active"><a href="/grouplist.action?groupName=${groupName}&page=${item }">${item }</a></li>
 														</c:when>
 														<c:otherwise>
-															<li><a href="/grouplist.action?page=${item }">${item }</a></li>
+															<li><a href="/grouplist.action?groupName=${groupName}&page=${item }">${item }</a></li>
 														</c:otherwise>
 													</c:choose>
 												</c:forEach>
 												
 												<c:if test="${page < totalPage }">
-												<li><a href="/grouplist.action?page=${page+1 }">
+												<li><a href="/grouplist.action?groupName=${groupName}&page=${page+1 }">
 													<span aria-hidden="true">〉</span>
 													<span class="sr-only">Next</span>
 												</a></li>
 												</c:if>
 												
 												<c:if test="${endPage < totalPage }">
-												<li><a href="/grouplist.action?page=${totalPage }">
+												<li><a href="/grouplist.action?groupName=${groupName}&page=${totalPage }">
 													<span aria-hidden="true">»</span>
 													<span class="sr-only">END</span>
 												</a></li>
