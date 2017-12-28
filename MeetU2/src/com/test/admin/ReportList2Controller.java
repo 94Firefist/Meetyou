@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
@@ -26,7 +27,15 @@ public class ReportList2Controller implements Controller
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
 		ModelAndView mav = new ModelAndView();
-
+		HttpSession session = request.getSession();
+		
+		// 관리자인지 세션 확인
+		if(session.getAttribute("admin") == null)
+		{
+			mav.setViewName("redirect:/mainevent.action");
+			return mav;
+		}
+		
 		try
 		{
 			/*신고처리시 신고대상타입 옵션 뿌려주기*/

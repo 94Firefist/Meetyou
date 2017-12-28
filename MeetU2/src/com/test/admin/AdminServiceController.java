@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,16 @@ public class AdminServiceController
 	// 공지사항
 	// 리스트
 	@RequestMapping(value="/noticelist.action", method=RequestMethod.GET)
-	public ModelAndView noticelist(HttpServletRequest request)
+	public ModelAndView noticelist(HttpServletRequest request, HttpSession session)
 	{
+		ModelAndView mav = new ModelAndView();
+		
+		// 관리자인지 세션 확인
+		if(session.getAttribute("admin") == null)
+		{
+			mav.setViewName("redirect:/mainevent.action");
+			return mav;
+		}
 		
 		// 현재 페이지
 		int page = Integer.parseInt(request.getParameter("page")==null?"1":request.getParameter("page"));
@@ -46,7 +55,7 @@ public class AdminServiceController
 		stMap.put("startPage", (page-1)*10+1);
 		stMap.put("countPage", page*countPage);
 		
-		ModelAndView mav = new ModelAndView();
+		
 		ArrayList<NoticeDTO> noticeList = new ArrayList<NoticeDTO>();
 		noticeList = dao.noticeList(stMap);
 		
@@ -62,18 +71,26 @@ public class AdminServiceController
 	}
 	// 추가
 	@RequestMapping(value="/noticeinsert.action", method=RequestMethod.GET)
-	public ModelAndView noticeinsert(HttpServletRequest request)
-	{
+	public ModelAndView noticeinsert(HttpServletRequest request, HttpSession session)
+	{	
 		ModelAndView mav = new ModelAndView();
+		
+		// 관리자인지 세션 확인
+		if(session.getAttribute("admin") == null)
+		{
+			mav.setViewName("redirect:/mainevent.action");
+			return mav;
+		}
+		
 		IAdminDAO dao = sqlSession.getMapper(IAdminDAO.class);
-		//String admin = request.getParameter("admin");		세션으로 가져올것~~
+		String admin = (String)session.getAttribute("keynumber");
 		
 		String title = request.getParameter("titleI");
 		String content = request.getParameter("contentI");
 		
 		NoticeDTO notice = new NoticeDTO();
 		
-		//notice.setAdmin(admin);		세션으로 가져올것~~
+		notice.setAdminid(admin);
 		notice.setTitle(title);
 		notice.setContent(content);
 	
@@ -84,9 +101,16 @@ public class AdminServiceController
 	}
 	// 수정
 	@RequestMapping(value="/noticeupdate.action", method=RequestMethod.POST)
-	public ModelAndView noticeupdate(HttpServletRequest request)
+	public ModelAndView noticeupdate(HttpServletRequest request, HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
+		
+		// 관리자인지 세션 확인
+		if(session.getAttribute("admin") == null)
+		{
+			mav.setViewName("redirect:/mainevent.action");
+			return mav;
+		}
 		IAdminDAO dao = sqlSession.getMapper(IAdminDAO.class);
 		
 		// 데이터 수신
@@ -108,9 +132,16 @@ public class AdminServiceController
 	}
 	// 삭제
 	@RequestMapping(value="/noticedelete.action", method=RequestMethod.GET)
-	public ModelAndView noticedelete(HttpServletRequest request)
+	public ModelAndView noticedelete(HttpServletRequest request, HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
+		
+		// 관리자인지 세션 확인
+		if(session.getAttribute("admin") == null)
+		{
+			mav.setViewName("redirect:/mainevent.action");
+			return mav;
+		}
 		IAdminDAO dao = sqlSession.getMapper(IAdminDAO.class);
 		
 		// 데이터 수신
@@ -125,8 +156,17 @@ public class AdminServiceController
 // 문의사항
 	// 리스트
 	@RequestMapping(value="/qnalist.action", method=RequestMethod.GET)
-	public ModelAndView qnalist(HttpServletRequest request)
+	public ModelAndView qnalist(HttpServletRequest request, HttpSession session)
 	{
+		ModelAndView mav = new ModelAndView();
+		
+		// 관리자인지 세션 확인
+		if(session.getAttribute("admin") == null)
+		{
+			mav.setViewName("redirect:/mainevent.action");
+			return mav;
+		}
+		
 		// 현재 페이지
 		int page = Integer.parseInt(request.getParameter("page")==null?"1":request.getParameter("page"));
 		
@@ -145,7 +185,7 @@ public class AdminServiceController
 		stMap.put("startPage", (page-1)*10+1);
 		stMap.put("countPage", page*countPage);
 		
-		ModelAndView mav = new ModelAndView();
+		
 		ArrayList<QNADTO> qnaList = new ArrayList<QNADTO>();
 		qnaList = dao.qnaList(stMap);
 		
@@ -160,9 +200,16 @@ public class AdminServiceController
 	}
 	// 추가
 	@RequestMapping(value="/qnainsert.action", method=RequestMethod.POST)
-	public ModelAndView qnainsert(HttpServletRequest request)
+	public ModelAndView qnainsert(HttpServletRequest request, HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
+		
+		// 관리자인지 세션 확인
+		if(session.getAttribute("admin") == null)
+		{
+			mav.setViewName("redirect:/mainevent.action");
+			return mav;
+		}
 		IAdminDAO dao = sqlSession.getMapper(IAdminDAO.class);
 		// 번호 이름 제목 내용 
 		String qnaId = request.getParameter("qnaId");
@@ -184,8 +231,16 @@ public class AdminServiceController
 // FAQ
 	// 리스트
 	@RequestMapping(value="/faqlist.action", method=RequestMethod.GET)
-	public ModelAndView faqlist(HttpServletRequest request)
+	public ModelAndView faqlist(HttpServletRequest request, HttpSession session)
 	{
+		ModelAndView mav = new ModelAndView();
+		
+		// 관리자인지 세션 확인
+		if(session.getAttribute("admin") == null)
+		{
+			mav.setViewName("redirect:/mainevent.action");
+			return mav;
+		}
 		
 		// 현재 페이지
 		int page = Integer.parseInt(request.getParameter("page")==null?"1":request.getParameter("page"));
@@ -205,7 +260,7 @@ public class AdminServiceController
 		stMap.put("startPage", (page-1)*10+1);
 		stMap.put("countPage", page*countPage);
 		
-		ModelAndView mav = new ModelAndView();
+		
 		ArrayList<FAQDTO> faqList = new ArrayList<FAQDTO>();
 		faqList = dao.faqList(stMap);
 		
@@ -222,9 +277,17 @@ public class AdminServiceController
 	
 	// 추가
 	@RequestMapping(value="/faqinsert.action", method=RequestMethod.GET)
-	public ModelAndView faqinsert(HttpServletRequest request)
+	public ModelAndView faqinsert(HttpServletRequest request, HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
+		
+		// 관리자인지 세션 확인
+		if(session.getAttribute("admin") == null)
+		{
+			mav.setViewName("redirect:/mainevent.action");
+			return mav;
+		}
+				
 		IAdminDAO dao = sqlSession.getMapper(IAdminDAO.class);
 		String title = request.getParameter("titleI");
 		String content = request.getParameter("contentI");
@@ -242,9 +305,16 @@ public class AdminServiceController
 	}
 	// 수정
 	@RequestMapping(value="/faqupdate.action", method=RequestMethod.POST)
-	public ModelAndView faqupdate(HttpServletRequest request)
+	public ModelAndView faqupdate(HttpServletRequest request, HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
+		// 관리자인지 세션 확인
+		if(session.getAttribute("admin") == null)
+		{
+			mav.setViewName("redirect:/mainevent.action");
+			return mav;
+		}
+				
 		IAdminDAO dao = sqlSession.getMapper(IAdminDAO.class);
 		// 데이터 수신
 		// 제목, 내용, 번호
@@ -265,9 +335,17 @@ public class AdminServiceController
 	}
 	// 삭제
 	@RequestMapping(value="/faqdelete.action", method=RequestMethod.GET)
-	public ModelAndView faqdelete(HttpServletRequest request)
+	public ModelAndView faqdelete(HttpServletRequest request, HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
+		
+		// 관리자인지 세션 확인
+		if(session.getAttribute("admin") == null)
+		{
+			mav.setViewName("redirect:/mainevent.action");
+			return mav;
+		}
+				
 		IAdminDAO dao = sqlSession.getMapper(IAdminDAO.class);
 		// 데이터 수신
 		String faqId = request.getParameter("faqId");
@@ -282,8 +360,17 @@ public class AdminServiceController
 	
 	// 상품
 	@RequestMapping(value="/paymentlist.action", method=RequestMethod.GET)
-	public ModelAndView paymentlist(HttpServletRequest request)
+	public ModelAndView paymentlist(HttpServletRequest request, HttpSession session)
 	{
+		ModelAndView mav = new ModelAndView();
+		
+		// 관리자인지 세션 확인
+		if(session.getAttribute("admin") == null)
+		{
+			mav.setViewName("redirect:/mainevent.action");
+			return mav;
+		}
+				
 		// 현재 페이지
 		int page = Integer.parseInt(request.getParameter("page")==null?"1":request.getParameter("page"));
 		
@@ -302,7 +389,7 @@ public class AdminServiceController
 		stMap.put("startPage", (page-1)*10+1);
 		stMap.put("countPage", page*countPage);
 		
-		ModelAndView mav = new ModelAndView();
+		
 		ArrayList<PaymentDTO> paymentList = new ArrayList<PaymentDTO>();
 		paymentList = dao.paymentList(stMap);
 		
@@ -318,9 +405,17 @@ public class AdminServiceController
 	
 	// 수정
 	@RequestMapping(value="/paymentupdate.action", method=RequestMethod.GET)
-	public ModelAndView paymentupdate(HttpServletRequest request)
+	public ModelAndView paymentupdate(HttpServletRequest request, HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
+		
+		// 관리자인지 세션 확인
+		if(session.getAttribute("admin") == null)
+		{
+			mav.setViewName("redirect:/mainevent.action");
+			return mav;
+		}
+		
 		IAdminDAO dao = sqlSession.getMapper(IAdminDAO.class);
 		
 		// 데이터 수신

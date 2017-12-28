@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +25,20 @@ public class GroupListController
 	
 
 	@RequestMapping(value="/grouplist.action")
-	public ModelAndView handleRequest(HttpServletRequest request)
+	public ModelAndView handleRequest(HttpServletRequest request, HttpSession session)
 	{
+		
+		ModelAndView mav = new ModelAndView();
+		
+		// 관리자인지 세션 확인
+		if(session.getAttribute("admin") == null)
+		{
+			mav.setViewName("redirect:/mainevent.action");
+			return mav;
+		}
+		
 		ArrayList<GroupDTO> groupList = new ArrayList<GroupDTO>();
-		 ModelAndView mav = new ModelAndView();
+		 
 		 IGroupDAO dao = sqlsession.getMapper(IGroupDAO.class);
 		 AdminPage adminpage = new AdminPage();
 		 try
