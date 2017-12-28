@@ -6,6 +6,7 @@ import java.util.HashMap;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,16 @@ public class MemberListController
 	private AdminPage adminpage;
 	
 	@RequestMapping(value="/memberlist.action")
-	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception
+	public ModelAndView handleRequest(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
+		ModelAndView mav = new ModelAndView();
+		
+		// 관리자인지 세션 확인
+		if(session.getAttribute("admin") == null)
+		{
+			mav.setViewName("redirect:/mainevent.action");
+			return mav;
+		}
 		
 		// 현재 페이지
 		int page = Integer.parseInt(request.getParameter("page")==null?"1":request.getParameter("page"));
@@ -43,7 +52,7 @@ public class MemberListController
 		int endPage = sePage[1];
 		int totalPage = sePage[2];
 		
-		ModelAndView mav = new ModelAndView();
+		
 		ArrayList<MemberDTO> memberLists = new ArrayList<MemberDTO>();
 		memberLists = dao.adminMemberList(page + "");
 		

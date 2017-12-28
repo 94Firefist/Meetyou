@@ -3,6 +3,7 @@ package com.test.admin;
 import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,17 @@ public class MemberDelController
 	
 	
 	@RequestMapping(value="/memberDel.action")
-	public ModelAndView groupDel(HttpServletRequest request) throws ClassNotFoundException, SQLException
+	public ModelAndView groupDel(HttpServletRequest request, HttpSession session) throws ClassNotFoundException, SQLException
 	{
 		 ModelAndView mav = new ModelAndView();
-		 
+
+		 // 관리자인지 세션 확인
+		 if(session.getAttribute("admin") == null)
+		 {
+			mav.setViewName("redirect:/mainevent.action");
+			return mav;
+		 }
+		
 		 IMemberDAO dao = sqlSession.getMapper(IMemberDAO.class);
 		 
 		 String member_id = request.getParameter("member_id");

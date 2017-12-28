@@ -2,6 +2,7 @@ package com.test.admin;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
@@ -19,6 +20,14 @@ public class ReportListDetailController implements Controller
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
 		ModelAndView mav = new ModelAndView();
+		HttpSession session = request.getSession();
+		
+		// 관리자인지 세션 확인
+		if(session.getAttribute("admin") == null)
+		{
+			mav.setViewName("redirect:/mainevent.action");
+			return mav;
+		}
 		
 		// 사용자가 페이지 요청하면
 		// 디비로부터 직원 정보 받아다가 뷰단에 말해서 지정
