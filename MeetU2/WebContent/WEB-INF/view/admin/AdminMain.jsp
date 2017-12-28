@@ -34,6 +34,25 @@
 			event.preventDefault();
 		});
 	});
+	
+	
+	function groupInfo(i)
+	{
+		// past_event, future_event, current_create, current_hold
+		//alert("되냐");
+		//groupName, groupLeader
+		$("#groupNameModal").html($("#groupname" +i).val() );
+		$("#groupLeader"  ).html($("#groupleader"+i).html());
+		
+		
+		$("#past_event"    ).html($("#pastevent" +i).val() );
+		$("#future_event"  ).html($("#futureevent"+i).val());
+		$("#event_curdate" ).html($("#eventcurdate"+i).val());
+		$("#event_holddate").html($("#eventholddate"+i).val());
+		$("#group_stop"    ).html($("#groupstop"+i).val());
+		
+	}
+	
 </script>
 
 <script type="text/javascript">
@@ -232,14 +251,24 @@ $(document).ready(
 							</div>
 
 							<div class="" style=" float: left; height: 80%; width: 100%; padding: 2%;">
-								
+								<% int i=0; %>
 								<c:forEach var="groupList" items="${groupLists}">
 									<div id="reportpros"
 										style=" float: left; width: 100%; height: 10%; border: 1px solid black; padding: 0.5%;">
-										
+										<input id="pastevent<%=i %>" type="hidden" value="${groupList.past_event}">
+										<input id="futureevent<%=i %>" type="hidden" value="${groupList.future_event}">
+										<input id="eventcurdate<%=i %>" type="hidden" value="${groupList.current_create}">
+										<input id="eventholddate<%=i %>" type="hidden" value="${groupList.current_hold}">
+										<input id="groupstop<%=i %>" type="hidden" value="${groupList.grstatus_stop}">
 										<div style=" float: left; width: 5%; height: 100%; text-align: center;">${groupList.group_id}</div>
-										<div style=" float: left; width: 18%; height: 100%; text-align: center; ">${groupList.group_name}</div>
-										<div style=" float: left; width: 8%; height: 100%; text-align: center; ">${groupList.member_id}</div>
+										<div style=" float: left; width: 18%; height: 100%; text-align: center; ">
+											<button  id="groupname<%=i %>" type="button" onclick="groupInfo(<%=i%>)"
+													class="btn btn-link report reportContent"
+													style="background-color: white; padding: 0;"
+													data-toggle="modal" data-target="#groupInfoModal1"
+													value="${groupList.group_name}">${groupList.group_name}</button>
+										</div>
+										<div id="groupleader<%=i++ %>" style=" float: left; width: 8%; height: 100%; text-align: center; ">${groupList.member_id}</div>
 										<div style=" float: left; width: 7%; height: 100%; text-align: center; ">${groupList.group_memberCount}</div>
 										<div style=" float: left; width: 13%; height: 100%; text-align: center; ">${groupList.group_credate}</div>
 										<div style=" float: left; width: 15%; height: 100%; text-align: center; ">
@@ -371,6 +400,81 @@ $(document).ready(
 			</div>
 		</div>
 	</div>
+
+
+
+	<!-- groupInfoModal11 -->
+	<div class="modal" id="groupInfoModal1" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+
+		<div class="modal-dialog">
+		
+			<form id="optionPanForm" action="repproinsert.action" method="get">
+				<div class="modal-content" style="min-height: 400px; height: 400px;">
+		
+					<div class="modal-header" style="height: 23%;">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<div style="height: 10%; padding: 0;">
+			
+							<div  class="modal-title" style="float: left;">
+								그룹명 : <div id="groupNameModal"></div>
+							</div>
+							<div   style="float: left; position: relative; left: 10%;">
+								그룹장 : <div id="groupLeader" ></div>
+							</div>
+						</div>
+					</div>
+	
+					
+					<div class="modal-body" style="height: 50%; width:100%; padding: 1%;">
+					
+						<div class=""
+								style="height: 10%; width: 100%; padding: 2%;">
+								<div class=""
+									style="height: 100%; width: 13%; float: left; margin-top: 0.5%; text-align: center;">과거이벤트</div>	
+								<div class=""
+									style="height: 100%; width: 13%; float: left; margin-top: 0.5%; text-align: center;">미래이벤트</div>
+								<div class=""
+									style="height: 100%; width: 20%; float: left; margin-top: 0.5%; text-align: center;">최근이벤트생성</div>
+								<div class=""
+									style="height: 100%; width: 20%; float: left; margin-top: 0.5%; text-align: center;">최근이벤트개최</div>
+								<div class=""
+									style="height: 100%; width: 14%; float: left; margin-top: 0.5%; text-align: center;">휴면여부</div>		
+						</div>
+						<div class="" style=" float: left; height: 80%; width: 100%; padding: 2%;">
+								
+									<div id="groupInfoLists"
+										style=" float: left; width: 100%; height: 10%; border: 1px solid black; padding: 0.5%;">
+										<div id="past_event" style=" float: left; width: 5%; height: 100%; text-align: center;"></div>
+										<div id="future_event" style=" float: left; width: 8%; height: 100%; text-align: center; "></div>
+										<div id="event_curdate" style=" float: left; width: 7%; height: 100%; text-align: center; "></div>
+										<div id="event_holddate" style=" float: left; width: 13%; height: 100%; text-align: center; "></div>
+										<div id="group_stop" style=" float: left; width: 13%; height: 100%; text-align: center; "></div>
+									</div>
+						</div>
+					
+					</div>
+	
+					<div class="modal-footer"
+						style="width: 100%; height: 13%; padding: 1%;">
+						<div
+							style="text-align: right; width: 100%; height: 100%; float: left;">
+							<button type="button" class="btn btn-primary" data-dismiss="modal">뒤로가기</button>
+							<button type="submit" class="btn btn-success" value="처리확인">확인</button>
+						</div>
+					</div>
+	
+				</div>
+			</form>
+		</div>
+	</div>
+
+
+
+
 
 
 <div>

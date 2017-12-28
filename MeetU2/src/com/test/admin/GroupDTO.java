@@ -7,6 +7,58 @@ public class GroupDTO
 	private String group_name, member_name, group_info, group_credate, group_citypeName, group_imageUrl, member_realId,
 			member_imageUrl;
 	private String group_category;
+	private String past_event, future_event, current_create, current_hold, grstatus_stop;
+	
+
+	public String getGrstatus_stop()
+	{
+		return grstatus_stop;
+	}
+
+	public void setGrstatus_stop(String grstatus_stop)
+	{
+		this.grstatus_stop = grstatus_stop;
+	}
+
+	public String getPast_event()
+	{
+		return past_event;
+	}
+
+	public void setPast_event(String past_event)
+	{
+		this.past_event = past_event;
+	}
+
+	public String getFuture_event()
+	{
+		return future_event;
+	}
+
+	public void setFuture_event(String future_event)
+	{
+		this.future_event = future_event;
+	}
+
+	public String getCurrent_create()
+	{
+		return current_create;
+	}
+
+	public void setCurrent_create(String current_create)
+	{
+		this.current_create = current_create;
+	}
+
+	public String getCurrent_hold()
+	{
+		return current_hold;
+	}
+
+	public void setCurrent_hold(String current_hold)
+	{
+		this.current_hold = current_hold;
+	}
 
 	public String getGroup_id()
 	{
