@@ -33,12 +33,10 @@
 
 
 	<select id="groupCount"  resultType="java.lang.Integer">
-		SELECT COUNT(*) 
-		FROM TBL_GROUP
-		<if test="GROUP_NAME!=null">
-			WHERE  GROUP_NAME LIKE ('%' || #{GROUPNAME} || '%')
-		</if>
-		
+
+		SELECT COUNT(*) FROM TBL_GROUP
+		WHERE GROUP_NAME LIKE ('%' || #{groupName, jdbcType=VARCHAR} || '%')
+
 	</select>
 
  	
