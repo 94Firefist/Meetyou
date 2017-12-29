@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.test.comment.CommentController;
 import com.test.common.FileManager;
-import com.test.dao.IGroupDAO;
+import com.test.dao.IEventDAO;
 import com.test.dto.EventDTO;
 import com.test.dto.MemberDTO;
 import com.test.group.GroupFormController;
@@ -780,7 +780,7 @@ public class PersonalController
  			mav = co.getComment(request, session, sqlSession);
  			
            IPersonalLeftbarDAO daoLeft = sqlSession.getMapper(IPersonalLeftbarDAO.class);
-           IGroupDAO daoGroup = sqlSession.getMapper(IGroupDAO.class);
+           IEventDAO eventDAO = sqlSession.getMapper(IEventDAO.class);
             String memberId = request.getParameter("userkey");
             
 //	            if (memberId != null)
@@ -799,16 +799,16 @@ public class PersonalController
                return mav;
             }
             
-            EventDTO dto = daoGroup.getEventInfo(GroupStaticClass.getEventUesd(eventId, memberId)).get(0);
+            EventDTO dto = eventDAO.getEventInfo(GroupStaticClass.getEventUesd(eventId, memberId)).get(0);
             
             
             mav.addObject("memberName", (daoLeft.memberName(dto.getLmember_id()+"")));
             mav.addObject("userkey", dto.getLmember_id());
          
-            ArrayList<MemberDTO> yesAttends = daoGroup.getAttendMember(GroupStaticClass.getEalist(eventId, "1", 1, 5));
-            ArrayList<MemberDTO> noAttends = daoGroup.getAttendMember(GroupStaticClass.getEalist(eventId, "2", 1, 5));
+            ArrayList<MemberDTO> yesAttends = eventDAO.getAttendMember(GroupStaticClass.getEalist(eventId, "1", 1, 5));
+            ArrayList<MemberDTO> noAttends = eventDAO.getAttendMember(GroupStaticClass.getEalist(eventId, "2", 1, 5));
             
-            HashMap<String, Object> sortMap = daoGroup.getSortValues(eventId);
+            HashMap<String, Object> sortMap = eventDAO.getSortValues(eventId);
             int women = (Integer) sortMap.get("F");
             int men = (Integer) sortMap.get("M");
             int age10 = (Integer) sortMap.get("AGE10");
@@ -832,12 +832,12 @@ public class PersonalController
 
             }
             
-            String attendId = daoGroup.getAttendId(GroupStaticClass.getEventUesd(eventId, memberId));
+            String attendId = eventDAO.getAttendId(GroupStaticClass.getEventUesd(eventId, memberId));
             
-            mav.addObject("eventUsed", daoGroup.getEventUsed(eventId));
+            mav.addObject("eventUsed", eventDAO.getEventUsed(eventId));
             mav.addObject("eventId", eventId);
-            mav.addObject("eventInfo", daoGroup.getEventInfo(GroupStaticClass.getEventUesd(eventId, memberId)).get(0));
-            mav.addObject("tags", daoGroup.getEventTags(eventId));
+            mav.addObject("eventInfo", eventDAO.getEventInfo(GroupStaticClass.getEventUesd(eventId, memberId)).get(0));
+            mav.addObject("tags", eventDAO.getEventTags(eventId));
             mav.addObject("yesAttends", yesAttends);
             mav.addObject("noAttends", noAttends);
             mav.addObject("women", women);

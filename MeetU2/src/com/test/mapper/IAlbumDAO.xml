@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.dao.IAlbumDAO">
+	<select id="getGroupAlbumPictures" resultType="com.test.dto.PictureDTO">
+		SELECT p.lpic_id AS lpic_id, TO_CHAR(p.pic_credate, 'YYYY-MM-DD HH:MI') AS pic_credate, p.pic_url AS pic_url, m.lmember_id AS lmember_id, m.member_name AS member_name
+		FROM ALBUM A
+		    JOIN PIC P
+		    ON A.lalbum_id = p.lalbum_id
+		    JOIN EVEATTEND EA
+		    ON p.eveattend_id = ea.eveattend_id
+		    JOIN MU_MEMBER M
+		    ON ea.lmember_id = m.lmember_id
+		WHERE A.lalbum_id = #{albumId, jdbcType=VARCHAR}
+	</select>
+	
+	<insert id="addEventPicture">
+		INSERT INTO PIC (LALBUM_ID, EVEATTEND_ID, PIC_URL)
+	    VALUES(#{albumId}, #{eveattendId}, #{pictureUrl})
+	</insert>
+	
+	<select id="getAlbumInfo" resultType="com.test.dto.AlbumDTO">
+		SELECT LALBUM_ID, ALBUM_CREDATE, LEVENT_ID, GRLIST_ID
+		FROM ALBUM
+		WHERE LALBUM_ID = #{albumId}
+	</select>
+	
+</mapper>
