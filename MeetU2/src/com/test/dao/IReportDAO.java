@@ -1,16 +1,20 @@
-package com.test.admin;
+package com.test.dao;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import com.test.dto.ReportDTO;
+
 
 //<접수>
 //1.신고접수 정보(신고접수아이디, 신고자아이디, 신고대상아이디, 신고유형, 신고내용, 신고일자, 신고대상타입)
 //reportList()
 
 //1-1 신고접수번호에 따른 정보 (신고유형, 신고접수일자, 신고대상내용) 
-// reportList2(String report_id)
+//reportList2(String report_id)
 //1-2 신고접수번호에 따른 정보삭제
-// reportDel(String report_id)
+//reportDel(String report_id)
 
 
 //2.신고자아이디에 따른 신고접수정보 출력(VREPINFO)
@@ -51,24 +55,27 @@ import java.util.ArrayList;
 
 public interface IReportDAO
 {
-	public ArrayList<ReportDTO> reportList() throws SQLException, ClassNotFoundException;
-	public ReportDTO reportList2(String report_id) throws SQLException, ClassNotFoundException;
-	public ArrayList<ReportDTO> searchRepId(String limember_id) throws SQLException, ClassNotFoundException;
-	public ArrayList<ReportDTO> searchUtypeId(String leadertype_id) throws SQLException, ClassNotFoundException;
-	public int repCount() throws SQLException, ClassNotFoundException;
-	public ArrayList<ReportDTO> reportList3(String limember_id, String leadertype_id) throws SQLException, ClassNotFoundException;
+	public ArrayList<ReportDTO> reportList();
+	public ReportDTO reportList2(String report_id);
+	public ArrayList<ReportDTO> searchRepId(String limember_id);
+	public ArrayList<ReportDTO> searchUtypeId(String leadertype_id);
+	//public int repCount();
+	public ArrayList<ReportDTO> reportList3(HashMap<String, Object> hashMap);
+	//public String[] panaltyOption();
+	public ArrayList<ReportDTO> repproList();
+	public ArrayList<ReportDTO> searchLTId(String leadertype_id);
+	public ArrayList<ReportDTO> allOptionPro(HashMap<String, Object> hashMap);
+	public ArrayList<ReportDTO> optionList1();
+	public ArrayList<ReportDTO> optionList3();
+	/*선택된 신고접수 처리를 위한 액션처리*/
+	public int reportSelList(ReportDTO dto2) throws SQLException, ClassNotFoundException;
+	/*신고처리 리스트에서 특정 신고처리상세내용 열람 */
+	public ReportDTO proDetailId(String reppro_id) throws SQLException, ClassNotFoundException;
 	
-	//public String[] panaltyOption() throws SQLException, ClassNotFoundException;
-	
-	public ArrayList<ReportDTO> repproList() throws SQLException, ClassNotFoundException;
-	public ReportDTO searchProId(String reppro_id) throws SQLException, ClassNotFoundException;
-	public ReportDTO searchPanId(String rep_panalty) throws SQLException, ClassNotFoundException;
-	public ArrayList<ReportDTO> searchLTId(String leadertype_id) throws SQLException, ClassNotFoundException;
-	public int proCount() throws SQLException, ClassNotFoundException;
-	public ArrayList<ReportDTO> allOptionPro(String limember_id, String leadertype_id,String rep_panalty) throws SQLException, ClassNotFoundException;
-	
-
-	public ArrayList<ReportDTO> optionList1() throws SQLException, ClassNotFoundException;
-	public ArrayList<ReportDTO> optionList2() throws SQLException, ClassNotFoundException;
-	public ArrayList<ReportDTO> optionList3() throws SQLException, ClassNotFoundException;
+	//메시지 신고하기에서 신고사유 리스트 뿌려주기 
+	public ArrayList<ReportDTO> msgReportlist() throws SQLException, ClassNotFoundException;
+		
+	//실제로 신고하기 
+	public void msgReport(HashMap<String, Object> hashmap) throws SQLException, ClassNotFoundException;
+		
 }

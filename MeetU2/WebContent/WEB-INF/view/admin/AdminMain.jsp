@@ -277,12 +277,21 @@ $(document).ready(
 									<ul class="pagination pagination-sm">
 										
 										<c:if test="${startPage > 1 }">
-											<li><a href="/grouplist.action?groupName=${groupName}&page=1"><span aria-hidden="true">«</span><span
-													class="sr-only">Previous</span></a></li>
+											<li>
+												<a href="/grouplist.action?groupName=${groupName}&page=1">
+													<span aria-hidden="true">«</span>
+													<span class="sr-only">Previous</span>
+												</a>
+											</li>
 										</c:if>
 										
 										<c:if test="${page > 1 }">
-										<li><a href="/grouplist.action?groupName=${groupName}&page=${page-1 }"><span aria-hidden="true"></span></a></li>
+											<li>
+												<a href="/grouplist.action?groupName=${groupName}&page=${page-1 }">
+													<span aria-hidden="true">＜</span>
+													<span class="sr-only">Prev</span>
+												</a>
+											</li>
 										</c:if>
 										
 										
