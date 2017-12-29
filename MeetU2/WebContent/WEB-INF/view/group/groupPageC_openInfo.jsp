@@ -60,13 +60,13 @@
                style="border-right: 2px solid #ccc; width: 20%; height: 500px; text-align: center;">
                <ul class="gLeft">
                		<c:if test="${groupPower == 1}">
-	                	<li><a href="/groupInfo.action?groupId=${groupId}">그룹 정보 수정</a></li>
+	                	<li><a href="/groupInfo.action?lGroup_id=${lGroup_id}">그룹 정보 수정</a></li>
 	                </c:if>
-					<li><a href="/groupmemberInfo.action?groupId=${groupId}">멤버 관리</a></li>
-					<li><a href="/groupsingupInfo.action?groupId=${groupId}">가입승인</a></li>
-					<li><a href="/groupblackListInfo.action?groupId=${groupId}">블랙리스트 관리</a></li>
+					<li><a href="/groupmemberInfo.action?lGroup_id=${lGroup_id}">멤버 관리</a></li>
+					<li><a href="/groupsingupInfo.action?lGroup_id=${lGroup_id}">가입승인</a></li>
+					<li><a href="/groupblackListInfo.action?lGroup_id=${lGroup_id}">블랙리스트 관리</a></li>
 					<c:if test="${groupPower == 1}">
-						<li><a href="/groupopenInfo.action?groupId=${groupId}">공개 범위 설정</a></li>
+						<li><a href="/groupopenInfo.action?lGroup_id=${lGroup_id}">공개 범위 설정</a></li>
 					</c:if>
                </ul>
             </div>
@@ -78,7 +78,7 @@
 				<!--그룹관련 공개  -->
 				<form action="groupoptionchange.action" method="post">
 	               	<div style="border: 2px solid white;">
-	               		<input type="hidden" id="groupId" name="groupId" value="${groupId}">
+	               		<input type="hidden" id="lGroup_id" name="lGroup_id" value="${lGroup_id}">
 	                  	<div id=groupOpen
 	                     style="border: 2px solid white; margin-top: 1%; margin-left: 2%; width: 90%; height: 120%;">
 							<p>

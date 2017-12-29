@@ -1,5 +1,6 @@
 package com.test.dao;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -131,7 +132,6 @@ public interface IGroupDAO
 	
 	// 
 	public String categoryupdate(String eventId);
-	
 }
 
 

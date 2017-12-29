@@ -101,14 +101,14 @@ $(document).ready(function()
 {
 	$("#autoCheck").click(function()
 	{
-		$(location).attr("href", "groupsingupchange.action?groupId=${groupId}");
+		$(location).attr("href", "groupsingupchange.action?lGroup_id=${lGroup_id}");
 	})
 	
 	$(".join").click(function()
 	{
 		if(confirm("수락하시겠습니까?")) {
 			
-			$(location).attr("href", "groupapprovesingup.action?groupId=${groupId}&targetId=" + $(this).val());
+			$(location).attr("href", "groupapprovesingup.action?lGroup_id=${lGroup_id}&targetId=" + $(this).val());
 		}
 		$(this).val()
 	})
@@ -116,7 +116,7 @@ $(document).ready(function()
 	{
 		if(confirm("거절하시겠습니까?")) {
 			
-			$(location).attr("href", "groupremovesingup.action?groupId=${groupId}&targetId=" + $(this).val());
+			$(location).attr("href", "groupremovesingup.action?lGroup_id=${lGroup_id}&targetId=" + $(this).val());
 			
 		}
 	})
@@ -143,13 +143,13 @@ $(document).ready(function()
 					style="border-right: 2px solid #ccc; width: 20%; height: 500px; text-align: center;">
 					<ul class="gLeft">
 						<c:if test="${groupPower == 1}">
-		                	<li><a href="/groupInfo.action?groupId=${groupId}">그룹 정보 수정</a></li>
+		                	<li><a href="/groupInfo.action?lGroup_id=${lGroup_id}">그룹 정보 수정</a></li>
 		                </c:if>
-						<li><a href="/groupmemberInfo.action?groupId=${groupId}">멤버 관리</a></li>
-						<li><a href="/groupsingupInfo.action?groupId=${groupId}">가입승인</a></li>
-						<li><a href="/groupblackListInfo.action?groupId=${groupId}">블랙리스트 관리</a></li>
+						<li><a href="/groupmemberInfo.action?lGroup_id=${lGroup_id}">멤버 관리</a></li>
+						<li><a href="/groupsingupInfo.action?lGroup_id=${lGroup_id}">가입승인</a></li>
+						<li><a href="/groupblackListInfo.action?lGroup_id=${lGroup_id}">블랙리스트 관리</a></li>
 						<c:if test="${groupPower == 1}">
-							<li><a href="/groupopenInfo.action?groupId=${groupId}">공개 범위 설정</a></li>
+							<li><a href="/groupopenInfo.action?lGroup_id=${lGroup_id}">공개 범위 설정</a></li>
 						</c:if>
 					</ul>
 				</div>

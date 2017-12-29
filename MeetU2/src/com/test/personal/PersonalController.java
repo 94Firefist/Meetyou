@@ -17,11 +17,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.test.comment.CommentController;
 import com.test.common.FileManager;
+import com.test.controller.GroupFormController;
 import com.test.dao.IEventDAO;
 import com.test.dto.EventDTO;
 import com.test.dto.MemberDTO;
-import com.test.group.GroupFormController;
-import com.test.group.GroupStaticClass;
+import com.test.java.GroupStaticClass;
 
 @Controller
 public class PersonalController

@@ -18,11 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.test.admin.AdminPage;
-import com.test.admin.QNADTO;
+import com.test.dao.IMemberDAO;
+import com.test.dto.GroupDTO;
 import com.test.friend.Friend_DTO;
 import com.test.friend.Friend_IDAO;
-import com.test.group.Group_DTO;
-import com.test.group.Group_IDAO;
 
 @Controller
 public class MessageController
@@ -336,7 +335,7 @@ public class MessageController
 		}
 		
 		//그룹리스트 미리 가져와야함 
-		Group_IDAO dao = sqlSession.getMapper(Group_IDAO.class);
+		IMemberDAO dao = sqlSession.getMapper(IMemberDAO.class);
 		
 		//친구리스트 미리 가져와야함
 		Friend_IDAO fdao = sqlSession.getMapper(Friend_IDAO.class);
@@ -348,7 +347,7 @@ public class MessageController
 		mav.setViewName("/WEB-INF/view/message/messageSendForm.jsp");
 		
 		//그룹리스트 넘겨주기 
-		ArrayList<Group_DTO> msgGrouplist = dao.msgGrouplist(keynumber);
+		ArrayList<GroupDTO> msgGrouplist = dao.getMemberGroupList(keynumber);
 		mav.addObject("msgGrouplist", msgGrouplist);
 		
 		//친구리스트 넘겨주기

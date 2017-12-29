@@ -276,7 +276,7 @@ $(document).ready(function()
 		               	<button id="drags" name="drag" class="btn btn-success" type="button">사진 추가하기</button>
 		               	<input type=file name='fileone' id="fileone" style='display: none;'> 
 						<input type="hidden" id="dragv" name="dragv">
-						<input type="hidden" id="groupId" name="groupId" value="${groupId}">
+						<input type="hidden" id="lGroup_id" name="lGroup_id" value="${lGroup_id}">
 						<input type="hidden" id="albumId" name="albumId" value="${album.lalbum_id}">
 						<input type="hidden" id="eventId" name="eventId" value="${album.levent_id}">
 				</form>

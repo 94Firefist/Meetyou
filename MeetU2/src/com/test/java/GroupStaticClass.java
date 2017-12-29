@@ -1,4 +1,4 @@
-package com.test.group;
+package com.test.java;
 
 import java.util.HashMap;
 

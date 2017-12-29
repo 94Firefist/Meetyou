@@ -125,7 +125,7 @@
 				<div id="introduce">
 					<p>${groupInfo.group_info}</p>
 						
-					<p style="text-align: center;"><a href="/groupintroduce.action?groupId=${groupId}">상세페이지로</a></p>
+					<p style="text-align: center;"><a href="/groupintroduce.action?lGroup_id=${lGroup_id}">상세페이지로</a></p>
 				</div>
 				<hr>
 
@@ -152,7 +152,7 @@
 									style="display: inline-block; width: 500px; float: left;">
 									<div id="pastEventName"
 										style="position: relative; font-size: 27px; margin: 0px; float: left; padding: 0px;">
-										<a href="/groupevent.action?groupId=${groupId}&eventId=${posEventDto.levent_id}">${posEventDto.event_name}</a>
+										<a href="/groupevent.action?lGroup_id=${lGroup_id}&eventId=${posEventDto.levent_id}">${posEventDto.event_name}</a>
 									</div>
 									<br> <br>
 									<div id="pastEventLocation" style="margin: 0px; font-size: 17px;">${posEventDto.city_name}</div>
@@ -198,7 +198,7 @@
 									style="display: inline-block; width: 500px; float: left;">
 									<div id="pastEventName"
 										style="position: relative; font-size: 27px; margin: 0px; float: left; padding: 0px;">
-										<a href="/groupevent.action?groupId=${groupId}&eventId=${preEventDto.levent_id}">${preEventDto.event_name}</a>
+										<a href="/groupevent.action?lGroup_id=${lGroup_id}&eventId=${preEventDto.levent_id}">${preEventDto.event_name}</a>
 									</div>
 									<br> <br>
 									<div id="pastEventLocation" style="margin: 0px; font-size: 17px;">${preEventDto.city_name}</div>

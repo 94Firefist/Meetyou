@@ -97,7 +97,7 @@
 							style="display: inline-block; width: 500px;">
 							<div id="upcomingEventName"
 								style="position: relative; font-size: 27px; margin: 0px; float: left; padding: 0px;">
-								<a href="/groupevent.action?groupId=${groupId}&eventId=${groupEvent.levent_id}"><span>${groupEvent.event_name}</span></a>
+								<a href="/groupevent.action?lGroup_id=${lGroup_id}&eventId=${groupEvent.levent_id}"><span>${groupEvent.event_name}</span></a>
 							</div>
 							<br> <br>
 							<div id="upcomingEventLocation"
