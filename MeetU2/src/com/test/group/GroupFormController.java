@@ -23,7 +23,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.test.comment.CommentController;
 import com.test.common.FileManager;
-import com.test.group.EventDTO;
+import com.test.dao.IGroupDAO;
+import com.test.dto.EventDTO;
+import com.test.dto.GroupDTO;
+import com.test.dto.MemberDTO;
+import com.test.dto.TagDTO;
 import com.test.event.EventIDAO;
 import com.test.main.CategoryDTO;
 import com.test.main.CityDTO;

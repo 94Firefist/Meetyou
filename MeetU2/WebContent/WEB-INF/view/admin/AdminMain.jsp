@@ -144,6 +144,8 @@ $(document).ready(
 </head>
 <body>
 	
+	<button id="testBtn">테스트</button>
+	
 	<c:import url="../Menu.jsp"></c:import>
 	
 	<div class="container" style="height: 100%; width: 75%;">
@@ -216,72 +218,53 @@ $(document).ready(
 
 
 							<!-- 그룹인덱스 리스트 뿌릴 영역 -->
-							<div class=""
-								style="height: 10%; width: 100%; padding: 2%;">
-
-								<div class=""
-									style="height: 100%; width: 5%; float: left; margin-top: 0.5%; text-align: center;">NO</div>	
-								<div class=""
-									style="height: 100%; width: 18%; float: left; margin-top: 0.5%; text-align: center;">그룹명</div>
-								<div class=""
-									style="height: 100%; width: 8%; float: left; margin-top: 0.5%; text-align: center;">그룹장</div>
-								<div class=""
-									style="height: 100%; width: 7%; float: left; margin-top: 0.5%; text-align: center;">멤버수</div>
-								<div class=""
-									style="height: 100%; width: 13%; float: left; margin-top: 0.5%; text-align: center;">그룹생성날짜</div>
-								<div class=""
-									style="height: 100%; width: 15%; float: left; margin-top: 0.5%; text-align: center;">카테고리</div>
-								<div class=""
-									style="height: 100%; width: 12%; float: left; margin-top: 0.5%; text-align: center;">지역</div>
-								<div class=""
-									style="height: 100%; width: 13%; float: left; margin-top: 0.5%; text-align: center;">검색공개여부</div>
-								<div class=""
-									style="height: 100%; width: 8%; float: left; margin-top: 0.5%; text-align: center;">관리</div>
+							<div class="" style="height: 10%; width: 100%; padding: 2%;">
+								<div class="" style="height: 100%; width: 5%; float: left; margin-top: 0.5%; text-align: center;">
+									NO
+								</div>	
+								<div class="" style="height: 100%; width: 18%; float: left; margin-top: 0.5%; text-align: center;">
+									그룹명
+								</div>
+								<div class="" style="height: 100%; width: 8%; float: left; margin-top: 0.5%; text-align: center;">
+									그룹장
+								</div>
+								<div class="" style="height: 100%; width: 7%; float: left; margin-top: 0.5%; text-align: center;">
+									멤버수
+								</div>
+								<div class="" style="height: 100%; width: 13%; float: left; margin-top: 0.5%; text-align: center;">
+									그룹생성날짜
+								</div>
+								<div class="" style="height: 100%; width: 15%; float: left; margin-top: 0.5%; text-align: center;">
+									<select>
+										<option>카테고리</option>
+										<c:set var="options" value="" scope="request"></c:set>
+										<c:import url="${cp}import/IPubilcOptions.jsp"></c:import>
+									</select>
+								</div>
+								<div class="" style="height: 100%; width: 12%; float: left; margin-top: 0.5%; text-align: center;">
+									<select>
+										<option>지역</option>
+										<c:set var="options" value="" scope="request"></c:set>
+										<c:import url="${cp}import/IPubilcOptions.jsp"></c:import>
+									</select>
+									
+								</div>
+								<div class="" style="height: 100%; width: 13%; float: left; margin-top: 0.5%; text-align: center;">
+									<select>
+										<option>검색공개여부</option>
+										<c:set var="options" value="" scope="request"></c:set>
+										<c:import url="${cp}import/IPubilcOptions.jsp"></c:import>
+									</select>
+									
+								</div>
+								<div class="" style="height: 100%; width: 8%; float: left; margin-top: 0.5%; text-align: center;">
+									관리
+								</div>
 							</div>
 
 							<div class="" style=" float: left; height: 80%; width: 100%; padding: 2%;">
-								<% int i=0; %>
-								<c:forEach var="groupList" items="${groupLists}">
-									<div id="reportpros"
-										style=" float: left; width: 100%; height: 10%; border: 1px solid black; padding: 0.5%;">
-										
-										<input id="pastevent<%=i %>" type="hidden" value="${groupList.past_event}">
-										<input id="futureevent<%=i %>" type="hidden" value="${groupList.future_event}">
-										<input id="eventcurdate<%=i %>" type="hidden" value="${groupList.current_create}">
-										<input id="eventholddate<%=i %>" type="hidden" value="${groupList.current_hold}">
-										<input id="groupstop<%=i %>" type="hidden" value="${groupList.grstatus_stop}">
-										
-										<div style=" float: left; width: 5%; height: 100%; text-align: center;">${groupList.group_id}</div>
-										<div style=" float: left; width: 18%; height: 100%; text-align: center; ">
-											<button  id="groupname<%=i %>" type="button" onclick="groupInfo(<%=i%>)"
-													class="btn btn-link report reportContent"
-													style="background-color: white; padding: 0;"
-													data-toggle="modal" data-target="#groupInfoModal1"
-													value="${groupList.group_name}">${groupList.group_name}</button>
-										</div>
-										<div id="groupleader<%=i++ %>" style=" float: left; width: 8%; height: 100%; text-align: center; ">${groupList.member_id}</div>
-										<div style=" float: left; width: 7%; height: 100%; text-align: center; ">${groupList.group_memberCount}</div>
-										<div style=" float: left; width: 13%; height: 100%; text-align: center; ">${groupList.group_credate}</div>
-										<div style=" float: left; width: 15%; height: 100%; text-align: center; ">
-											<c:choose> 
-												<c:when test="${groupList.group_category!=null}">${groupList.group_category}</c:when>
-												<c:otherwise>선택안함</c:otherwise>
-											</c:choose>
-										</div>
-										<div style=" float: left; width: 12%; height: 100%; text-align: center; ">
-											<c:choose> 
-												<c:when test="${groupList.group_citypeName!=null}">${groupList.group_citypeName}</c:when>
-												<c:otherwise>선택안함</c:otherwise>
-											</c:choose>
-										</div>
-										<div style=" float: left; width: 13%; height: 100%; text-align: center; ">${groupList.public_gr}</div>
-										<div style=" float: left; width: 8%; height: 100%; text-align: center; " >
-											<button class="groupDel" value="${groupList.group_id}" type="button" class="btn btn-warning" >
-												삭제
-											</button>
-										</div>
-									</div>
-								</c:forEach>
+								
+								<c:import url="${cp}import/IAdmingrouplist.jsp"></c:import>	
 							
 							</div>
 
@@ -289,50 +272,48 @@ $(document).ready(
 
 
 							<!-- 페이징 -->
-									<div style="text-align: center; margin-top: 17%;">
-
-										<nav>
-
-											<ul class="pagination pagination-sm">
-												
-												<c:if test="${startPage > 1 }">
-													<li><a href="/grouplist.action?groupName=${groupName}&page=1"><span aria-hidden="true">«</span><span
-															class="sr-only">Previous</span></a></li>
-												</c:if>
-												
-												<c:if test="${page > 1 }">
-												<li><a href="/grouplist.action?groupName=${groupName}&page=${page-1 }"><span aria-hidden="true">〈</a></li>
-												</c:if>
-												
-												
-												<c:forEach var="item" begin="${startPage }" end="${endPage }" step="1">
-													<c:choose>
-														<c:when test="${item == page }">
-															<li class="active"><a href="/grouplist.action?groupName=${groupName}&page=${item }">${item }</a></li>
-														</c:when>
-														<c:otherwise>
-															<li><a href="/grouplist.action?groupName=${groupName}&page=${item }">${item }</a></li>
-														</c:otherwise>
-													</c:choose>
-												</c:forEach>
-												
-												<c:if test="${page < totalPage }">
-												<li><a href="/grouplist.action?groupName=${groupName}&page=${page+1 }">
-													<span aria-hidden="true">〉</span>
-													<span class="sr-only">Next</span>
-												</a></li>
-												</c:if>
-												
-												<c:if test="${endPage < totalPage }">
-												<li><a href="/grouplist.action?groupName=${groupName}&page=${totalPage }">
-													<span aria-hidden="true">»</span>
-													<span class="sr-only">END</span>
-												</a></li>
-												</c:if>
-												
-											</ul>
-										</nav>
-									</div>
+							<div style="text-align: center; margin-top: 17%;">
+								<nav>
+									<ul class="pagination pagination-sm">
+										
+										<c:if test="${startPage > 1 }">
+											<li><a href="/grouplist.action?groupName=${groupName}&page=1"><span aria-hidden="true">«</span><span
+													class="sr-only">Previous</span></a></li>
+										</c:if>
+										
+										<c:if test="${page > 1 }">
+										<li><a href="/grouplist.action?groupName=${groupName}&page=${page-1 }"><span aria-hidden="true"></span></a></li>
+										</c:if>
+										
+										
+										<c:forEach var="item" begin="${startPage }" end="${endPage }" step="1">
+											<c:choose>
+												<c:when test="${item == page }">
+													<li class="active"><a href="/grouplist.action?groupName=${groupName}&page=${item }">${item }</a></li>
+												</c:when>
+												<c:otherwise>
+													<li><a href="/grouplist.action?groupName=${groupName}&page=${item }">${item }</a></li>
+												</c:otherwise>
+											</c:choose>
+										</c:forEach>
+										
+										<c:if test="${page < totalPage }">
+										<li><a href="/grouplist.action?groupName=${groupName}&page=${page+1 }">
+											<span aria-hidden="true">〉</span>
+											<span class="sr-only">Next</span>
+										</a></li>
+										</c:if>
+										
+										<c:if test="${endPage < totalPage }">
+										<li><a href="/grouplist.action?groupName=${groupName}&page=${totalPage }">
+											<span aria-hidden="true">»</span>
+											<span class="sr-only">END</span>
+										</a></li>
+										</c:if>
+										
+									</ul>
+								</nav>
+							</div>
 						</div>
 					</form>
 

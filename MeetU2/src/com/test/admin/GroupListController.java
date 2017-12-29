@@ -39,9 +39,9 @@ public class GroupListController
 		
 		ArrayList<GroupDTO> groupList = new ArrayList<GroupDTO>();
 		 
-		 IGroupDAO dao = sqlsession.getMapper(IGroupDAO.class);
-		 AdminPage adminpage = new AdminPage();
-		 try
+		IGroupDAO dao = sqlsession.getMapper(IGroupDAO.class);
+		AdminPage adminpage = new AdminPage();
+		try
 		{
 			String groupName = request.getParameter("groupName");
 			 
@@ -78,11 +78,18 @@ public class GroupListController
 			mav.addObject("endPage", endPage);
 			mav.addObject("totalPage", totalPage);
 			
+			
+			com.test.dao.IGroupDAO groupDAO = sqlsession.getMapper(com.test.dao.IGroupDAO.class);
+			// 카테고리 목록
+			
+			// 관심지역 목록
+			
+			// 그룹공개여부 목록
+			
+			
 			mav.setViewName("/WEB-INF/view/admin/AdminMain.jsp");
 			 
-			
-			
-		} catch (Exception e)
+		} catch (Exception e) 
 		{
 			System.out.println(e.toString());
 		}

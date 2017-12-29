@@ -1,4 +1,4 @@
-package com.test.group;
+package com.test.dto;
 
 public class TagDTO
 {

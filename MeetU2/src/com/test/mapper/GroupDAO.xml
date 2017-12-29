@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.test.group.IGroupDAO">
+<mapper namespace="com.test.dao.IGroupDAO">
 
 	<!-- 카테고리 리스트 -->
 	<select id="categoryList" resultType="com.test.main.CategoryDTO">
@@ -64,7 +64,7 @@
       	FROM DUAL
 	</insert>
 	
-	<select id="getGroupInfo" resultType="com.test.group.GroupDTO">
+	<select id="getGroupInfo" resultType="com.test.dto.GroupDTO">
 		SELECT  G.LGROUP_ID AS group_id
 	      , G.GROUP_NAME AS group_name
 	      , G.grauto_accept AS grauto_accept
@@ -95,7 +95,7 @@
 		WHERE G.LGROUP_ID = #{groupId}
 	</select>
 	
-	<select id="getGroupTags" resultType="com.test.group.TagDTO">
+	<select id="getGroupTags" resultType="com.test.dto.TagDTO">
 		SELECT GRTAG_ID AS tag_id, GRTAG_NAME AS tag_name
 		FROM GRTAG
 		WHERE LGROUP_ID = #{groupId}
@@ -110,7 +110,7 @@
 		ORDER BY 1
 	</select>
 	
-	<select id="getPreEventLists" resultType="com.test.group.EventDTO">
+	<select id="getPreEventLists" resultType="com.test.dto.EventDTO">
 		SELECT *
 		FROM
 		(    
@@ -135,7 +135,7 @@
 		WHERE #{count} >= NUMCOUNT
 	</select>
 	
-	<select id="getPosEventLists" resultType="com.test.group.EventDTO">
+	<select id="getPosEventLists" resultType="com.test.dto.EventDTO">
 		SELECT *
 		FROM
 		(    
@@ -167,7 +167,7 @@
 	</select>
 
 
-	<select id="getEventLists" resultType="com.test.group.EventDTO">
+	<select id="getEventLists" resultType="com.test.dto.EventDTO">
 		SELECT levent_id
 	      ,event_name
 	      ,lgroup_id
@@ -187,13 +187,13 @@
 	</select>
 	
 	
-	<select id="getGroupMember" resultType="com.test.group.MemberDTO">
+	<select id="getGroupMember" resultType="com.test.dto.MemberDTO">
 		SELECT lmember_id, member_admin, public_fri, public_grl, public_email, public_tel, public_br, citype_id ,member_realid, member_pw, member_email, member_name, member_tel, member_birth, member_gender, member_info, lgroup_id, grpower_id, grjoin_day, member_imageUrl, member_age
 		FROM GRMEMBERINFO
 		WHERE LGROUP_ID = #{groupId} AND GRPOWER_ID = #{powerId}
 	</select>
 
-	<select id="getEventInfo" resultType="com.test.group.EventDTO">
+	<select id="getEventInfo" resultType="com.test.dto.EventDTO">
 		SELECT levent_id
 	      ,event_name
 	      ,lmember_id
@@ -236,7 +236,7 @@
 		ORDER BY 1
 	</select>
 	
-	<select id="getAttendMember" resultType="com.test.group.MemberDTO">
+	<select id="getAttendMember" resultType="com.test.dto.MemberDTO">
 		SELECT lmember_id
 		     , member_admin
 		     , public_fri
@@ -329,7 +329,7 @@
 		WHERE LGROUP_ID = #{groupId}
 	</update>
 	
-	<select id="getGroupPublicList" resultType="com.test.group.Public_DTO">
+	<select id="getGroupPublicList" resultType="com.test.dto.Public_DTO">
 		SELECT GRPUBLIC_ID AS id, GRPUBLIC_NAME AS name
 		FROM GRPUBLIC
 	</select>
@@ -340,7 +340,7 @@
 		WHERE LGROUP_ID= #{groupId}
 	</update>
 	
-	<select id="getGroupBlackList" resultType="com.test.group.MemberDTO">
+	<select id="getGroupBlackList" resultType="com.test.dto.MemberDTO">
 		SELECT BG.BLACKGR_ID, BG.LGROUP_ID, BG.LUMEMBER_ID AS lmember_id, M.MEMBER_NAME, MPF.MBPROFILE_URL
 		FROM TBL_GROUP G
 		    JOIN BLACKGR BG
@@ -372,7 +372,7 @@
 		WHERE LGROUP_ID = #{groupId} AND LMEMBER_ID = #{target}
 	</update>
 	
-	<select id="getMemberOfRealid" resultType="com.test.group.MemberDTO">
+	<select id="getMemberOfRealid" resultType="com.test.dto.MemberDTO">
 		SELECT M.lmember_id AS lmember_id, M.member_name AS member_name, MBF.MBPROFILE_URL AS member_imageUrl, M.member_realid AS member_realid
 		FROM MU_MEMBER M
         LEFT OUTER JOIN MBPROFILE MBF
@@ -385,7 +385,7 @@
 	</insert>
 	
 	
-	<select id="getGroupEventAlbums" resultType="com.test.group.AlbumDTO">
+	<select id="getGroupEventAlbums" resultType="com.test.dto.AlbumDTO">
 		SELECT a.LALBUM_ID as lalbum_id, a.LEVENT_ID as levent_id, E.event_name as event_name, TO_CHAR(a.ALBUM_CREDATE, 'YYYY-MM-DD') as album_credate, M.LMEMBER_ID as lmember_id, M.MEMBER_NAME as member_name, epf.eveprofile_url as eveprofile_url
 		FROM TBL_GROUP G
 		    JOIN EVENT E
@@ -401,7 +401,7 @@
 		WHERE G.LGROUP_ID = #{groupId, jdbcType=VARCHAR}
 	</select>
 	
-	<select id="getGroupAlbumPictures" resultType="com.test.group.PictureDTO">
+	<select id="getGroupAlbumPictures" resultType="com.test.dto.PictureDTO">
 		SELECT p.lpic_id AS lpic_id, TO_CHAR(p.pic_credate, 'YYYY-MM-DD HH:MI') AS pic_credate, p.pic_url AS pic_url, m.lmember_id AS lmember_id, m.member_name AS member_name
 		FROM ALBUM A
 		    JOIN PIC P
@@ -492,7 +492,7 @@
 		FROM EVEATTEND
 		WHERE lmember_id = #{memberId} AND levent_id = #{eventId}
 	</select>
-	<select id="getAlbumInfo" resultType="com.test.group.AlbumDTO">
+	<select id="getAlbumInfo" resultType="com.test.dto.AlbumDTO">
 		SELECT LALBUM_ID, ALBUM_CREDATE, LEVENT_ID, GRLIST_ID
 		FROM ALBUM
 		WHERE LALBUM_ID = #{albumId}

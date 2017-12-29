@@ -57,14 +57,14 @@ public class MemberListController
 		memberLists = dao.adminMemberList(page + "");
 		
 		mav.addObject("page", page);
-		 mav.addObject("memberList", memberLists);
+		mav.addObject("memberList", memberLists);
 		mav.addObject("startPage", startPage);
 		mav.addObject("endPage", endPage);
 		mav.addObject("totalPage", totalPage);
 		
-		 mav.setViewName("WEB-INF/view/admin/AdminMemberMain.jsp");
+		mav.setViewName("WEB-INF/view/admin/AdminMemberMain.jsp");
 		
-		 return mav;
+		return mav;
 		
 	}
 	
