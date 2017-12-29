@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.dao.IEventDAO">
+	<select id="getEventTags" resultType="String">
+		SELECT evetag_name
+		FROM EVETAG
+		WHERE LEVENT_ID = #{eventId}
+		ORDER BY 1
+	</select>
+	
+	<insert id="addAlbum">
+		INSERT INTO ALBUM (levent_id, grlist_id) values (#{eventId}, #{grlistId})
+	</insert>
+	
+	<insert id="addEveAttend">
+      INSERT INTO EVEATTEND(EVEATTEND_ID, LMEMBER_ID, LEVENT_ID, ATTEND_ID)
+      VALUES(EVEATTENDSEQ.NEXTVAL, #{memberId}, #{eventId}, #{attendId})
+	</insert>
+	
+	<select id="getAlbumId" resultType="String">
+		SELECT LALBUM_ID
+		FROM ALBUM
+		WHERE LEVENT_ID = #{eventId}
+	</select>
+	
+	<select id="getEveAttendId" resultType="String">
+		SELECT eveattend_id
+		FROM EVEATTEND
+		WHERE lmember_id = #{memberId} AND levent_id = #{eventId}
+	</select>
+	
+	<update id="updateEveAttend">
+      UPDATE EVEATTEND
+      SET ATTEND_ID = #{attendId}
+      WHERE LMEMBER_ID = #{memberId} AND LEVENT_ID = #{eventId}
+    </update>
+	
+	<select id="getAttendId" resultType="String">
+      SELECT attend_id
+      FROM EVEATTEND
+      WHERE lmember_id = #{memberId} AND levent_id = #{eventId}
+    </select>
+    
+    <select id="getEventUsed" resultType="String">
+      SELECT (CASE WHEN SYSDATE>EVENT_DATE THEN 0 ELSE 1 END) AS EVENTUSED
+      FROM EVENT E
+      WHERE E.LEVENT_ID = #{eventId}
+    </select>
+	
+	<select id="getAttendMember" resultType="com.test.dto.MemberDTO">
+		SELECT lmember_id
+		     , member_admin
+		     , public_fri
+		     , public_grl
+		     , public_email
+		     , public_tel
+		     , public_br
+		     , citype_id 
+		     , member_realid
+		     , member_pw
+		     , member_email
+		     , member_name
+		     , member_tel
+		     , member_birth
+		     , member_gender
+		     , member_info
+		     , member_imageUrl
+		     , attend_id
+		FROM
+		(
+			SELECT lmember_id
+			     , member_admin
+			     , public_fri
+			     , public_grl
+			     , public_email
+			     , public_tel
+			     , public_br
+			     , citype_id 
+			     , member_realid
+			     , member_pw
+			     , member_email
+			     , member_name
+			     , member_tel
+			     , member_birth
+			     , member_gender
+			     , member_info
+			     , member_imageUrl
+			     , attend_id
+			     , ROWNUM AS count
+			FROM VIEW_EVENTATTENDLIST
+			WHERE levent_id = #{eventId} AND attend_id = #{attendtype} 
+		)
+		WHERE count >= #{minnum} AND #{maxnum} >= count
+	</select>
+	
+	<select id="getEventInfo" resultType="com.test.dto.EventDTO">
+		SELECT levent_id
+	      ,event_name
+	      ,lmember_id
+	      ,lgroup_id
+	      ,lgroup_name
+	      ,evestatus_id
+	      ,event_ymd
+	      ,event_hm
+	      ,city_name
+	      ,event_place
+	      ,loc_geolat
+	      ,loc_geolng
+	      ,attend_count
+	      ,event_maxattend
+	      ,event_minm
+	      ,event_info
+	      ,event_url
+	      ,public_attendl
+	      ,public_place
+	      ,public_gender
+	      ,public_age
+	      ,public_eve
+	      ,public_eveName
+	      ,event_minAge
+	      ,event_maxAge
+	      ,event_maxMoney
+	      ,event_gender
+	      ,(SELECT count(*) FROM EVENT E2 WHERE e2.levent_id = V.levent_id AND V.lmember_id = #{memberId}) AS eventused
+	      ,(SELECT count(*) FROM EVEATTEND EA WHERE EA.LEVENT_ID = V.LEVENT_ID AND V.LMEMBER_ID = #{memberId}) AS eveattend_id
+		FROM VIEW_EVENTINFO V
+		WHERE levent_id = #{eventId}
+	</select>
+	
+	<resultMap type="java.util.HashMap" id="solt">
+		<result javaType="java.lang.Integer" property="F" column="F"/>
+		<result javaType="java.lang.Integer" property="M" column="M"/>
+		<result javaType="java.lang.Integer" property="AGE10" column="AGE10"/>
+		<result javaType="java.lang.Integer" property="AGE20" column="AGE20"/>
+		<result javaType="java.lang.Integer" property="AGE30" column="AGE30"/>
+		<result javaType="java.lang.Integer" property="AGE40" column="AGE40"/>
+	</resultMap>
+	
+	<select id="getSortValues" resultMap="solt" resultType="java.util.HashMap" parameterType="java.lang.String">
+		<![CDATA[
+		SELECT COUNT(GENDERF) AS F, COUNT(GENDERM) AS M
+	      , COUNT(CASE WHEN AGE < 20 THEN AGE END) AS AGE10
+	      , COUNT(CASE WHEN AGE < 30 AND 20 <= AGE THEN AGE END) AS AGE20
+	      , COUNT(CASE WHEN AGE < 40 AND 30 <= AGE THEN AGE END) AS AGE30
+	      , COUNT(CASE WHEN AGE >= 40 THEN AGE END) AS AGE40 
+	    ]]>
+		FROM
+		(
+		    SELECT e.levent_id
+		          ,TO_CHAR(SYSDATE, 'YYYY')-TO_CHAR(m.member_birth, 'YYYY')+1 AS AGE
+		          , CASE WHEN m.member_gender ='F' THEN 'F' END AS GENDERF
+		          , CASE WHEN m.member_gender ='M' THEN 'M' END AS GENDERM
+		    FROM EVENT E
+		        JOIN EVEATTEND EA
+		        ON e.levent_id = ea.levent_id
+		        JOIN mu_member M
+		        ON ea.lmember_id = m.lmember_id
+		)
+		WHERE LEVENT_ID = #{eventId}
+	</select>
+	
+	
+</mapper>
