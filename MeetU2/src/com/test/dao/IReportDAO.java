@@ -67,8 +67,10 @@ public interface IReportDAO
 	public ArrayList<ReportDTO> allOptionPro(HashMap<String, Object> hashMap);
 	public ArrayList<ReportDTO> optionList1();
 	public ArrayList<ReportDTO> optionList3();
+	
 	/*선택된 신고접수 처리를 위한 액션처리*/
 	public int reportSelList(ReportDTO dto2) throws SQLException, ClassNotFoundException;
+	
 	/*신고처리 리스트에서 특정 신고처리상세내용 열람 */
 	public ReportDTO proDetailId(String reppro_id) throws SQLException, ClassNotFoundException;
 	

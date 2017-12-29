@@ -1,10 +1,12 @@
 package com.test.controller;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
@@ -22,6 +24,8 @@ import com.test.admin.IGroupDAO;
 import com.test.admin.NoticeDTO;
 import com.test.admin.PaymentDTO;
 import com.test.admin.QNADTO;
+import com.test.members.IMemberDAO;
+import com.test.members.MemberDTO;
 
 @Controller
 public class AdminServiceController
@@ -31,6 +35,48 @@ public class AdminServiceController
 	
 	@Resource(name = "AdminPage")
 	private AdminPage adminpage;
+	
+	@RequestMapping(value="/memberlist.action")
+	public ModelAndView handleRequest(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws Exception
+	{
+		ModelAndView mav = new ModelAndView();
+		
+		// 관리자인지 세션 확인
+		if(session.getAttribute("admin") == null)
+		{
+			mav.setViewName("redirect:/mainevent.action");
+			return mav;
+		}
+		
+		// 현재 페이지
+		int page = Integer.parseInt(request.getParameter("page")==null?"1":request.getParameter("page"));
+		
+		IMemberDAO dao = sqlSession.getMapper(IMemberDAO.class);
+		
+		// 한 화면에 출력될 페이지 수
+		int countPage = 10;
+		
+		int[] sePage = adminpage.StartEndPage(page,  dao.memberPageCount(), countPage, 10);
+		
+		int startPage = sePage[0];
+		int endPage = sePage[1];
+		int totalPage = sePage[2];
+		
+		
+		ArrayList<MemberDTO> memberLists = new ArrayList<MemberDTO>();
+		memberLists = dao.adminMemberList(page + "");
+		
+		mav.addObject("page", page);
+		mav.addObject("memberList", memberLists);
+		mav.addObject("startPage", startPage);
+		mav.addObject("endPage", endPage);
+		mav.addObject("totalPage", totalPage);
+		
+		mav.setViewName("WEB-INF/view/admin/AdminMemberMain.jsp");
+		
+		return mav;
+		
+	}
 	
 	@RequestMapping(value="/grouplist.action")
 	public ModelAndView handleRequest(HttpServletRequest request, HttpSession session)
@@ -508,5 +554,51 @@ public class AdminServiceController
 		mav.setViewName("redirect:productlist.action");
 		return mav;
 		
+	}
+	
+	@RequestMapping(value="/memberDel.action")
+	public ModelAndView memberDel(HttpServletRequest request, HttpSession session) throws ClassNotFoundException, SQLException
+	{
+		 ModelAndView mav = new ModelAndView();
+
+		 // 관리자인지 세션 확인
+		 if(session.getAttribute("admin") == null)
+		 {
+			mav.setViewName("redirect:/mainevent.action");
+			return mav;
+		 }
+		
+		 IMemberDAO dao = sqlSession.getMapper(IMemberDAO.class);
+		 
+		 String member_id = request.getParameter("member_id");
+
+		 dao.memberDel(member_id);
+			
+		 mav.setViewName("redirect:AdminMemberMain.jsp");
+		
+		 return mav;
+	}
+	
+	@RequestMapping(value="/groupDel.action")
+	public ModelAndView groupDel(HttpServletRequest request, HttpSession session) throws ClassNotFoundException, SQLException
+	{
+		 ModelAndView mav = new ModelAndView();
+
+		 // 관리자인지 세션 확인
+		 if(session.getAttribute("admin") == null)
+		 {
+			 mav.setViewName("redirect:/mainevent.action");
+			 return mav;
+		 }
+			
+		 IGroupDAO dao = sqlSession.getMapper(IGroupDAO.class);
+		 
+		 String group_id = request.getParameter("group_id");
+
+		 //dao.groupDel(group_id);
+			
+		 mav.setViewName("redirect:grouplist.action");
+		
+		 return mav;
 	}
 }
