@@ -69,7 +69,7 @@ function remove(obj)
 		{
 			if(confirm("정말 삭제하시겠습니까?"))
 			{
-				$(location).attr("href", "/groupremovecategory.action?groupId=${groupId}&targetId=" + $("#removeCategorys").val());
+				$(location).attr("href", "/groupremovecategory.action?lGroup_id=${lGroup_id}&targetId=" + $("#removeCategorys").val());
 			}
 		});
 		
@@ -77,7 +77,7 @@ function remove(obj)
 		{
 			if(confirm("정말 삭제하시겠습니까?"))
 			{
-				$(location).attr("href", "/groupremovetag.action?groupId=${groupId}&targetId=" + $("#removeTags").val());
+				$(location).attr("href", "/groupremovetag.action?lGroup_id=${lGroup_id}&targetId=" + $("#removeTags").val());
 			}
 		});
 		
@@ -85,7 +85,7 @@ function remove(obj)
 		{
 			if(confirm("추가하시겠습니까?"))
 			{
-				$(location).attr("href", "/groupaddcategory.action?groupId=${groupId}&targetId=" + $("#addCategorys").val());
+				$(location).attr("href", "/groupaddcategory.action?lGroup_id=${lGroup_id}&targetId=" + $("#addCategorys").val());
 			}
 		});
 		
@@ -99,21 +99,21 @@ function remove(obj)
 		{
 			if(confirm("추가하시겠습니까?"))
 			{
-				$(location).attr("href", "/groupaddtag.action?groupId=${groupId}&targetId=" + $("#addTag").val());
+				$(location).attr("href", "/groupaddtag.action?lGroup_id=${lGroup_id}&targetId=" + $("#addTag").val());
 			}
 		});
 		$("#groupInfoBtn").click(function()
 		{
 			if(confirm("수정하시겠습니까?"))
 			{
-				$(location).attr("href", "/groupupdateinfo.action?groupId=${groupId}&targetId=" + $("#groupInfo").val());
+				$(location).attr("href", "/groupupdateinfo.action?lGroup_id=${lGroup_id}&targetId=" + $("#groupInfo").val());
 			}
 		});
 		$("#groupSubjectBtn").click(function()
 		{
 			if(confirm("수정하시겠습니까?"))
 			{
-				$(location).attr("href", "/groupupdatesubject.action?groupId=${groupId}&targetId=" + $("#groupSubject").val());
+				$(location).attr("href", "/groupupdatesubject.action?lGroup_id=${lGroup_id}&targetId=" + $("#groupSubject").val());
 			}
 		});
 		
@@ -178,13 +178,13 @@ function remove(obj)
 					style="border-right: 2px solid #ccc; width: 20%; height: 500px; text-align: center;">
 					<ul class="gLeft">
 						<c:if test="${groupPower == 1}">
-		                	<li><a href="/groupInfo.action?groupId=${groupId}">그룹 정보 수정</a></li>
+		                	<li><a href="/groupInfo.action?lGroup_id=${lGroup_id}">그룹 정보 수정</a></li>
 		                </c:if>
-						<li><a href="/groupmemberInfo.action?groupId=${groupId}">멤버 관리</a></li>
-						<li><a href="/groupsingupInfo.action?groupId=${groupId}">가입승인</a></li>
-						<li><a href="/groupblackListInfo.action?groupId=${groupId}">블랙리스트 관리</a></li>
+						<li><a href="/groupmemberInfo.action?lGroup_id=${lGroup_id}">멤버 관리</a></li>
+						<li><a href="/groupsingupInfo.action?lGroup_id=${lGroup_id}">가입승인</a></li>
+						<li><a href="/groupblackListInfo.action?lGroup_id=${lGroup_id}">블랙리스트 관리</a></li>
 						<c:if test="${groupPower == 1}">
-							<li><a href="/groupopenInfo.action?groupId=${groupId}">공개 범위 설정</a></li>
+							<li><a href="/groupopenInfo.action?lGroup_id=${lGroup_id}">공개 범위 설정</a></li>
 						</c:if>
 					</ul>
 				</div>
@@ -293,7 +293,7 @@ function remove(obj)
 									<p>수정하시려면 사진을 클릭하세요.</p>
 									<img id="drags" alt="drag" src="${groupInfo.group_imageUrl}" name="drag" style="width: 50%; height: 300px;" title="">
 									<input type="hidden" id="dragv" name="dragv" value="/images/drag.png">
-									<input type="hidden" name="groupId" value="${groupId }">
+									<input type="hidden" name="lGroup_id" value="${lGroup_id }">
 									
 								</div>
 								

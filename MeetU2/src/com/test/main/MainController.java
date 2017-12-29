@@ -316,7 +316,7 @@ public class MainController
 				if(lgroup_id != null)
 				{
 					// 그룹의 이벤트 페이지
-					mav.setViewName("groupevent.action?groupId="+lgroup_id+"&eventId="+eventnum);
+					mav.setViewName("groupevent.action?lGroup_id="+lgroup_id+"&eventId="+eventnum);
 				}
 				else
 				{

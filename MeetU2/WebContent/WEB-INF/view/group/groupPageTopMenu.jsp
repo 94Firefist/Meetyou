@@ -28,7 +28,7 @@ function groupSignup()
       
       if(confirm("가입신청 하시겠습니까?")) {
          
-         $(location).attr("href", "groupjoin.action?groupId=${groupId}" );
+         $(location).attr("href", "groupjoin.action?lGroup_id=${lGroup_id}" );
          
       } 
       
@@ -44,7 +44,7 @@ $(document).ready(function()
    $("#joinwait").click(function()
    {
       if(confirm("가입신청을 취소합니까?")) {
-         $(location).attr("href", "groupjoinwaitclose.action?groupId=${groupId}");
+         $(location).attr("href", "groupjoinwaitclose.action?lGroup_id=${lGroup_id}");
       };
    })
 })
@@ -69,23 +69,23 @@ $(document).ready(function()
       </div>
       <nav class="navbar navbar-inverse" style="width: 1130px; height: 40px; padding: 0.4%; border-top: #A6A6A6 solid 1px;">
          <div class="container" style="width: 70%; height: 100%; float: left; padding: 0px;">
-            <a style="margin-top: 0px;" class="menu btn btn-link" href="/grouphome.action?groupId=${groupId}" role="button">
+            <a style="margin-top: 0px;" class="menu btn btn-link" href="/grouphome.action?lGroup_id=${lGroup_id}" role="button">
                <span class="menuText">홈</span>
             </a>
-            <a style="margin-top: 0px;" class="menu btn btn-link" href="/groupintroduce.action?groupId=${groupId}" role="button">
+            <a style="margin-top: 0px;" class="menu btn btn-link" href="/groupintroduce.action?lGroup_id=${lGroup_id}" role="button">
                <span class="menuText">그룹소개</span>
             </a>
-            <a style="margin-top: 0px;" class="menu btn btn-link" href="/groupmemberlist.action?groupId=${groupId}" role="button">
+            <a style="margin-top: 0px;" class="menu btn btn-link" href="/groupmemberlist.action?lGroup_id=${lGroup_id}" role="button">
                <span class="menuText">회원</span>
             </a>
-            <a style="margin-top: 0px;" class="menu btn btn-link" href="/grouptimeline.action?groupId=${groupId}" role="button">
+            <a style="margin-top: 0px;" class="menu btn btn-link" href="/grouptimeline.action?lGroup_id=${lGroup_id}" role="button">
                <span class="menuText">타임라인</span>
             </a> 
-            <a style="margin-top: 0px;" class="menu btn btn-link" href="/groupphoto.action?groupId=${groupId}" role="button">
+            <a style="margin-top: 0px;" class="menu btn btn-link" href="/groupphoto.action?lGroup_id=${lGroup_id}" role="button">
                <span class="menuText">앨범</span>
             </a>
             <c:if test="${groupPower == 1 || groupPower == 2}">
-               <a style="margin-top: 0px;" class="menu btn btn-link" href="/groupInfo.action?groupId=${groupId}" role="button">
+               <a style="margin-top: 0px;" class="menu btn btn-link" href="/groupInfo.action?lGroup_id=${lGroup_id}" role="button">
                   <span class="menuText">관리</span>
                </a>
             </c:if>

@@ -10,14 +10,14 @@
 		<div style="width: 100%; height: 100%;">
 			
 				<div style="width: 30%; height: 100%; float: left;">
-					<a href="/groupevent.action?groupId=${groupId}&eventId=${event.levent_id}">
+					<a href="/groupevent.action?lGroup_id=${lGroup_id}&eventId=${event.levent_id}">
 						<img alt="URL 오류" src="${event.event_url}" style="width: 100%; height: 100%;">
 					</a>
 				</div>
 				<div style="width: 70%; height: 100%; float: right; padding: 2%;">
 					<div style="width: 100%; height: 30%;;">
 						<!-- 이벤트 제목 -->
-						<a href="/groupevent.action?groupId=${groupId}&eventId=${event.levent_id}">
+						<a href="/groupevent.action?lGroup_id=${lGroup_id}&eventId=${event.levent_id}">
 							<span style="font-size: 20pt; font-weight: bolder; ">${event.event_name}</span>
 						</a>
 					</div>

@@ -68,14 +68,23 @@
 		<!-- <div class="col-md-5"> -->
 		<div class="form-area">
 			<form role="form" id="sendMemberMsg" action="messagesendtofriend.action">
-				<br style="clear: both"> <a href="messagemyreceive.action"><button
-						type="button" class="btn btn-info">받은 쪽지</button></a> <a
-					href="messagemysent.action"><button type="button"
-						class="btn btn-info">보낸 쪽지</button></a>
-				<button type="button" class="btn btn-warning" disabled="disabled">쪽지
-					보내기</button>
-				<h3 style="margin-bottom: 25px; text-align: center;">MeetU
-					Message</h3>
+				<br style="clear: both">
+				<a href="messagemyreceive.action">
+					<button type="button" class="btn btn-info">
+						받은 쪽지
+					</button>
+				</a> 
+				<a href="messagemysent.action">
+					<button type="button" class="btn btn-info">
+						보낸 쪽지
+					</button>
+				</a>
+				<button type="button" class="btn btn-warning" disabled="disabled">
+					쪽지보내기
+				</button>
+				<h3 style="margin-bottom: 25px; text-align: center;">
+					MeetU Message
+				</h3>
 
 				<div class="form-group">
 					<input type="radio" name="chk_info" id="chk_info" value="1"
@@ -102,7 +111,7 @@
 						<select id="groupid" name="groupid" class="form-control" style="width: 200px;">
 							
 							<c:forEach items="${msgGrouplist}" var="msg">
-								<option value="${msg.lgroup_id }">${msg.group_name }</option>
+								<option value="${msg.lGroup_id }">${msg.group_name }</option>
 							</c:forEach>
 							
 						</select>

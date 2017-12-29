@@ -152,7 +152,7 @@ ui.js"></script>
 							<c:choose>
 								<c:when	test="${(userNumber eq keynumber) && (dto.mbpublicti_id==5 || dto.mbpublicti_id==1)}">
 									<div class="col-sm-3" style="padding: 0px; max-height: 150px;">
-										<a href="grouphome.action?groupId=${dto.lgroup_id }"><img
+										<a href="grouphome.action?lGroup_id=${dto.lgroup_id }"><img
 											src="${dto.grprofile_url }"
 											style="width: 212px; height: 120px;"></a>
 										<div id="grouplistText"
@@ -173,7 +173,7 @@ ui.js"></script>
 								</c:when>
 								<c:when	test="${(!(userNumber eq keynumber))&& dto.mbpublicti_id==1}">
 									<div class="col-sm-3" style="padding: 0px; max-height: 150px;">
-										<a href="grouphome.action?groupId=${dto.lgroup_id }"><img
+										<a href="grouphome.action?lGroup_id=${dto.lgroup_id }"><img
 											src="${dto.grprofile_url }"
 											style="width: 212px; height: 120px;"></a>
 										<div id="grouplistText"
@@ -201,7 +201,7 @@ ui.js"></script>
 								<c:when
 									test="${(userNumber eq keynumber) && (dto.mbpublicti_id==5 || dto.mbpublicti_id==1)}">
 									<div class="col-sm-3" style="padding: 0px; max-height: 150px;">
-										<a href="grouphome.action?groupId=${dto.lgroup_id }"><img
+										<a href="grouphome.action?lGroup_id=${dto.lgroup_id }"><img
 											src="${dto.grprofile_url }"
 											style="width: 212px; height: 120px;"></a>
 										<div id="grouplistText"
@@ -224,7 +224,7 @@ ui.js"></script>
 								<c:when
 									test="${(!(userNumber eq keynumber))&& dto.mbpublicti_id==1}">
 									<div class="col-sm-3" style="padding: 0px; max-height: 150px;">
-										<a href="grouphome.action?groupId=${dto.lgroup_id }"><img
+										<a href="grouphome.action?lGroup_id=${dto.lgroup_id }"><img
 											src="${dto.grprofile_url }"
 											style="width: 212px; height: 120px;"></a>
 										<div id="grouplistText"

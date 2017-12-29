@@ -89,7 +89,7 @@
 	{
 		$(".albumBtn").click(function()
 		{
-			$(location).attr("href", "grouppageeventpicture.action?groupId=${groupId}&eventId=" + $(this).val());
+			$(location).attr("href", "grouppageeventpicture.action?lGroup_id=${lGroup_id}&eventId=" + $(this).val());
 		});
 	})
 </script>

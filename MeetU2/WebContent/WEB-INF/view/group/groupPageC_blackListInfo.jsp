@@ -49,13 +49,13 @@
 		{
 			
 			if(confirm("블랙을 해제하시겠습니까?")) {
-				$(location).attr("href", "groupremoveblack.action?groupId=${groupId}&targetId=" + $(this).val());
+				$(location).attr("href", "groupremoveblack.action?lGroup_id=${lGroup_id}&targetId=" + $(this).val());
 			}
 			
 		});
 		$(".searchId").click(function()
 		{
-			$(location).attr("href", "groupblackListInfo.action?groupId=${groupId}&targetId=" + $("#searchId").val());
+			$(location).attr("href", "groupblackListInfo.action?lGroup_id=${lGroup_id}&targetId=" + $("#searchId").val());
 		});
 		
 	});
@@ -80,13 +80,13 @@
 					style="border-right: 2px solid #ccc; width: 20%; height: 500px; text-align: center;">
 					<ul class="gLeft">
 						<c:if test="${groupPower == 1}">
-		                	<li><a href="/groupInfo.action?groupId=${groupId}">그룹 정보 수정</a></li>
+		                	<li><a href="/groupInfo.action?lGroup_id=${lGroup_id}">그룹 정보 수정</a></li>
 		                </c:if>
-						<li><a href="/groupmemberInfo.action?groupId=${groupId}">멤버 관리</a></li>
-						<li><a href="/groupsingupInfo.action?groupId=${groupId}">가입승인</a></li>
-						<li><a href="/groupblackListInfo.action?groupId=${groupId}">블랙리스트 관리</a></li>
+						<li><a href="/groupmemberInfo.action?lGroup_id=${lGroup_id}">멤버 관리</a></li>
+						<li><a href="/groupsingupInfo.action?lGroup_id=${lGroup_id}">가입승인</a></li>
+						<li><a href="/groupblackListInfo.action?lGroup_id=${lGroup_id}">블랙리스트 관리</a></li>
 						<c:if test="${groupPower == 1}">
-							<li><a href="/groupopenInfo.action?groupId=${groupId}">공개 범위 설정</a></li>
+							<li><a href="/groupopenInfo.action?lGroup_id=${lGroup_id}">공개 범위 설정</a></li>
 						</c:if>
 					</ul>
 				</div>
@@ -117,7 +117,7 @@
 								    	<div class="w3-container">
 											<!-- x -->
 											<input type="hidden" id="blackMemberId" name="blackMemberId" value="${member.lmember_id}">
-											<input type="hidden" id="blackGroupId" name="blackGroupId" value="${groupId}">
+											<input type="hidden" id="blackGroupId" name="blackGroupId" value="${lGroup_id}">
 											<div style="padding: 2%;">
 												<button id="${member.member_name}" class="memberBtn" value="${member.lmember_id}" tabindex="0"  data-trigger="focus" data-toggle="popover" class="text-primary" title="MeetU"
 													data-content="<a class='memberPage'>개인페이지</a><a onclick='showPopup2();'> 쪽지보내기</a>" data-html="true"

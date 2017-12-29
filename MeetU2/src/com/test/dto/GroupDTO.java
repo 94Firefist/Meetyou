@@ -2,9 +2,73 @@ package com.test.dto;
 
 public class GroupDTO
 {
-	private int group_id, member_id, citype_id, public_gr, public_grl, public_gra, group_memberCount, group_eventCount, grauto_accept;
+	//			그룹ID	   그룹장ID	 관심지역ID 그룹공개ID 그룹원공개ID 그룹앨범공개ID 그룹멤버수         그룹이벤트수      그룹가입신청ID
+	private int lGroup_id, lMember_id, citype_id, public_gr, public_grl,  public_gra,    group_memberCount, group_eventCount, grauto_accept;
+	//			   그룹명      그룹장이름   그룹소개말  그룹생성일     관심지역이름      그룹대표사진    그룹장realId   그룹장대표사진
 	private String group_name, member_name, group_info, group_credate, group_citypeName, group_imageUrl, member_realId, member_imageUrl;
 	
+	//             그룹가입일  그룹탈퇴일
+	private String grjoin_day, grleave_day;
+	
+	//      그룹리스트키넘  내권한 회원키넘 공개여부키넘
+	private int grlist_id, 	grpower_id, 	mbpublicti_id;
+	
+	public int getlGroup_id()
+	{
+		return lGroup_id;
+	}
+	public void setlGroup_id(int lGroup_id)
+	{
+		this.lGroup_id = lGroup_id;
+	}
+	public int getlMember_id()
+	{
+		return lMember_id;
+	}
+	public void setlMember_id(int lMember_id)
+	{
+		this.lMember_id = lMember_id;
+	}
+	public String getGrjoin_day()
+	{
+		return grjoin_day;
+	}
+	public void setGrjoin_day(String grjoin_day)
+	{
+		this.grjoin_day = grjoin_day;
+	}
+	public String getGrleave_day()
+	{
+		return grleave_day;
+	}
+	public void setGrleave_day(String grleave_day)
+	{
+		this.grleave_day = grleave_day;
+	}
+	public int getGrlist_id()
+	{
+		return grlist_id;
+	}
+	public void setGrlist_id(int grlist_id)
+	{
+		this.grlist_id = grlist_id;
+	}
+	public int getGrpower_id()
+	{
+		return grpower_id;
+	}
+	public void setGrpower_id(int grpower_id)
+	{
+		this.grpower_id = grpower_id;
+	}
+	public int getMbpublicti_id()
+	{
+		return mbpublicti_id;
+	}
+	public void setMbpublicti_id(int mbpublicti_id)
+	{
+		this.mbpublicti_id = mbpublicti_id;
+	}
 	public int getGrauto_accept()
 	{
 		return grauto_accept;
@@ -78,22 +142,6 @@ public class GroupDTO
 	public void setGroup_credate(String group_credate)
 	{
 		this.group_credate = group_credate;
-	}
-	public int getGroup_id()
-	{
-		return group_id;
-	}
-	public void setGroup_id(int group_id)
-	{
-		this.group_id = group_id;
-	}
-	public int getMember_id()
-	{
-		return member_id;
-	}
-	public void setMember_id(int member_id)
-	{
-		this.member_id = member_id;
 	}
 	public int getCitype_id()
 	{

@@ -64,7 +64,7 @@
 		{
 			if(confirm("앨범을 생성하시겠습니까?"))
 			{
-				$(location).attr("href", "groupaddalbum.action?groupId=${groupId}&eventId=${eventId}");
+				$(location).attr("href", "groupaddalbum.action?lGroup_id=${lGroup_id}&eventId=${eventId}");
 			}
 		})
 		
@@ -89,7 +89,7 @@
 	           
 	         } else {
 	            if(confirm("설정하시겠습니까?")) {
-	               $(location).attr("href", "groupseteventattend.action?groupId=${groupId}&eventId=${eventId}&target=" + $(this).val())
+	               $(location).attr("href", "groupseteventattend.action?lGroup_id=${lGroup_id}&eventId=${eventId}&target=" + $(this).val())
 	            }
 	         }
 	         
@@ -100,7 +100,7 @@
 	
 	function evupdate(id)
    {
-      $(location).attr("href", "/eventupdateform.action?eventId="+id+"&groupId=${groupId}");
+      $(location).attr("href", "/eventupdateform.action?eventId="+id+"&lGroup_id=${lGroup_id}");
    };
 	
 </script>

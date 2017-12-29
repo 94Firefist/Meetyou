@@ -24,7 +24,7 @@
 
 	$(document).on("click", ".grouplist_main", function()
 	{
-		$(location).attr("href","/grouphome.action?groupId="+this.id);
+		$(location).attr("href","/grouphome.action?lGroup_id="+this.id);
 	});
 
 	$(document).ready(function()
