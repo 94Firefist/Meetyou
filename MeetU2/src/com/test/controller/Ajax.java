@@ -1,4 +1,4 @@
-package com.test.ajax;
+package com.test.controller;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -23,8 +23,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-import com.test.SendSMS.ExampleUTF8SendSMS;
 import com.test.event.EventIDAO;
+import com.test.java.ExampleUTF8SendSMS;
 import com.test.members.IMemberDAO;
 
 @Controller

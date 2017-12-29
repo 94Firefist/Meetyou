@@ -1,4 +1,4 @@
-package com.test.comment;
+package com.test.controller;
 
 import java.util.HashMap;
 
@@ -11,6 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.test.comment.CommentDTO;
+import com.test.comment.ICommentDAO;
+import com.test.comment.ReviewDTO;
 
 
 @Controller

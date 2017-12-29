@@ -2,7 +2,7 @@
    Image.java
 =====================*/
 
-package com.test.img;
+package com.test.java;
 
 
 import org.springframework.web.multipart.MultipartFile;

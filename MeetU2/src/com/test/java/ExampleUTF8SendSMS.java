@@ -1,4 +1,4 @@
-package com.test.SendSMS;
+package com.test.java;
 /**
  * vi:set ts=4 sw=4 expandtab fileencoding=utf-8:
  * Copyright(C) 2008, 2010 D&SOFT
