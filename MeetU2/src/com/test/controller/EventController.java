@@ -1,4 +1,4 @@
-package com.test.event;
+package com.test.controller;
 
 import java.io.File;
 import java.text.ParseException;
@@ -19,7 +19,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.test.common.FileManager;
+import com.test.event.EventDTO;
+import com.test.event.EventIDAO;
+import com.test.java.FileManager;
 
 @Controller
 public class EventController

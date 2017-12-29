@@ -1,4 +1,4 @@
-package com.test.ajax;
+package com.test.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -2,7 +2,7 @@
    FileManager.java
 ========================*/
 
-package com.test.common;
+package com.test.java;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.renderable.ParameterBlock;

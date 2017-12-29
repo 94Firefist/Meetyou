@@ -1,4 +1,4 @@
-package com.test.report;
+package com.test.controller;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -27,9 +27,9 @@ public class ReportController
 	{
 		String keynumber = (String) session.getAttribute("keynumber");  //나의 대표 번호 가져오기 
 		
-		Report_IDAO dao = sqlSession.getMapper(Report_IDAO.class);  //신고 dao 주입
+		com.test.report.Report_IDAO dao = sqlSession.getMapper(com.test.report.Report_IDAO.class);  //신고 dao 주입
 
-		ArrayList<Report_DTO> msgReportlist = dao.msgReportlist();
+		ArrayList<com.test.report.Report_DTO> msgReportlist = dao.msgReportlist();
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("msgReportlist", msgReportlist);
@@ -46,7 +46,7 @@ public class ReportController
 	{
 		
 		String keynumber = (String) session.getAttribute("keynumber");  //나의 대표 번호 가져오기 
-		Report_IDAO dao = sqlSession.getMapper(Report_IDAO.class);  //신고 dao 주입
+		com.test.report.Report_IDAO dao = sqlSession.getMapper(com.test.report.Report_IDAO.class);  //신고 dao 주입
 		
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		

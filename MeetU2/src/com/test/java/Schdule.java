@@ -1,11 +1,11 @@
-package com.test.calendar;
+package com.test.java;
 
 import org.springframework.stereotype.Service;
 
 @Service("Schdule")
 public class Schdule
 {
-	int schduleCheck(int year, int month, int date) 
+	public int schduleCheck(int year, int month, int date) 
 	{
 		int iljungSu = 0;
 	

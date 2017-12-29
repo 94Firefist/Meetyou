@@ -1,4 +1,4 @@
-package com.test.calendar;
+package com.test.controller;
 
 import java.util.Calendar;
 
@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.test.java.Schdule;
 
 @Controller
 public class CalendarController

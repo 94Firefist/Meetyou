@@ -1,4 +1,4 @@
-package com.test.img;
+package com.test.controller;
 
 import java.io.File;
 import java.io.InputStream;
@@ -12,7 +12,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.test.common.FileManager;
+import com.test.java.FileManager;
+import com.test.java.Image;
 
 
 @Controller

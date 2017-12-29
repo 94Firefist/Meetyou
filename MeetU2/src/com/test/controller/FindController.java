@@ -1,4 +1,4 @@
-package com.test.find;
+package com.test.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.test.find.CityTypeDTO;
 import com.test.main.CategoryDTO;
 import com.test.members.IMemberDAO;
 import com.test.members.MemberDTO;

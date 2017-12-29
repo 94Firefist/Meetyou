@@ -21,8 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.test.comment.CommentController;
-import com.test.common.FileManager;
 import com.test.dao.IAlbumDAO;
 import com.test.dao.IEventDAO;
 import com.test.dao.IGroupDAO;
@@ -31,6 +29,7 @@ import com.test.dto.GroupDTO;
 import com.test.dto.MemberDTO;
 import com.test.dto.TagDTO;
 import com.test.event.EventIDAO;
+import com.test.java.FileManager;
 import com.test.java.GroupStaticClass;
 import com.test.main.CategoryDTO;
 import com.test.main.CityDTO;

@@ -1,4 +1,4 @@
-package com.test.message;
+package com.test.controller;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -55,7 +55,7 @@ public class MessageController
 	@RequestMapping(value = "/messagemyreceive.action", method = RequestMethod.GET)
 	public ModelAndView messageMyreceive(HttpServletRequest request, HttpSession session) throws ClassNotFoundException, SQLException
 	{
-		Message_IDAO dao = sqlSession.getMapper(Message_IDAO.class);
+		com.test.message.Message_IDAO dao = sqlSession.getMapper(com.test.message.Message_IDAO.class);
 		int keynumber = Integer.parseInt((String) session.getAttribute("keynumber"));  //나의 대표 번호 가져오기
 		ModelAndView mav = new ModelAndView();
 		// 현재 페이지
@@ -76,7 +76,7 @@ public class MessageController
 		stMap.put("id", keynumber);
 		
 		//대표번호로 내가 받은 메시지 번호들과 메시지의 타입에 대한 배열 가져오기 
-		ArrayList<ReceiveMessageDTO> receiveMsgList = new ArrayList<ReceiveMessageDTO>();
+		ArrayList<com.test.message.ReceiveMessageDTO> receiveMsgList = new ArrayList<com.test.message.ReceiveMessageDTO>();
 		receiveMsgList = dao.getUesrReceiveMessage(stMap);
 		
 		mav.addObject("page", page);
@@ -87,14 +87,14 @@ public class MessageController
 		
 		
 		//메시지 리스트를 받을 리스트 변수 
-		ArrayList<Message_DTO> receiveMsgDtos = new ArrayList<Message_DTO>();
+		ArrayList<com.test.message.Message_DTO> receiveMsgDtos = new ArrayList<com.test.message.Message_DTO>();
 		
 		
-		for(ReceiveMessageDTO dto : receiveMsgList) {
+		for(com.test.message.ReceiveMessageDTO dto : receiveMsgList) {
 			String msgid = String.valueOf(dto.getMessageId());
 			int typeid = dto.getMessageType();
 			
-			Message_DTO message = null;
+			com.test.message.Message_DTO message = null;
 			
 			if(typeid == 6) 
 			{
@@ -122,7 +122,7 @@ public class MessageController
 	@RequestMapping(value = "/messagemysent.action", method = RequestMethod.GET)
 	public ModelAndView messageMysent(HttpServletRequest request, HttpSession session) throws ClassNotFoundException, SQLException
 	{
-		Message_IDAO dao = sqlSession.getMapper(Message_IDAO.class);
+		com.test.message.Message_IDAO dao = sqlSession.getMapper(com.test.message.Message_IDAO.class);
 		String keynumber = (String) session.getAttribute("keynumber");
 		
 
@@ -130,7 +130,7 @@ public class MessageController
 		
 		hashmap.put("keynumber", keynumber);
 		
-		ArrayList<Message_DTO> sendMsgList = dao.sendMsgList(hashmap );
+		ArrayList<com.test.message.Message_DTO> sendMsgList = dao.sendMsgList(hashmap );
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/WEB-INF/view/message/messageMysent.jsp");
@@ -147,7 +147,7 @@ public class MessageController
 		String keynumber = (String) session.getAttribute("keynumber");  
 		
 		//클릭한 메시지의 메시지 번호 가져오기 
-		Message_IDAO dao = sqlSession.getMapper(Message_IDAO.class);
+		com.test.message.Message_IDAO dao = sqlSession.getMapper(com.test.message.Message_IDAO.class);
 		String lmbtextsend_id = request.getParameter("lmbtextsend_id");
 		
 		//메시지의 타입 가져오기 
@@ -159,7 +159,7 @@ public class MessageController
 		if(type.equals("6"))
 		{
 			// 내용가져오기
-			Message_DTO receiveMsg = dao.getMsg(lmbtextsend_id);
+			com.test.message.Message_DTO receiveMsg = dao.getMsg(lmbtextsend_id);
 			
 			// 수신확인데이터 넣기
 			dao.readMsg(lmbtextsend_id);
@@ -174,7 +174,7 @@ public class MessageController
 			HashMap<String, Object> hashmap = new HashMap<String, Object>();
 			hashmap.put("lmbtextsend_id", lmbtextsend_id);
 			hashmap.put("keynumber", keynumber);
-			Message_DTO receiveMsg = dao.getGMsg(hashmap);
+			com.test.message.Message_DTO receiveMsg = dao.getGMsg(hashmap);
 			
 			//수신확인하기 
 			dao.readGMsg(hashmap);
@@ -195,10 +195,10 @@ public class MessageController
 	public ModelAndView messageMysentForm(HttpServletRequest request) throws ClassNotFoundException, SQLException
 	{
 		//메시지 번호 
-		Message_IDAO dao = sqlSession.getMapper(Message_IDAO.class);
+		com.test.message.Message_IDAO dao = sqlSession.getMapper(com.test.message.Message_IDAO.class);
 		String lmbtextsend_id = request.getParameter("lmbtextsend_id");
 		
-		Message_DTO sendMsg = dao.getsendMsg(lmbtextsend_id);
+		com.test.message.Message_DTO sendMsg = dao.getsendMsg(lmbtextsend_id);
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/WEB-INF/view/message/messageMysentForm.jsp");
@@ -215,7 +215,7 @@ public class MessageController
 		String keynumber = (String) session.getAttribute("keynumber");  
 		
 		//메시지 번호 
-		Message_IDAO dao = sqlSession.getMapper(Message_IDAO.class);
+		com.test.message.Message_IDAO dao = sqlSession.getMapper(com.test.message.Message_IDAO.class);
 		String lmbtextsend_id = request.getParameter("lmbtextsend_id");
 		
 		//메시지의 타입 가져오기 
@@ -251,7 +251,7 @@ public class MessageController
 	public ModelAndView messagesendDeleteForm(HttpServletRequest request) throws ClassNotFoundException, SQLException
 	{
 
-		Message_IDAO dao = sqlSession.getMapper(Message_IDAO.class);
+		com.test.message.Message_IDAO dao = sqlSession.getMapper(com.test.message.Message_IDAO.class);
 		String lmbtextsend_id = request.getParameter("lmbtextsend_id");
 
 		int removeMsg = dao.removesendMsg(lmbtextsend_id);
@@ -268,7 +268,7 @@ public class MessageController
 	public ModelAndView messageDeleteChoiceForm(HttpServletRequest request, HttpSession session) throws ClassNotFoundException, SQLException
 	{
 
-		Message_IDAO dao = sqlSession.getMapper(Message_IDAO.class);
+		com.test.message.Message_IDAO dao = sqlSession.getMapper(com.test.message.Message_IDAO.class);
 
 		
 		// 그전 페이지에서 form 자체를 넘겨 받아
@@ -310,7 +310,7 @@ public class MessageController
 			throws ClassNotFoundException, SQLException
 	{
 
-		Message_IDAO dao = sqlSession.getMapper(Message_IDAO.class);
+		com.test.message.Message_IDAO dao = sqlSession.getMapper(com.test.message.Message_IDAO.class);
 
 		String[] checklist = request.getParameterValues("delete");
 		for (int i = 0; i < checklist.length; i++)
@@ -363,7 +363,7 @@ public class MessageController
 	public ModelAndView messageSendtoFriend(HttpServletRequest request,  HttpSession session) throws ClassNotFoundException, SQLException
 	{
 
-		Message_IDAO dao = sqlSession.getMapper(Message_IDAO.class);
+		com.test.message.Message_IDAO dao = sqlSession.getMapper(com.test.message.Message_IDAO.class);
 		
 		int mykeynumber =  Integer.parseInt((String)session.getAttribute("keynumber"));
 		int friendkeynumber = Integer.parseInt(request.getParameter("F_keynumber"));
@@ -387,7 +387,7 @@ public class MessageController
 	@RequestMapping(value = "/messagesendtogroup.action", method = RequestMethod.GET)
 	public ModelAndView messageSendtoGroup(HttpServletRequest request, HttpSession session) throws ClassNotFoundException, SQLException
 	{
-		Message_IDAO dao = sqlSession.getMapper(Message_IDAO.class);
+		com.test.message.Message_IDAO dao = sqlSession.getMapper(com.test.message.Message_IDAO.class);
 		
 		//내 대표번호, 그룹 대표번호, 타이틀, 내용
 		int mykeynumber =  Integer.parseInt((String)session.getAttribute("keynumber"));

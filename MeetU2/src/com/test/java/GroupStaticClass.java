@@ -123,12 +123,12 @@ public class GroupStaticClass
 	
 	
 	public static HashMap<String, Object> getEventAndMemberAndAttendMap(String eventId, String memberId, String attendId)
-   {
+	{
       HashMap<String, Object> eventAndMemberAndAttendMap = new HashMap<String, Object>();
       eventAndMemberAndAttendMap.put("eventId", eventId);
       eventAndMemberAndAttendMap.put("memberId", memberId);
       eventAndMemberAndAttendMap.put("attendId", attendId);
       
       return eventAndMemberAndAttendMap;
-   }
+	}
 }

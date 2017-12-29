@@ -1,4 +1,4 @@
-package com.test.main;
+package com.test.controller;
 
 import java.util.ArrayList;
 
@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.test.java.PowerLinkPick;
 import com.test.main.EventDTO;
+import com.test.main.GroupDTO;
 import com.test.main.IMainListDAO;
-import com.test.main.PowerLinkPick;
 import com.test.main.SearchDetailDTO;
 
 @Controller

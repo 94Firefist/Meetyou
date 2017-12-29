@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.test.comment.CommentController;
-import com.test.common.FileManager;
+import com.test.controller.CommentController;
 import com.test.controller.GroupFormController;
 import com.test.dao.IEventDAO;
 import com.test.dto.EventDTO;
 import com.test.dto.MemberDTO;
+import com.test.java.FileManager;
 import com.test.java.GroupStaticClass;
 
 @Controller
