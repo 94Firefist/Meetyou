@@ -209,29 +209,22 @@
 							style="padding: 2%; background-color: #000000; font-size: 20px; border-radius: 6px; color: white; float: left">
 							<span>미츄 신고접수관리</span>
 						</span>
-						<div
-							style="height: 100%; width: 50%; /* border: 4px solid blue; */ padding: 1%; float: left;">
+						<div style="height: 100%; width: 50%; /* border: 4px solid blue; */ padding: 1%; float: left;">
 							<div>
-			
-								<button type="button" class="btn btn-warning btn-link active"
-									style="float: left; margin-right: 1%;">
-									<a href="reportList.action"><span
-										style="font-weight: bold; color: black;">신고접수</span></a>
-								</button>
-			
+								<a href="/reportList.action">
+									<button type="button" class="btn btn-warning btn-link active" style="float: left; margin-right: 1%;">
+										<span style="font-weight: bold; color: black;">신고접수</span>
+									</button>
+								</a>
+								<a href="/reportList2.action">
 								<button type="button" class="btn btn-success btn-link active">
-									<a href="reportList2.action"><span
-										style="font-weight: bold; color: black;">신고처리</span></a>
+									<span style="font-weight: bold; color: black;">신고처리</span>
 								</button>
-			
+								</a>
 							</div>
 						</div>
 					</div>
-		
-
-
-
-			<form id="imemberForm" style="width: 100%; height: 100%;"
+					<form id="imemberForm" style="width: 100%; height: 100%;"
 				action="imemberSearch.action" method="post">
 				<div style="height: 98%; width: 100%; margin-top: 2%; padding: 1%;"
 					class="w3-container">
@@ -290,8 +283,8 @@
 										<option selected='selected' value="0"
 											${repsel == 0 ? "selected" : ""}>신고대상타입</option>
 										<c:forEach var="option1" items="${optionList1 }">
-											<option value="${option1.leadertype_id }"
-												${repsel == option1.leadertype_id ? "selected" : ""}>${option1.leadertype_info}</option>
+											<option value="${option1.leaderType_id }"
+												${repsel == option1.leaderType_id ? "selected" : ""}>${option1.leaderType_info}</option>
 										</c:forEach>
 									</select>
 								</div>
@@ -308,7 +301,7 @@
 
 							<!-- 게시판 번호, 신고접수아이디, 신고자아이디, 신고대상아이디, 신고유형,신고대상타입, 신고내용, 신고일자-->
 							<!-- 게시판 내용 -->
-							<%-- ${reportList["0"].lumember_id} --%>
+							<%-- ${reportList["0"].lUMember_id} --%>
 							<div class="reportContents"
 								style="width: 100%; height: 70%; padding: 0.5%;">
 								<%	int a = 0;	%>
@@ -326,35 +319,31 @@
 <!-- 										<div -->
 <!-- 											style="float: left; width: 5%; margin-top: 0.5%; text-align: center;" -->
 <%-- 											class="report">${a = a + 1}</div> --%>
-										<div
-											style="float: left; width: 12%; margin-top: 0.5%; text-align: center;"
-											class="report" id="Irep_id${report.report_id}" >${report.report_id}</div>
-										<div
-											style="float: left; width: 12%; margin-top: 0.5%; text-align: center;"
-											class="report">${report.limember_id}</div>
-										<div
-											style="float: left; width: 13%; margin-top: 0.5%; text-align: center;"
-											class="report">${report.lumember_id}</div>
-										<div
-											style="float: left; width: 15%; margin-top: 0.5%; text-align: center;"
-											class="report">${report.leadertype_id}</div>
-										<div
-											style="float: left; width: 15%; margin-top: 0.5%; text-align: center;"
-											class="report" id="Irep_type${report.report_id}">${report.rep_type}</div>
-										<div
-											style="float: left; width: 17%; margin-top: 0.5%; text-align: center;"
-											class="report">
-
-											<button type="button" id="reportContent"
-												class="btn btn-link report reportContent"
-												style="background-color: white; padding: 0;"
-												data-toggle="modal" data-target="#reportModal1"
-												value="${report.report_id}">상세내용보기</button>
+										<div style="float: left; width: 12%; margin-top: 0.5%; text-align: center;" class="report" id="Irep_id${report.report_id}" >
+											${report.report_id}
+										</div>
+										<div style="float: left; width: 12%; margin-top: 0.5%; text-align: center;" class="report">
+											${report.lIMember_id}
+										</div>
+										<div style="float: left; width: 13%; margin-top: 0.5%; text-align: center;" class="report">
+											${report.lUMember_id}
+										</div>
+										<div style="float: left; width: 15%; margin-top: 0.5%; text-align: center;" class="report">
+											${report.leaderType_info}
+										</div>
+										<div style="float: left; width: 15%; margin-top: 0.5%; text-align: center;" class="report" id="Irep_type${report.report_id}">
+											${report.repType_name}
+										</div>
+										<div style="float: left; width: 17%; margin-top: 0.5%; text-align: center;" class="report">
+											<button type="button" id="reportContent" class="btn btn-link report reportContent" value="${report.report_id}"
+												style="background-color: white; padding: 0;" data-toggle="modal" data-target="#reportModal1">
+												상세내용보기
+											</button>
 										</div>
 
 										<div
 											style="float: left; width: 12%; margin-top: 0.5%; text-align: center;"
-											class="report" id="Irep_date${report.report_id}">${report.rep_date}</div>
+											class="report" id="Irep_date${report.report_id}">${report.report_date}</div>
 									</div>
 								</c:forEach>
 
@@ -385,8 +374,13 @@
 					</div>
 						
 				</div>
-				</form>
+			</form>
+
+
+
+			
 			</div>
+			
 		</div>
 	</div>
 	</div>
@@ -494,9 +488,10 @@
 								<select name="repprosel2" id="repprosel2" style="height: 100%;">
 <!-- 									<option selected='selected' value="0" -->
 <%-- 										${repprosel == 0 ? "selected" : ""}>제재처리</option> --%>
-									<c:forEach var="option3" items="${optionList3 }">
-										<option value="${option3.rep_panalty }" 
-											${repprosel == option3.rep_panalty ? "selected" : ""}>${option3.rep_panaltypol }</option>
+									<c:forEach var="option3" items="${optionList3}">
+										<option value="${option3.panalty_id }" 
+											${repprosel == option3.panalty_id ? "selected" : ""}>${option3.panaltyPol_id }
+										</option>
 									</c:forEach>
 								</select>
 							</div>

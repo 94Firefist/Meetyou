@@ -227,18 +227,21 @@
 						<div
 							style="height: 100%; width: 50%; /* border: 4px solid blue; */ padding: 1%; float: left;">
 							<div>
-			
-								<button type="button" class="btn btn-warning btn-link active"
-									style="float: left; margin-right: 1%;">
-									<a href="reportList.action"><span
-										style="font-weight: bold; color: black;">신고접수</span></a>
-								</button>
-			
-								<button type="button" class="btn btn-success btn-link active">
-									<a href="reportList2.action"><span
-										style="font-weight: bold; color: black;">신고처리</span></a>
-								</button>
-			
+								<a href="reportList.action">
+									<button type="button" class="btn btn-warning btn-link active"
+										style="float: left; margin-right: 1%;">
+										<span style="font-weight: bold; color: black;">
+											신고접수
+										</span>
+									</button>
+								</a>
+								<a href="reportList2.action">
+									<button type="button" class="btn btn-success btn-link active">
+										<span style="font-weight: bold; color: black;">
+											신고처리
+										</span>
+									</button>
+								</a>
 							</div>
 						</div>
 					</div>
@@ -297,28 +300,29 @@
 								<div
 									style="height: 75%; float: left; width: 15%; margin-top: 0.5%; text-align: center;">
 									신고대상타입
+									
+									
+								</div>
+								<div
+									style="height: 75%; float: left; width: 15%; margin-top: 0.5%; text-align: center;">
 									<!-- 
 									<select name="repprosel" id="repprosel" style="height: 100%;">
 										<option selected='selected' value="0"
 											${repprosel == 0 ? "selected" : ""}>신고대상타입</option>
 										<c:forEach var="option1" items="${optionList1 }">
-											<option value="${option1.leadertype_id }"
-												${repprosel == option1.leadertype_id ? "selected" : ""}>${option1.leadertype_info}</option>
+											<option value="${option1.leaderType_id }"
+												${repprosel == option1.leaderType_id ? "selected" : ""}>${option1.leaderType_info}</option>
 										</c:forEach>
 									</select>
 									 -->
-									
-								</div>
-								<div
-									style="height: 75%; float: left; width: 15%; margin-top: 0.5%; text-align: center;">
 									<!-- 
 										<select name="repprosel2" id="repprosel2"
 											style="height: 100%;">
 											<option selected='selected' value="0"
 												${repprosel2 == 0 ? "selected" : ""}>제재처리</option>
 											<c:forEach var="option3" items="${optionList3 }">
-												<option value="${option3.rep_panalty }"
-													${repprosel2 == option3.rep_panalty ? "selected" : ""}>${option3.rep_panaltypol }</option>
+												<option value="${option3.panalty_id }"
+													${repprosel2 == option3.panalty_id ? "selected" : ""}>${option3.panaltyPol_content }</option>
 											</c:forEach>
 										</select>	
 									 -->
@@ -355,17 +359,17 @@
 <%-- 											class="reportpro">${b = b + 1}</div> --%>
 										<div
 											style="float: left; width: 12%; margin-top: 0.5%; text-align: center;"
-											class="reportpro" id="Ireppro_id${reportpro.reppro_id}">${reportpro.reppro_id}</div>
+											class="reportpro" id="Ireppro_id${reportpro.repPro_id}">${reportpro.repPro_id}</div>
 										<div
 											style="float: left; width: 12%; margin-top: 0.5%; text-align: center;"
-											class="reportpro">${reportpro.limember_id}</div>
+											class="reportpro">${reportpro.lIMember_id}</div>
 										<div
 											style="float: left; width: 15%; margin-top: 0.5%; text-align: center;"
-											class="reportpro">${reportpro.leadertype_id}</div>
+											class="reportpro">${reportpro.leaderType_id}</div>
 
 										<div
 											style="float: left; width: 15%; margin-top: 0.5%; text-align: center;"
-											class="reportpro" id="Ireppanalty${reportpro.report_id}">${reportpro.rep_panalty}</div>
+											class="reportpro" id="Ireppanalty${reportpro.report_id}">${reportpro.panaltyPol_content}</div>
 
 										<div
 											style="float: left; width: 18%; margin-top: 0.5%; text-align: center;"
@@ -375,15 +379,15 @@
 												class="btn btn-link reportpro reportproContent"
 												style="background-color: white; padding: 0;"
 												data-toggle="modal" data-target="#reportModal2"
-												value="${reportpro.reppro_id}">처리내용보기</button>
+												value="${reportpro.repPro_id}">처리내용보기</button>
 										</div>
 
 										<div
 											style="float: left; width: 13%; margin-top: 0.5%; text-align: center;"
-											class="reportpro" id="Irep_date${reportpro.reppro_id}">${reportpro.rep_date}</div>
+											class="reportpro" id="Irep_date${reportpro.repPro_id}">${reportpro.report_date}</div>
 										<div
 											style="float: left; width: 13%; margin-top: 0.5%; text-align: center;"
-											class="reportpro" id="Ireppro_date${reportpro.reppro_id}">${reportpro.reppro_date}</div>
+											class="reportpro" id="Ireppro_date${reportpro.repPro_id}">${reportpro.repPro_date}</div>
 									</div>
 
 								</c:forEach>

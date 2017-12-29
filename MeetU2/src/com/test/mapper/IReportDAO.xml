@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.dao.IReportDAO">
+	
+	<select id="reportList" resultType="com.test.dto.ReportDTO">
+		SELECT R.REPORT_ID AS REPORT_ID
+			, R.LIMEMBER_ID AS LIMEMBER_ID
+			, R.LUMEMBER_ID AS LUMEMBER_ID
+			, LT.LEADERTYPE_INFO AS LEADERTYPE_INFO
+			, LT.LEADERTYPE_ID AS LEADERTYPE_ID
+			, RN.REPTYPE_NAME  AS REPTYPE_NAME
+			, R.REPORT_REASON AS REPORT_REASON
+			, TO_CHAR(R.REPORT_DATE, 'YYYY-MM-DD') AS REPORT_DATE
+		FROM REPORT R 
+			JOIN REPTYPE T
+				ON R.REPTYPE_ID = T.REPTYPE_ID
+			JOIN REPTYPE_NAME RN 
+				ON RN.REPTYPE_NAME_CODE = T.REPTYPE_NAME_CODE
+			JOIN LEADERNUM LN 
+				ON LN.LEADERNUM_ID=R.LUMEMBER_ID
+			JOIN LEADERTYPE LT 
+				ON LT.LEADERTYPE_ID = LN.LEADERTYPE_ID
+			JOIN VIEW_REPORT VR 
+				ON R.REPORT_ID = VR.REPORT_ID WHERE VR.HANDLING='0'
+		ORDER BY R.REPORT_ID
+	</select>
+	
+	<select id="reportList2" resultType="com.test.dto.ReportDTO">
+		SELECT RN.REPTYPE_NAME AS REP_TYPE
+	    	, R.REPORT_REASON AS REP_CONTENT
+	    	,TO_CHAR(R.REPORT_DATE, 'YYYY-MM-DD') AS REP_DATE
+		FROM REPORT R JOIN REPTYPE T ON R.REPTYPE_ID = T.REPTYPE_ID
+			JOIN REPTYPE_NAME RN 
+				ON T.REPTYPE_NAME_CODE = RN.REPTYPE_NAME_CODE
+			JOIN LEADERNUM LN 
+		    	ON LN.LEADERNUM_ID=R.LUMEMBER_ID 
+			JOIN LEADERTYPE LT 
+		    	ON LT.LEADERTYPE_ID = LN.LEADERTYPE_ID
+		WHERE R.REPORT_ID = #{report_id}
+	</select>
+	
+	<select id="searchRepId" resultType="com.test.dto.ReportDTO">
+		SELECT * FROM VREPINFO2 WHERE LIMEMBER_ID = #{limember_id} AND HANDLING='0'; 
+	</select>
+	
+	<select id="searchUtypeId" resultType="com.test.dto.ReportDTO">
+		SELECT V.REPORT_ID
+	      ,VI.LIMEMBER_ID
+	      ,V.LUMEMBER_ID
+	      ,VI.LEADERTYPE_ID
+	      ,V.LEADERTYPE_INFO
+	      ,VI.REP_TYPE
+	      ,VI.REP_CONTENT
+	      ,VI.REPORT_DATE
+      	FROM (SELECT LUMEMBER_ID AS LUMEMBER_ID, REPORT_ID AS REPORT_ID, ID.LEADERTYPE_INFO AS LEADERTYPE_INFO
+			  FROM  REPORT R JOIN VLEADERNUM_ID ID ON R.LUMEMBER_ID = ID.LEADERNUM_ID) V 
+			JOIN VREPINFO2 VI 
+				 ON V.REPORT_ID = VI.REPORT_ID
+	 	WHERE VI.LEADERTYPE_ID=#{leadertype_id} AND VI.HANDLING='0'
+		ORDER BY V.REPORT_ID ASC
+	</select>
+	
+	<select id="reportList3" resultType="com.test.dto.ReportDTO">
+		SELECT * FROM VREPINFO2 Where LEADERTYPE_ID = #{limember_id} AND LIMEMBER_ID = #{leadertype_id}
+	</select>
+	
+	<select id="repproList" resultType="com.test.dto.ReportDTO">
+		SELECT * FROM VREPPROINFO3
+	</select>
+	
+	<select id="searchLTId" resultType="com.test.dto.ReportDTO">
+		SELECT *
+		FROM VREPPROINFO3
+		WHERE LEADERTYPE_ID = #{leadertype_id}
+		ORDER BY REPPRO_ID DESC
+	</select>
+	
+	<select id="allOptionPro" resultType="com.test.dto.ReportDTO">
+		SELECT *
+		FROM VREPPROINFO3
+		ORDER BY REPPRO_ID DESC
+	</select>
+	
+	<select id="optionList1" resultType="com.test.dto.ReportDTO">
+		SELECT LEADERTYPE_ID, LEADERTYPE_INFO FROM LEADERTYPE
+	</select>
+	
+	<select id="optionList3" resultType="com.test.dto.ReportDTO">
+		SELECT PANALTYPOL_ID, PANALTYPOL_CONTENT FROM PANALTYPOL ORDER BY PANALTYPOL_ID
+	</select>
+
+	<insert id="reportSelList">
+		INSERT INTO REPPRO(REPPRO_ID, LMEMBER_ID, REPORT_ID, PANALTYPOL_ID, REPPRO_CONTENT)
+		VALUES( REPPROSEQ.NEXTVAL, #{limember_id}, #{report_id}, #{rep_panaltypol}, #{reppro_content, jdbcType=VARCHAR})
+	</insert>
+
+
+	<select id="proDetailId" resultType="com.test.dto.ReportDTO">
+		SELECT REPTYPE_NAME AS REP_TYPE, PANALTYPOL_CONTENT AS REP_PANALTY ,PANALTYTY_CONTENT AS REP_PANALTYPOL
+		, PANALTYDAY AS REP_DAY, REPPRO_DATE, REPPRO_CONTENT AS reppro_content, MASTER AS limember_id
+		FROM VREPPROINFO2
+		WHERE REPPRO_ID = #{reppro_id}
+	</select>
+
+		<!--쪽지 신고 리스트 -->
+	<select id="msgReportlist" resultType="com.test.dto.ReportDTO">
+		SELECT R.REPTYPE_ID AS REPTYPE_ID, R.LEADERTYPE_ID AS LEADERTYPE_ID, R.REPTYPE_NAME_CODE AS REPTYPE_NAME_CODE, T.REPTYPE_NAME AS REPTYPE_NAME
+		FROM REPTYPE R JOIN REPTYPE_NAME T
+		ON r.reptype_name_code = t.reptype_name_code
+		WHERE r.leadertype_id = 6
+	</select>
+
+
+	<!--쪽지 신고하기  -->
+	<insert id="msgReport">
+		Insert into REPORT(REPORT_ID, LIMEMBER_ID, LUMEMBER_ID, REPTYPE_ID, REPORT_REASON, REPORT_DATE)
+		 values(reportseq.nextval, #{limember_id}, #{lumember_id}, #{reptype_id} , #{report_reason}, sysdate)
+	</insert>
+	
+</mapper>
