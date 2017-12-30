@@ -5,5 +5,11 @@
 	String cp = request.getContextPath();
 %>
 <c:forEach var="option" items="${options}">
-	<option value="${option.value}">${option.name}</option>
+	<option value="${option.value}" 
+		<c:if test="${optionSel != null}">
+			${optionSel == option.value ? "selected" : ""}
+		</c:if>
+	>
+		${option.name}
+	</option>
 </c:forEach>
