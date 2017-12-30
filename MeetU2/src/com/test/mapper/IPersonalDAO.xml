@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.dao.IPersonalDAO">
+	
+	<!-- 본인 개최 이벤트 -->
+	<select id="hostEventList" resultType="com.test.dto.PersonalDTO">
+		SELECT LMEMBER_ID AS EVENTHOSTID
+			 , PUBLIC_EVE AS EVENTOPEN
+		     , LEVENT_ID AS EVENTID, EVENT_NAME AS EVENTNAME
+		     , ( SELECT LOAD_NAME FROM CITY WHERE CITY_CODE = E.CITY_CODE ) AS EVENTADDR
+		     , EVENT_PLACE AS EVENTPLACE
+		     , TO_CHAR(EVENT_DATE, 'MM"월" DD"일" DAY') AS EVENTDATE1, TO_CHAR(EVENT_DATE, 'HH24 : MI') AS EVENTDATE2
+		     , ( SELECT COUNT(*) FROM EVEATTEND WHERE LEVENT_ID = E.LEVENT_ID ) AS GUESTCOUNT
+		     , EVENT_MAXATTEND AS MAXGUESTCOUNT    
+		FROM EVENT E
+		WHERE EVESTATUS_ID = 1             
+		AND NVL(LGROUP_ID, 0) = 0          
+		AND LMEMBER_ID = #{hostId}                
+		ORDER BY EVENT_DATE
+	</select>
+
+
+<!-- 참여 예정 리스트 -->
+	<select id="hostInEventList" resultType="com.test.dto.PersonalDTO">
+		SELECT E.LMEMBER_ID AS EVENTHOSTID
+		     , E.PUBLIC_EVE AS EVENTOPEN
+		     , E.LEVENT_ID AS EVENTID, E.EVENT_NAME AS EVENTNAME
+		     , ( SELECT LOAD_NAME FROM CITY WHERE CITY_CODE = E.CITY_CODE ) AS EVENTADDR
+		     , E.EVENT_PLACE AS EVENTPLACE
+		     , TO_CHAR(E.EVENT_DATE, 'MM"월" DD"일" DAY') AS EVENTDATE1, TO_CHAR(E.EVENT_DATE, 'HH24 : MI') AS EVENTDATE2
+		     , ( SELECT COUNT(*) FROM EVEATTEND WHERE LEVENT_ID = E.LEVENT_ID ) AS GUESTCOUNT
+		     , E.EVENT_MAXATTEND AS MAXGUESTCOUNT  
+		FROM EVENT E JOIN EVEATTEND EA
+		ON E.LEVENT_ID = EA.LEVENT_ID
+		WHERE EA.LMEMBER_ID = #{hostId}
+		AND EA.ATTEND_ID = 1                 
+		AND E.EVENT_DATE > SYSDATE
+		AND E.EVESTATUS_ID = 1                  
+		ORDER BY EVENT_DATE
+	</select>
+<!-- 개인정보 -->
+<select id="userInfo" resultType="com.test.dto.PersonalDTO">
+	SELECT MEMBER_NAME AS USERNAME, TO_CHAR(MEMBER_BIRTH, 'YYYY-MM-DD') AS USERBIR
+	     , MEMBER_TEL AS USERTEL, MEMBER_INFO AS USERCONTENT, MEMBER_EMAIL AS USEREMAIL
+	FROM MU_MEMBER
+	WHERE LMEMBER_ID = #{userNumber}
+</select>
+
+<!-- 나의 프로필 변경하기  -->
+<update id="profilePhotoModify">
+ update mbprofile
+ set MBPROFILE_URL =  #{url}
+ where  LMEMBER_ID= #{keynumber}
+</update>
+
+	
+<!-- 개인 프로필 사진 -->	
+<select id="profilePhoto" resultType="String">
+	SELECT MBPROFILE_URL AS PROFILEPHOTO
+	FROM MBPROFILE
+	WHERE LMEMBER_ID = #{userNumber}
+</select>
+
+	
+<!-- 이름 -->
+<select id="memberName" resultType="String">
+	SELECT MEMBER_NAME AS NAME
+	FROM MU_MEMBER
+	WHERE LMEMBER_ID = #{userNumber}
+</select>
+
+
+<!-- 친구 수 -->
+<select id="friendCount" resultType="int">
+	SELECT COUNT(*)	AS FRIENDCOUNT
+	FROM FRIEND	
+	WHERE FRSTATUS_ID = 2
+	  AND LIMEMBER_ID = #{userNumber}
+	   OR LUMEMBER_ID = #{userNumber}
+</select>
+
+
+<!-- 과거 meet U 수 -->
+<select id="pastMeetU" resultType="int">
+	SELECT NVL(COUNT(*),0) AS PASTMEETCOUNT	
+	FROM EVEATTEND			
+	WHERE LMEMBER_ID = #{userNumber}		
+	  AND ATTEND_ID = 1
+	  AND LEVENT_ID = ( SELECT LEVENT_ID 
+	                    FROM EVENT 
+	                    WHERE EVENT.LEVENT_ID = EVEATTEND.LEVENT_ID 
+	                    AND EVENT.EVENT_DATE <![CDATA[ < ]]> SYSDATE )
+</select>
+
+
+<!-- 관심 지역 -->
+<select id="userCityList" resultType="com.test.dto.PersonalDTO">
+	SELECT CITY_NAME AS USERCITY
+	FROM MU_MEMBER M JOIN CITY_TYPE C
+	ON M.CITYPE_ID = C.CITYPE_ID
+	WHERE M.LMEMBER_ID = #{userNumber}
+</select>
+
+
+<!-- 관심사 -->
+<select id="userTagList" resultType="com.test.dto.PersonalDTO">
+	SELECT C.CATEGORY_CONTENT AS USERTAG
+	FROM TBL_CATEGORY C JOIN MBCATEGORY MC
+	ON C.CATEGORY_CODE = MC.CATEGORY_CODE
+	WHERE MC.LMEMBER_ID = #{userNumber}
+</select>
+
+<!-- 개인 소개 -->	
+<select id="userContent" resultType="String">
+	SELECT MEMBER_INFO AS USERCONTENT
+	FROM MU_MEMBER
+	WHERE LMEMBER_ID = #{userNumber}
+</select>
+
+
+<!-- 내가 주최한 이벤트 -->
+<select id="userEvent" resultType="com.test.dto.PersonalDTO">
+	SELECT EVENT_NAME AS EVENTNAME, LOAD_NAME AS ADDRESS, EVENT_PLACE AS MAINADDR
+	     , TO_CHAR(EVENT_DATE, 'MM"월" DD"일" DAY') AS EVENTDATE1, TO_CHAR(EVENT_DATE, 'HH24 : MI') AS EVENTDATE2
+	     , COUNT AS GUESTCOUNT, EVENT_MAXATTEND AS MAXCOUNT
+	FROM VIEW_EVENT
+	WHERE LMEMBER_ID = #{userNumber}
+	ORDER BY EVENT_DATE DESC
+</select>
+
+	
+<!-- 참가 예정 이벤트 -->
+<select id="goEvent" resultType="com.test.dto.PersonalDTO">
+	SELECT EVENT_NAME AS EVENTNAME, LOAD_NAME AS ADDRESS, EVENT_PLACE AS MAINADDR
+	     , TO_CHAR(EVENT_DATE, 'MM"월" DD"일" DAY') AS EVENTDATE1, TO_CHAR(EVENT_DATE, 'HH24 : MI') AS EVENTDATE2
+	     , COUNT AS GUESTCOUNT, EVENT_MAXATTEND AS MAXCOUNT
+	FROM VIEW_ATTENDEVENT
+	WHERE EVENT_DATE >= SYSDATE
+	AND ATTEND_ID = 1
+	AND GUEST = #{userNumber}
+	ORDER BY EVENT_DATE DESC
+</select>
+<!-- 페이지 주인이 회원인 그룹리스트(그룹이 전체공개인 경우 수정이 가능) -->
+	<select id="groupList" resultType="com.test.dto.PersonalDTO">
+		SELECT G.LGROUP_ID AS LGROUP_ID, G.LMEMBER_ID AS LMEMBER_ID, G.MBPUBLICTI_ID AS MBPUBLICTI_ID, TG.GROUP_NAME AS GROUP_NAME, GF.GRPROFILE_URL AS GRPROFILE_URL, G.GRPOWER_ID AS GRPOWER_ID
+		FROM GRLIST G JOIN TBL_GROUP TG 
+		ON G.LGROUP_ID = TG.LGROUP_ID
+        JOIN GRPROFILE GF
+        ON G.LGROUP_ID = GF.LGROUP_ID
+		WHERE G.LMEMBER_ID = #{userNumber } AND G.GRPOWER_ID IN(2,3) AND TG.PUBLIC_GR = 1
+	</select>
+	
+<!-- 페이지 주인이 회원인 그룹리스트(그룹이 멤버공개인 경우 수정이 불가)  -->	
+    <select id="groupList_secret" resultType="com.test.dto.PersonalDTO">
+		SELECT G.LGROUP_ID AS LGROUP_ID, G.LMEMBER_ID AS LMEMBER_ID, G.MBPUBLICTI_ID AS MBPUBLICTI_ID, TG.GROUP_NAME AS GROUP_NAME, GF.GRPROFILE_URL AS GRPROFILE_URL, G.GRPOWER_ID AS GRPOWER_ID
+		FROM GRLIST G JOIN TBL_GROUP TG 
+		ON G.LGROUP_ID = TG.LGROUP_ID
+        JOIN GRPROFILE GF
+        ON G.LGROUP_ID = GF.LGROUP_ID
+		WHERE G.LMEMBER_ID = #{userNumber } AND G.GRPOWER_ID IN(2,3) AND TG.PUBLIC_GR = 3
+	</select>
+
+	
+<!-- 페이지 주인이 그룹장인 그룹리스트(그룹이 전체공개인 경우 수정이 가능)  -->	
+	<select id="groupList_owner" resultType="com.test.dto.PersonalDTO">
+		SELECT G.LGROUP_ID AS LGROUP_ID, G.LMEMBER_ID AS LMEMBER_ID, G.MBPUBLICTI_ID AS MBPUBLICTI_ID, TG.GROUP_NAME AS GROUP_NAME, GF.GRPROFILE_URL AS GRPROFILE_URL, G.GRPOWER_ID AS GRPOWER_ID
+		FROM GRLIST G JOIN TBL_GROUP TG 
+		ON G.LGROUP_ID = TG.LGROUP_ID
+        JOIN GRPROFILE GF
+        ON G.LGROUP_ID = GF.LGROUP_ID
+		WHERE G.LMEMBER_ID = #{userNumber } AND G.GRPOWER_ID = 1 AND TG.PUBLIC_GR = 1
+	</select>
+	
+<!-- 페이지 주인이 그룹장인 그룹리스트(그룹이 멤버공개인 경우 수정이 불가)  -->	
+	<select id="groupList_owner_secret" resultType="com.test.dto.PersonalDTO">
+		SELECT G.LGROUP_ID AS LGROUP_ID, G.LMEMBER_ID AS LMEMBER_ID, G.MBPUBLICTI_ID AS MBPUBLICTI_ID, TG.GROUP_NAME AS GROUP_NAME, GF.GRPROFILE_URL AS GRPROFILE_URL, G.GRPOWER_ID AS GRPOWER_ID
+		FROM GRLIST G JOIN TBL_GROUP TG 
+		ON G.LGROUP_ID = TG.LGROUP_ID
+        JOIN GRPROFILE GF
+        ON G.LGROUP_ID = GF.LGROUP_ID
+		WHERE G.LMEMBER_ID = #{userNumber } AND G.GRPOWER_ID = 1 AND TG.PUBLIC_GR = 3
+	</select>	
+
+<!-- 그룹리스트에서 뿌려준 그룹 탈퇴하기   -->	
+	<update id="groupOut">
+		UPDATE GRLIST
+      	SET GRPOWER_ID = 5 , GRLEAVE_DAY = SYSDATE
+      	WHERE LGROUP_ID = #{groupid } AND LMEMBER_ID = #{keynumber }
+	</update>
+	
+<!-- 그룹리스트에서 뿌려준 그룹 공개여부 비공개로 -->
+   	<update id="groupNoopen">
+   		UPDATE GRLIST
+		SET MBPUBLICTI_ID =5
+		WHERE LGROUP_ID = #{groupid } AND LMEMBER_ID = #{keynumber }
+   	</update>
+   	
+<!-- 그룹리스트에서 뿌려준 그룹 공개여부 공개로 -->   	
+	<update id="groupOpen">
+   		UPDATE GRLIST
+		SET MBPUBLICTI_ID = 1
+		WHERE LGROUP_ID = #{groupid } AND LMEMBER_ID = #{keynumber }
+   	</update>
+<!-- 페이지 주인 공개 여부 -->
+	<select id="hostCheckList" resultType="com.test.dto.PersonalDTO">
+		SELECT PUBLIC_FRI AS FRIENDPUBLIC, PUBLIC_GRL AS GROUPPUBLIC
+		     , PUBLIC_EMAIL AS EMAILPUBLIC, PUBLIC_TEL AS TELPUBLIC
+		     , PUBLIC_BR AS BIRPUBLIC
+		FROM MU_MEMBER
+		WHERE LMEMBER_ID = #{hostId}	
+	</select>
+
+
+<!-- 친구여부 (주인, 접속자) -->
+	<select id="friendCheck" resultType="java.lang.Integer">
+		SELECT COUNT(LMEMBER_ID)
+		FROM MU_MEMBER
+		WHERE LMEMBER_ID IN ( SELECT LIMEMBER_ID
+		                        FROM TEST_FRINDLISTI
+		                        WHERE LUMEMBER_ID = #{hostId}
+		                          AND FRSTATUS_ID = 2       
+		                        UNION
+		                        SELECT LUMEMBER_ID
+		                        FROM TEST_FRINDLISTI
+		                        WHERE LIMEMBER_ID = #{hostId}
+		                          AND FRSTATUS_ID = 2 )    
+		                          AND LMEMBER_ID = #{guestId}
+	</select>
+	
+<!-- 같은 그룹 수 -->
+	<select id="sameGroupCount" resultType="java.lang.Integer">
+		SELECT count(*)
+		FROM GRLIST G JOIN MU_MEMBER M
+		ON M.LMEMBER_ID = G.LMEMBER_ID
+		WHERE M.LMEMBER_ID = #{hostId}
+		  AND LGROUP_ID IN (SELECT LGROUP_ID FROM GRLIST WHERE LMEMBER_ID = #{guestId})
+	</select>
+
+
+
+	
+	
+<!-- 같은 그룹번호(주인, 손님) -->
+	<!-- <select id="sameGroupCheck" resultType="com.test.dto.PersonalDTO">
+		SELECT LGROUP_ID
+		FROM GRLIST G JOIN MU_MEMBER M
+		ON M.LMEMBER_ID = G.LMEMBER_ID
+		WHERE M.LMEMBER_ID = #{hostId}
+		  AND LGROUP_ID IN ( SELECT LGROUP_ID FROM GRLIST WHERE LMEMBER_ID = #{guestId} )
+		ORDER BY LGROUP_ID
+	</select> -->
+<!-- 나의 관리정보리스트 -->
+	<select id="controlList" resultType="com.test.dto.PersonalDTO">
+		select m.lmember_id as lmember_id, m.member_realid as member_realid, m.member_email as member_email, m.member_name as member_name, m.member_tel as member_tel, m.public_fri as public_fri, m.public_grl as public_grl, m.public_email as public_email, m.public_tel as public_tel
+		, m.public_br as public_br, c.citype_id as citype_id, c.city_name as city_name, m.member_info as member_info, m.member_birth as member_birth
+		from mu_member m join city_type c
+		on m.CITYPE_ID  = c.citype_id
+		where LMEMBER_ID=  #{keynumber}	
+	</select>
+
+<!-- 나의 관심사리스트 -->
+   <select id="controlInterestList" resultType="com.test.dto.PersonalDTO">
+   		SELECT MC.lmember_id as lmember_id, C.category_content as category_content, MC.mbcategory_id as mbcategory_id, c.category_code as category_code
+		FROM TBL_CATEGORY C JOIN MBCATEGORY MC
+		ON C.CATEGORY_CODE = MC.CATEGORY_CODE
+		WHERE MC.LMEMBER_ID = #{keynumber}	
+   </select>	
+   
+<!-- 모든 관심사리스트-->
+ <select id="interestList" resultType="com.test.dto.PersonalDTO">
+ 	select category_code, category_content
+    from TBL_CATEGORY
+ </select>   
+ 
+<!-- 모든 지역리스트 -->
+<select id="cityList" resultType="com.test.dto.PersonalDTO">
+	select citype_id, city_name
+	from city_type
+</select>
+	
+<!-- 나의 기본정보수정하기 -->
+<update id="controlMyinfo">
+	update mu_member
+	set MEMBER_EMAIL = #{email}, MEMBER_TEL = #{tel}, Member_info = #{info} , CITYPE_ID = #{city}, public_email = #{emailOpen}, public_tel = #{telOpen}, public_br = #{birthOpen}
+	where lmember_id = #{keynumber}
+</update>	
+
+<!-- 나의 관심사 삭제하기  -->
+<delete id="controlMyinterestRemove">
+	 delete
+ 	from mbcategory
+ 	where LMEMBER_ID= #{keynumber} and MBCATEGORY_ID = #{mbcategory_id}
+</delete>
+
+<!-- 나의 관심사 수정하기  -->
+<update id="controlMyinterestModify">
+	update mbcategory 
+	set category_code = #{category_code}
+	where LMEMBER_ID = #{keynumber} and MBCATEGORY_ID = #{mbcategory_id}
+</update>
+
+<!-- 나의 관심사 추가하기 -->
+<insert id="controlMyinterestInsert">
+	insert into MBCATEGORY(MBCATEGORY_ID, LMEMBER_ID, CATEGORY_CODE) values(MBCATEGORYseq.nextval, #{keynumber}, #{category_code})
+</insert>
+<!-- 친구리스트 -->
+	<select id="friendList" resultType="com.test.dto.PersonalDTO">
+		SELECT M.LMEMBER_ID AS FRIENDID, M.MEMBER_NAME AS FRIENDNAME, MF.MBPROFILE_URL AS FRIENDPIC, F.FRIEND_ID AS FRIENDNO
+		FROM MU_MEMBER M LEFT OUTER JOIN MBPROFILE MF
+		ON M.LMEMBER_ID = MF.LMEMBER_ID
+		
+		JOIN FRIEND F
+    	ON M.LMEMBER_ID = F.LIMEMBER_ID
+		
+		WHERE M.LMEMBER_ID IN ( SELECT LIMEMBER_ID
+		                        FROM FRIEND
+		                        WHERE LUMEMBER_ID = #{hostId}
+                            AND FRSTATUS_ID = 2 
+                            UNION
+		                        SELECT LUMEMBER_ID
+		                        FROM FRIEND
+		                        WHERE LIMEMBER_ID = #{hostId}
+		                        AND FRSTATUS_ID = 2)
+       	AND M.LMEMBER_ID NOT IN ( SELECT LUMEMBER_ID FROM BLACKMB WHERE LIMEMBER_ID = #{hostId} )                      
+       	AND M.LMEMBER_ID NOT IN ( SELECT LIMEMBER_ID FROM BLACKMB WHERE LUMEMBER_ID = #{hostId} )
+	</select>
+
+
+<!-- 블랙리스트 -->
+	<select id="blackList" resultType="com.test.dto.PersonalDTO">
+		SELECT BLACKMB_ID AS BLACKID, B.BLACKMB_REASON AS BLACKCONTENT
+		     , (SELECT MEMBER_NAME FROM MU_MEMBER WHERE LMEMBER_ID = B.LUMEMBER_ID) AS BLACKNAME
+		     , (SELECT MBPROFILE_URL FROM MBPROFILE WHERE LMEMBER_ID = B.LUMEMBER_ID) AS BLACKPIC
+		FROM BLACKMB B
+		WHERE LIMEMBER_ID = #{hostId}
+
+		<!-- SELECT B.BLACKMB_ID AS BLACKID, MF.MBPROFILE_URL AS BLACKPIC
+		     , M.MEMBER_NAME AS BLACKNAME, B.BLACKMB_REASON AS BLACKCONTENT
+		FROM BLACKMB B JOIN MBPROFILE MF
+		ON B.LUMEMBER_ID = MF.LMEMBER_ID
+		JOIN MU_MEMBER M
+		ON M.LMEMBER_ID = MF.LMEMBER_ID
+		WHERE LIMEMBER_ID = #{hostId} -->
+	</select>
+	
+	
+<!-- 친구신청중 -->
+	<select id="friendSend" resultType="com.test.dto.PersonalDTO">
+		SELECT FRIEND_ID AS FRIENDNO, LUMEMBER_ID AS friendId
+			 , (SELECT MEMBER_NAME FROM MU_MEMBER WHERE LMEMBER_ID = F.LUMEMBER_ID) AS FRIENDNAME
+		     , (SELECT MBPROFILE_URL FROM MBPROFILE WHERE LMEMBER_ID = F.LUMEMBER_ID) AS FRIENDPIC
+		     , FRSTATUS_ID AS sendState
+		FROM FRIEND F
+		WHERE LIMEMBER_ID = #{hostId}
+		AND FRSTATUS_ID IN (1, 3)
+	</select>
+
+
+<!-- 친구신청받음 -->
+	<select id="friendReceive" resultType="com.test.dto.PersonalDTO">
+		SELECT FRIEND_ID AS FRIENDNO, LIMEMBER_ID AS friendId
+			 , (SELECT MEMBER_NAME FROM MU_MEMBER WHERE LMEMBER_ID = F.LIMEMBER_ID) AS FRIENDNAME
+     		 , (SELECT MBPROFILE_URL FROM MBPROFILE WHERE LMEMBER_ID = F.LIMEMBER_ID) AS FRIENDPIC
+		FROM FRIEND F
+		WHERE LUMEMBER_ID = #{hostId}
+		AND FRSTATUS_ID = 1
+		AND NOT LIMEMBER_ID IN (SELECT LUMEMBER_ID FROM BLACKMB WHERE LIMEMBER_ID = F.LIMEMBER_ID)
+	</select>
+
+
+<!-- 친구신청취소(본인) -->
+	<delete id="friendnoSend">
+		DELETE
+		FROM FRIEND
+		WHERE FRIEND_ID = #{friendNum}
+	</delete>
+	
+	
+<!-- 친구신청거절 -->
+	<update id="friendnoReceive">
+		UPDATE FRIEND
+		SET FRSTATUS_ID = 3
+		WHERE FRIEND_ID = #{friendNum}
+	</update>
+
+
+<!-- 친구삭제 -->
+	<update id="friendRemove">
+		UPDATE FRIEND
+		SET FRSTATUS_ID = 4
+		WHERE FRIEND_ID = #{friendNum}
+	</update>
+	
+	
+<!-- 친구추가(승낙) -->
+	<update id="friendAdd">
+		UPDATE FRIEND
+		SET FRSTATUS_ID = 2
+		WHERE FRIEND_ID = #{friendNum} 
+	</update>
+	
+	
+<!-- 블랙리스트삭제 -->	
+	<delete id="blackRemove">
+		DELETE
+		FROM BLACKMB
+		WHERE BLACKMB_ID = #{blackNum}
+	</delete>
+
+
+<!-- 블랙리스트추가 -->
+	<insert id="blackAdd">
+		INSERT INTO BLACKMB (BLACKMB_ID, LIMEMBER_ID, LUMEMBER_ID, BLACKMB_REASON)
+		VALUES (BLACKMBSEQ.NEXTVAL, #{hostId}, #{friendNum}, ' ')	
+	</insert>
+	
+</mapper>

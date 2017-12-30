@@ -1,4 +1,4 @@
-package com.test.personal;
+package com.test.controller;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.test.controller.CommentController;
-import com.test.controller.GroupFormController;
 import com.test.dao.IEventDAO;
+import com.test.dao.IPersonalDAO;
 import com.test.dto.EventDTO;
 import com.test.dto.MemberDTO;
 import com.test.java.FileManager;
 import com.test.java.GroupStaticClass;
+import com.test.dto.PersonalDTO;
 
 @Controller
 public class PersonalController
@@ -35,24 +35,21 @@ public class PersonalController
    {
       ModelAndView mav = new ModelAndView();       
       
-      IPersonalLeftbarDAO leftdao = sqlSession.getMapper(IPersonalLeftbarDAO.class);
-      IPersonalHomeDAO main = sqlSession.getMapper(IPersonalHomeDAO.class);   
-      IPersonalTimelineDAO timedao = sqlSession.getMapper(IPersonalTimelineDAO.class);
-      IPersonalCheckDAO checkdao = sqlSession.getMapper(IPersonalCheckDAO.class);
+      IPersonalDAO personalDAO = sqlSession.getMapper(IPersonalDAO.class);
       
       String keynumber = (String) session.getAttribute("keynumber");        // 손님      
       String userNumber = request.getParameter("userkey");               // 주인   
    
       // 좌측
-      mav.addObject("memberName", leftdao.memberName(userNumber));         // 이름
-      mav.addObject("friendCount", leftdao.friendCount(userNumber));         // 친구 수
-      mav.addObject("pastMeetU", leftdao.pastMeetU(userNumber));            // 과거 참여
-      mav.addObject("userCityList", leftdao.userCityList(userNumber));      // 관심 지역
-      mav.addObject("userTagList", leftdao.userTagList(userNumber));          // 관심사
-      mav.addObject("profilePhoto", leftdao.profilePhoto(userNumber));      // 프로필 사진
+      mav.addObject("memberName", personalDAO.memberName(userNumber));         // 이름
+      mav.addObject("friendCount", personalDAO.friendCount(userNumber));         // 친구 수
+      mav.addObject("pastMeetU", personalDAO.pastMeetU(userNumber));            // 과거 참여
+      mav.addObject("userCityList", personalDAO.userCityList(userNumber));      // 관심 지역
+      mav.addObject("userTagList", personalDAO.userTagList(userNumber));          // 관심사
+      mav.addObject("profilePhoto", personalDAO.profilePhoto(userNumber));      // 프로필 사진
    
       // 메인
-      mav.addObject("userContent", main.userContent(userNumber));            // 소개
+      mav.addObject("userContent", personalDAO.userContent(userNumber));            // 소개
 
       //
       if (keynumber == null)   // 회원
@@ -78,8 +75,8 @@ public class PersonalController
       if (userNumber.equals(keynumber))   // 본인
       {
 //         System.out.println("본인맞음");
-         mav.addObject("hostEventList", timedao.hostEventList(userNumber));
-         mav.addObject("hostInEventList", timedao.hostInEventList(userNumber));
+         mav.addObject("hostEventList", personalDAO.hostEventList(userNumber));
+         mav.addObject("hostInEventList", personalDAO.hostInEventList(userNumber));
          mav.addObject("my", 1);
       }
       else
@@ -88,8 +85,8 @@ public class PersonalController
          mav.addObject("my", 0);
          
          // 개인 리스트
-         ArrayList<PersonalTimelineDTO> result = new ArrayList<PersonalTimelineDTO>();
-         for( PersonalTimelineDTO dto : timedao.hostEventList(userNumber) )
+         ArrayList<PersonalDTO> result = new ArrayList<PersonalDTO>();
+         for( PersonalDTO dto : personalDAO.hostEventList(userNumber) )
          {
             // 전체공개
             if(dto.getEventOpen().equals("1")) 
@@ -114,7 +111,7 @@ public class PersonalController
             {
                System.out.println("그룹, 친구공개");
                
-               if (checkdao.friendCheck(hashmap) == 1 || checkdao.sameGroupCount(sameGroupCount) > 0)
+               if (personalDAO.friendCheck(hashmap) == 1 || personalDAO.sameGroupCount(sameGroupCount) > 0)
                {   
                   System.out.println("됨");
                   result.add(dto);
@@ -132,8 +129,8 @@ public class PersonalController
          System.out.println("-------------------------------------------------------");
          
          // 참여 예정 리스트
-         ArrayList<PersonalTimelineDTO> result2 = new ArrayList<PersonalTimelineDTO>();
-         for( PersonalTimelineDTO dto : timedao.hostInEventList(userNumber) )
+         ArrayList<PersonalDTO> result2 = new ArrayList<PersonalDTO>();
+         for( PersonalDTO dto : personalDAO.hostInEventList(userNumber) )
          {
             // 전체 공개
             if (dto.getEventOpen().equals("1"))
@@ -168,7 +165,7 @@ public class PersonalController
                sameGroupCount2.put("guestId", keynumber);
                sameGroupCount2.put("hostId", dto.getEventHostId());
                
-               if (checkdao.friendCheck(hashmap2) == 1 || checkdao.sameGroupCount(sameGroupCount2) > 0)
+               if (personalDAO.friendCheck(hashmap2) == 1 || personalDAO.sameGroupCount(sameGroupCount2) > 0)
                {   
                   System.out.println("됨");
                   result2.add(dto);
@@ -192,15 +189,13 @@ public class PersonalController
 	{
 		ModelAndView mav = new ModelAndView();
 
-		IPersonalLeftbarDAO leftdao = sqlSession.getMapper(IPersonalLeftbarDAO.class);
-		IPersonalPageIntroducemyselfDAO selfdao = sqlSession.getMapper(IPersonalPageIntroducemyselfDAO.class);
-		IPersonalCheckDAO checkdao = sqlSession.getMapper(IPersonalCheckDAO.class);
+		IPersonalDAO personalDAO = sqlSession.getMapper(IPersonalDAO.class);
 
 		String keynumber = (String) session.getAttribute("keynumber"); // 로그인한 이의 대표 번호 가져오기
 		String userNumber = request.getParameter("userkey");
 
 		// 개인 공개 여부
-		mav.addObject("hostpublic", checkdao.hostCheckList(userNumber));
+		mav.addObject("hostpublic", personalDAO.hostCheckList(userNumber));
 
 		// 친구 여부
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
@@ -212,23 +207,23 @@ public class PersonalController
 		}
 		else
 		{
-			mav.addObject("friendcheck", checkdao.friendCheck(hashmap));
+			mav.addObject("friendcheck", personalDAO.friendCheck(hashmap));
 		}
 
 		// 좌측
-		mav.addObject("memberName", leftdao.memberName(userNumber)); // 이름
-		mav.addObject("friendCount", leftdao.friendCount(userNumber)); // 친구 수
-		mav.addObject("pastMeetU", leftdao.pastMeetU(userNumber)); // 과거 참여
-		mav.addObject("userCityList", leftdao.userCityList(userNumber)); // 관심 지역
-		mav.addObject("userTagList", leftdao.userTagList(userNumber)); // 관심사
-		mav.addObject("profilePhoto", leftdao.profilePhoto(userNumber)); // 프로필 사진
+		mav.addObject("memberName", personalDAO.memberName(userNumber)); // 이름
+		mav.addObject("friendCount", personalDAO.friendCount(userNumber)); // 친구 수
+		mav.addObject("pastMeetU", personalDAO.pastMeetU(userNumber)); // 과거 참여
+		mav.addObject("userCityList", personalDAO.userCityList(userNumber)); // 관심 지역
+		mav.addObject("userTagList", personalDAO.userTagList(userNumber)); // 관심사
+		mav.addObject("profilePhoto", personalDAO.profilePhoto(userNumber)); // 프로필 사진
 																			// 달력
 		// 로그인 한 사람의 대표 번호 넘기기(비회원 여부 판단하기 위해)
 		mav.addObject("keynumber", keynumber);
 		mav.addObject("userNumber", userNumber);
 
 		// 개인 정보
-		mav.addObject("userInfo", selfdao.userInfo(userNumber)); // 개인 정보 (지역제외)
+		mav.addObject("userInfo", personalDAO.userInfo(userNumber)); // 개인 정보 (지역제외)
 		mav.setViewName("/WEB-INF/view/personal/personalPageIntroducemyself.jsp");
 
 		return mav;
@@ -241,20 +236,18 @@ public class PersonalController
 	{
 		ModelAndView mav = new ModelAndView();
 		
-		IPersonalLeftbarDAO leftdao = sqlSession.getMapper(IPersonalLeftbarDAO.class);
-		IPersonalTimelineDAO timedao = sqlSession.getMapper(IPersonalTimelineDAO.class);
-		IPersonalCheckDAO checkdao = sqlSession.getMapper(IPersonalCheckDAO.class);
+		IPersonalDAO personalDAO = sqlSession.getMapper(IPersonalDAO.class);
 		
 		String keynumber = (String) session.getAttribute("keynumber");  		// 손님		
 		String userNumber = request.getParameter("userkey");					// 주인
 	
 		// 좌측
-		mav.addObject("memberName", leftdao.memberName(userNumber));			// 이름
-		mav.addObject("friendCount", leftdao.friendCount(userNumber));			// 친구 수
-		mav.addObject("pastMeetU", leftdao.pastMeetU(userNumber));				// 과거 참여
-		mav.addObject("userCityList", leftdao.userCityList(userNumber));		// 관심 지역
-		mav.addObject("userTagList", leftdao.userTagList(userNumber));			// 관심사
-		mav.addObject("profilePhoto", leftdao.profilePhoto(userNumber));		// 프로필 사진																			// 달력	
+		mav.addObject("memberName", personalDAO.memberName(userNumber));			// 이름
+		mav.addObject("friendCount", personalDAO.friendCount(userNumber));			// 친구 수
+		mav.addObject("pastMeetU", personalDAO.pastMeetU(userNumber));				// 과거 참여
+		mav.addObject("userCityList", personalDAO.userCityList(userNumber));		// 관심 지역
+		mav.addObject("userTagList", personalDAO.userTagList(userNumber));			// 관심사
+		mav.addObject("profilePhoto", personalDAO.profilePhoto(userNumber));		// 프로필 사진																			// 달력	
 		
 		if (keynumber == null)	// 회원
 			keynumber = "0";
@@ -279,8 +272,8 @@ public class PersonalController
 		if (userNumber.equals(keynumber))	// 본인
 		{
 			//System.out.println("본인맞음");
-			mav.addObject("hostEventList", timedao.hostEventList(userNumber));
-			mav.addObject("hostInEventList", timedao.hostInEventList(userNumber));
+			mav.addObject("hostEventList", personalDAO.hostEventList(userNumber));
+			mav.addObject("hostInEventList", personalDAO.hostInEventList(userNumber));
 			mav.addObject("my", 1);
 		}
 		else
@@ -289,8 +282,8 @@ public class PersonalController
 			mav.addObject("my", 0);
 			
 			// 개인 리스트
-			ArrayList<PersonalTimelineDTO> result = new ArrayList<PersonalTimelineDTO>();
-			for( PersonalTimelineDTO dto : timedao.hostEventList(userNumber) )
+			ArrayList<PersonalDTO> result = new ArrayList<PersonalDTO>();
+			for( PersonalDTO dto : personalDAO.hostEventList(userNumber) )
 			{
 				// 전체공개
 				if(dto.getEventOpen().equals("1")) 
@@ -315,7 +308,7 @@ public class PersonalController
 				{
 					//System.out.println("그룹, 친구공개");
 					
-					if (checkdao.friendCheck(hashmap) == 1 || checkdao.sameGroupCount(sameGroupCount) > 0)
+					if (personalDAO.friendCheck(hashmap) == 1 || personalDAO.sameGroupCount(sameGroupCount) > 0)
 					{	
 						//System.out.println("됨");
 						result.add(dto);
@@ -333,8 +326,8 @@ public class PersonalController
 			//System.out.println("-------------------------------------------------------");
 			
 			// 참여 예정 리스트
-			ArrayList<PersonalTimelineDTO> result2 = new ArrayList<PersonalTimelineDTO>();
-			for( PersonalTimelineDTO dto : timedao.hostInEventList(userNumber) )
+			ArrayList<PersonalDTO> result2 = new ArrayList<PersonalDTO>();
+			for( PersonalDTO dto : personalDAO.hostInEventList(userNumber) )
 			{
 				// 전체 공개
 				if (dto.getEventOpen().equals("1"))
@@ -369,7 +362,7 @@ public class PersonalController
 					sameGroupCount2.put("guestId", keynumber);
 					sameGroupCount2.put("hostId", dto.getEventHostId());
 					
-					if (checkdao.friendCheck(hashmap2) == 1 || checkdao.sameGroupCount(sameGroupCount2) > 0)
+					if (personalDAO.friendCheck(hashmap2) == 1 || personalDAO.sameGroupCount(sameGroupCount2) > 0)
 					{	
 						//System.out.println("됨");
 						result2.add(dto);
@@ -394,15 +387,13 @@ public class PersonalController
 	{
 		ModelAndView mav = new ModelAndView();
 
-		IPersonalLeftbarDAO leftdao = sqlSession.getMapper(IPersonalLeftbarDAO.class);
-		IPersonalCheckDAO checkdao = sqlSession.getMapper(IPersonalCheckDAO.class);
-		IPersonalGroupDAO groupdao = sqlSession.getMapper(IPersonalGroupDAO.class);
+		IPersonalDAO personalDAO = sqlSession.getMapper(IPersonalDAO.class);
 
 		String keynumber = (String) session.getAttribute("keynumber"); // 로그인한 이의 대표 번호 가져오기
 		String userNumber = request.getParameter("userkey"); // 주인장 키 가져와서 userNumber에 넣기
 
 		// 개인 공개 여부
-		mav.addObject("hostpublic", checkdao.hostCheckList(userNumber));
+		mav.addObject("hostpublic", personalDAO.hostCheckList(userNumber));
 
 		// 친구 여부
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
@@ -415,17 +406,17 @@ public class PersonalController
 		}
 		else
 		{
-			mav.addObject("friendcheck", checkdao.friendCheck(hashmap));
+			mav.addObject("friendcheck", personalDAO.friendCheck(hashmap));
 		}
 	
 
 		// 좌측
-		mav.addObject("memberName", leftdao.memberName(userNumber)); // 이름
-		mav.addObject("friendCount", leftdao.friendCount(userNumber)); // 친구 수
-		mav.addObject("pastMeetU", leftdao.pastMeetU(userNumber)); // 과거 참여
-		mav.addObject("userCityList", leftdao.userCityList(userNumber)); // 관심 지역
-		mav.addObject("userTagList", leftdao.userTagList(userNumber)); // 관심사
-		mav.addObject("profilePhoto", leftdao.profilePhoto(userNumber)); // 프로필 사진
+		mav.addObject("memberName", personalDAO.memberName(userNumber)); // 이름
+		mav.addObject("friendCount", personalDAO.friendCount(userNumber)); // 친구 수
+		mav.addObject("pastMeetU", personalDAO.pastMeetU(userNumber)); // 과거 참여
+		mav.addObject("userCityList", personalDAO.userCityList(userNumber)); // 관심 지역
+		mav.addObject("userTagList", personalDAO.userTagList(userNumber)); // 관심사
+		mav.addObject("profilePhoto", personalDAO.profilePhoto(userNumber)); // 프로필 사진
 																			// 달력
 		// 로그인 한 사람의 대표 번호 넘기기(비회원 여부 판단하기 위해)
 		mav.addObject("keynumber", keynumber);
@@ -433,11 +424,11 @@ public class PersonalController
 
 		// 그룹리스트 뽑는 메소드 발생!!!!
 		// 페이지주인이 운영진, 회원인 그룹이고 공개인 배열리스트
-		ArrayList<PersonalGroupDTO> groupdto = groupdao.groupList(userNumber);
+		ArrayList<PersonalDTO> groupdto = personalDAO.groupList(userNumber);
 		mav.addObject("groupdto", groupdto);
 
 		// 페이지주인이 그룹장인 그룹 배열 리스트 공개인 배열리스트
-		ArrayList<PersonalGroupDTO> groupdto_owner = groupdao.groupList_owner(userNumber);
+		ArrayList<PersonalDTO> groupdto_owner = personalDAO.groupList_owner(userNumber);
 		mav.addObject("groupdto_owner", groupdto_owner);
 
 		mav.setViewName("/WEB-INF/view/personal/personalPageGrouplist.jsp");
@@ -453,13 +444,13 @@ public class PersonalController
 		String keynumber = (String) session.getAttribute("keynumber"); // 로그인한 이의 대표 번호 가져오기
 		String groupid = request.getParameter("groupid"); // 그룹 아이디 가져오기
 		//System.out.println(groupid);
-		IPersonalGroupDAO groupdao = sqlSession.getMapper(IPersonalGroupDAO.class);
+		IPersonalDAO personalDAO = sqlSession.getMapper(IPersonalDAO.class);
 
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		hashmap.put("keynumber", keynumber);
 		hashmap.put("groupid", groupid);
 
-		groupdao.groupOut(hashmap);
+		personalDAO.groupOut(hashmap);
 		mav.setViewName("redirect: /personalgrouplist.action?userkey=" + keynumber);
 
 		return mav;
@@ -473,13 +464,13 @@ public class PersonalController
 		String keynumber = (String) session.getAttribute("keynumber"); // 로그인한 이의 대표 번호 가져오기
 		String groupid = request.getParameter("groupid"); // 그룹 아이디 가져오기
 		System.out.println(groupid);
-		IPersonalGroupDAO groupdao = sqlSession.getMapper(IPersonalGroupDAO.class);
+		IPersonalDAO personalDAO = sqlSession.getMapper(IPersonalDAO.class);
 
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		hashmap.put("keynumber", keynumber);
 		hashmap.put("groupid", groupid);
 
-		groupdao.groupNoopen(hashmap);
+		personalDAO.groupNoopen(hashmap);
 		mav.setViewName("redirect: /personalgrouplist.action?userkey=" + keynumber);
 
 		return mav;
@@ -493,7 +484,7 @@ public class PersonalController
 		String keynumber = (String) session.getAttribute("keynumber"); // 로그인한 이의 대표 번호 가져오기
 		String groupid = request.getParameter("groupid"); // 그룹 아이디 가져오기
 		// System.out.println(groupid);
-		IPersonalGroupDAO groupdao = sqlSession.getMapper(IPersonalGroupDAO.class);
+		IPersonalDAO groupdao = sqlSession.getMapper(IPersonalDAO.class);
 
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		hashmap.put("keynumber", keynumber);
@@ -511,27 +502,25 @@ public class PersonalController
 	{
 		ModelAndView mav = new ModelAndView();
 
-		IPersonalLeftbarDAO leftdao = sqlSession.getMapper(IPersonalLeftbarDAO.class);
-		IPersonalCheckDAO checkdao = sqlSession.getMapper(IPersonalCheckDAO.class);
-		IPersonalFriendDAO frienddao = sqlSession.getMapper(IPersonalFriendDAO.class);
+		IPersonalDAO personalDAO = sqlSession.getMapper(IPersonalDAO.class);
 
 		String keynumber = (String) session.getAttribute("keynumber"); // 손님
 		String userNumber = request.getParameter("userkey"); // 주인
 		
 
 		// 좌측
-		mav.addObject("memberName", leftdao.memberName(userNumber)); // 이름
-		mav.addObject("friendCount", leftdao.friendCount(userNumber)); // 친구 수
-		mav.addObject("pastMeetU", leftdao.pastMeetU(userNumber)); // 과거 참여
-		mav.addObject("userCityList", leftdao.userCityList(userNumber)); // 관심 지역
-		mav.addObject("userTagList", leftdao.userTagList(userNumber)); // 관심사
-		mav.addObject("profilePhoto", leftdao.profilePhoto(userNumber)); // 프로필 사진
+		mav.addObject("memberName", personalDAO.memberName(userNumber)); // 이름
+		mav.addObject("friendCount", personalDAO.friendCount(userNumber)); // 친구 수
+		mav.addObject("pastMeetU", personalDAO.pastMeetU(userNumber)); // 과거 참여
+		mav.addObject("userCityList", personalDAO.userCityList(userNumber)); // 관심 지역
+		mav.addObject("userTagList", personalDAO.userTagList(userNumber)); // 관심사
+		mav.addObject("profilePhoto", personalDAO.profilePhoto(userNumber)); // 프로필 사진
 																			// 달력
 
 		// 개인 정보 여부
-		mav.addObject("hostpublic", checkdao.hostCheckList(userNumber));
+		mav.addObject("hostpublic", personalDAO.hostCheckList(userNumber));
 
-		PersonalCheckDTO dto = checkdao.hostCheckList(userNumber);
+		PersonalDTO dto = personalDAO.hostCheckList(userNumber);
 		// System.out.println(dto.getFriendpublic());
 
 		//System.out.println("여부확인중");
@@ -543,10 +532,10 @@ public class PersonalController
 				//System.out.println("본인");
 
 				mav.addObject("my", 1);
-				mav.addObject("friendList", frienddao.friendList(userNumber)); // 친구리스트
-				mav.addObject("blackList", frienddao.blackList(userNumber)); // 블랙리스트
-				mav.addObject("friendSend", frienddao.friendSend(userNumber)); // 신청보낸
-				mav.addObject("friendReceive", frienddao.friendReceive(userNumber)); // 신청받은
+				mav.addObject("friendList", personalDAO.friendList(userNumber)); // 친구리스트
+				mav.addObject("blackList", personalDAO.blackList(userNumber)); // 블랙리스트
+				mav.addObject("friendSend", personalDAO.friendSend(userNumber)); // 신청보낸
+				mav.addObject("friendReceive", personalDAO.friendReceive(userNumber)); // 신청받은
 
 				// System.out.println(frienddao.blackList(userNumber));
 			} else
@@ -554,23 +543,23 @@ public class PersonalController
 				//System.out.println("본인 아님");
 
 				if (dto.getFriendpublic() == 2) // 회원
-					mav.addObject("friendList", frienddao.friendList(userNumber));
+					mav.addObject("friendList", personalDAO.friendList(userNumber));
 				else if (dto.getFriendpublic() == 3) // 친구여부
 				{
 					HashMap<String, Object> hashmap = new HashMap<String, Object>();
 					hashmap.put("guestId", keynumber);
 					hashmap.put("hostId", userNumber);
 
-					if (checkdao.friendCheck(hashmap) == 1) // 친구
+					if (personalDAO.friendCheck(hashmap) == 1) // 친구
 					{
-						mav.addObject("friendList", frienddao.friendList(userNumber));
+						mav.addObject("friendList", personalDAO.friendList(userNumber));
 					}
 				}
 			}
 		} else
 		{
 			if (dto.getFriendpublic() == 1) // 전체
-				mav.addObject("friendList", frienddao.friendList(userNumber));
+				mav.addObject("friendList", personalDAO.friendList(userNumber));
 		}
 
 		mav.setViewName("/WEB-INF/view/personal/personalPageFriendlist.jsp");
@@ -590,7 +579,7 @@ public class PersonalController
 
 		String friendNo = request.getParameter("friendNo");
 
-		IPersonalFriendDAO dao = sqlSession.getMapper(IPersonalFriendDAO.class);
+		IPersonalDAO dao = sqlSession.getMapper(IPersonalDAO.class);
 
 		dao.friendnoSend(friendNo);
 
@@ -611,7 +600,7 @@ public class PersonalController
 
 		String friendNo = request.getParameter("friendNo");
 
-		IPersonalFriendDAO dao = sqlSession.getMapper(IPersonalFriendDAO.class);
+		IPersonalDAO dao = sqlSession.getMapper(IPersonalDAO.class);
 
 		dao.friendnoReceive(friendNo);
 
@@ -632,7 +621,7 @@ public class PersonalController
 
 		String friendNo = request.getParameter("friendNo");
 
-		IPersonalFriendDAO dao = sqlSession.getMapper(IPersonalFriendDAO.class);
+		IPersonalDAO dao = sqlSession.getMapper(IPersonalDAO.class);
 
 		dao.friendAdd(friendNo);
 
@@ -653,9 +642,9 @@ public class PersonalController
 
 		String friendNo = request.getParameter("friendNo");
 
-		IPersonalFriendDAO dao = sqlSession.getMapper(IPersonalFriendDAO.class);
+		IPersonalDAO personalDAO = sqlSession.getMapper(IPersonalDAO.class);
 
-		dao.friendRemove(friendNo);
+		personalDAO.friendRemove(friendNo);
 
 		mav.setViewName("redirect:personalfriendlist.action?userkey=" + keynumber);
 
@@ -674,9 +663,9 @@ public class PersonalController
 
 		String friendNo = request.getParameter("friendNo");
 
-		IPersonalFriendDAO dao = sqlSession.getMapper(IPersonalFriendDAO.class);
+		IPersonalDAO personalDAO = sqlSession.getMapper(IPersonalDAO.class);
 
-		dao.blackRemove(friendNo);
+		personalDAO.blackRemove(friendNo);
 
 		mav.setViewName("redirect:personalfriendlist.action?userkey=" + keynumber);
 
@@ -695,16 +684,16 @@ public class PersonalController
 
 		String friendNo = request.getParameter("friendNo");
 
-		IPersonalFriendDAO dao = sqlSession.getMapper(IPersonalFriendDAO.class);
+		IPersonalDAO personalDAO = sqlSession.getMapper(IPersonalDAO.class);
 		HashMap<String, String> blackMap = new HashMap<String, String>();
 		blackMap.put("hostId", keynumber);
 		blackMap.put("friendNum", friendNo);
-		dao.blackAdd(blackMap);
+		personalDAO.blackAdd(blackMap);
 
 		/*
 		 * HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		 * hashmap.put("guestId", keynumber); hashmap.put("hostId", userNumber);
-		 * mav.addObject("friendcheck", checkdao.friendCheck(hashmap));
+		 * mav.addObject("friendcheck", personalDAO.friendCheck(hashmap));
 		 */
 
 		mav.setViewName("redirect:personalfriendlist.action?userkey=" + keynumber);
@@ -718,29 +707,27 @@ public class PersonalController
 	{
 		ModelAndView mav = new ModelAndView();
 
-		IPersonalLeftbarDAO leftdao = sqlSession.getMapper(IPersonalLeftbarDAO.class);
-		IPersonalCheckDAO checkdao = sqlSession.getMapper(IPersonalCheckDAO.class);
-		IPersonalControlDAO condao = sqlSession.getMapper(IPersonalControlDAO.class);
+		IPersonalDAO personalDAO = sqlSession.getMapper(IPersonalDAO.class);
 
 		String keynumber = (String) session.getAttribute("keynumber"); // 로그인한 이의 대표 번호 가져오기
 		String userNumber = request.getParameter("userkey"); // 주인장 키 가져와서 userNumber에 넣기
 
 		// 개인 공개 여부
-		mav.addObject("hostpublic", checkdao.hostCheckList(userNumber));
+		mav.addObject("hostpublic", personalDAO.hostCheckList(userNumber));
 
 		// 친구 여부
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		hashmap.put("guestId", keynumber);
 		hashmap.put("hostId", userNumber);
-		mav.addObject("friendcheck", checkdao.friendCheck(hashmap));
+		mav.addObject("friendcheck", personalDAO.friendCheck(hashmap));
 
 		// 좌측
-		mav.addObject("memberName", leftdao.memberName(userNumber)); // 이름
-		mav.addObject("friendCount", leftdao.friendCount(userNumber)); // 친구 수
-		mav.addObject("pastMeetU", leftdao.pastMeetU(userNumber)); // 과거 참여
-		mav.addObject("userCityList", leftdao.userCityList(userNumber)); // 관심 지역
-		mav.addObject("userTagList", leftdao.userTagList(userNumber)); // 관심사
-		mav.addObject("profilePhoto", leftdao.profilePhoto(userNumber)); // 프로필 사진
+		mav.addObject("memberName", personalDAO.memberName(userNumber)); // 이름
+		mav.addObject("friendCount", personalDAO.friendCount(userNumber)); // 친구 수
+		mav.addObject("pastMeetU", personalDAO.pastMeetU(userNumber)); // 과거 참여
+		mav.addObject("userCityList", personalDAO.userCityList(userNumber)); // 관심 지역
+		mav.addObject("userTagList", personalDAO.userTagList(userNumber)); // 관심사
+		mav.addObject("profilePhoto", personalDAO.profilePhoto(userNumber)); // 프로필 사진
 																			// 달력
 		// 로그인 한 사람의 대표 번호 넘기기(비회원 여부 판단하기 위해)
 		mav.addObject("keynumber", keynumber);
@@ -749,19 +736,19 @@ public class PersonalController
 		// System.out.println(userNumber);
 
 		// 컨트롤 개인정보 보내기
-		PersonalControlDTO conList = condao.controlList(userNumber); // 이거 나중에 키넘버로 바꿔야됨
+		PersonalDTO conList = personalDAO.controlList(userNumber); // 이거 나중에 키넘버로 바꿔야됨
 		mav.addObject("conList", conList);
 
 		// 컨트롤 나의 관심사리스트 보내기
-		ArrayList<PersonalControlDTO> conInterestList = condao.controlInterestList(userNumber);
+		ArrayList<PersonalDTO> conInterestList = personalDAO.controlInterestList(userNumber);
 		mav.addObject("conInterestList", conInterestList);
 
 		// 전체관심사리스트 보내기
-		ArrayList<PersonalControlDTO> totalInterestList = condao.interestList();
+		ArrayList<PersonalDTO> totalInterestList = personalDAO.interestList();
 		mav.addObject("totalInterestList", totalInterestList);
 
 		// 전체지역리스트 보내기
-		ArrayList<PersonalControlDTO> cityList = condao.cityList();
+		ArrayList<PersonalDTO> cityList = personalDAO.cityList();
 		mav.addObject("cityList", cityList);
 
 		mav.setViewName("/WEB-INF/view/personal/personalPageControl.jsp");
@@ -779,7 +766,7 @@ public class PersonalController
         	CommentController co = new CommentController();
  			mav = co.getComment(request, session, sqlSession);
  			
-           IPersonalLeftbarDAO daoLeft = sqlSession.getMapper(IPersonalLeftbarDAO.class);
+           IPersonalDAO daoLeft = sqlSession.getMapper(IPersonalDAO.class);
            IEventDAO eventDAO = sqlSession.getMapper(IEventDAO.class);
             String memberId = request.getParameter("userkey");
             
@@ -863,7 +850,7 @@ public class PersonalController
 		ModelAndView mav = new ModelAndView();
 		String keynumber = (String) session.getAttribute("keynumber"); // 로그인한 이의 대표 번호 가져오기
 
-		IPersonalControlDAO condao = sqlSession.getMapper(IPersonalControlDAO.class);
+		IPersonalDAO personalDAO = sqlSession.getMapper(IPersonalDAO.class);
 
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		hashmap.put("email", request.getParameter("email"));
@@ -875,7 +862,7 @@ public class PersonalController
 		hashmap.put("birthOpen", request.getParameter("birthOpen"));
 		hashmap.put("keynumber", keynumber);
 
-		condao.controlMyinfo(hashmap);
+		personalDAO.controlMyinfo(hashmap);
 		mav.setViewName("redirect: /personalcontrol.action?userkey=" + keynumber);
 
 		return mav;
@@ -888,13 +875,13 @@ public class PersonalController
 		ModelAndView mav = new ModelAndView();
 		String keynumber = (String) session.getAttribute("keynumber"); // 로그인한 이의 대표 번호 가져오기
 
-		IPersonalControlDAO condao = sqlSession.getMapper(IPersonalControlDAO.class);
+		IPersonalDAO personalDAO = sqlSession.getMapper(IPersonalDAO.class);
 
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		hashmap.put("mbcategory_id", request.getParameter("mbcategory_id"));
 		hashmap.put("keynumber", keynumber);
 
-		condao.controlMyinterestRemove(hashmap);
+		personalDAO.controlMyinterestRemove(hashmap);
 		mav.setViewName("redirect: /personalcontrol.action?userkey=" + keynumber);
 
 		return mav;
@@ -907,7 +894,7 @@ public class PersonalController
 		ModelAndView mav = new ModelAndView();
 		String keynumber = (String) session.getAttribute("keynumber"); // 로그인한 이의 대표 번호 가져오기
 
-		IPersonalControlDAO condao = sqlSession.getMapper(IPersonalControlDAO.class);
+		IPersonalDAO condao = sqlSession.getMapper(IPersonalDAO.class);
 
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		hashmap.put("mbcategory_id", request.getParameter("mbcategory_id"));
@@ -929,13 +916,13 @@ public class PersonalController
 		ModelAndView mav = new ModelAndView();
 		String keynumber = (String) session.getAttribute("keynumber"); // 로그인한 이의 대표 번호 가져오기
 
-		IPersonalControlDAO condao = sqlSession.getMapper(IPersonalControlDAO.class);
+		IPersonalDAO personalDAO = sqlSession.getMapper(IPersonalDAO.class);
 
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		hashmap.put("category_code", request.getParameter("category_code"));
 		hashmap.put("keynumber", keynumber);
 
-		condao.controlMyinterestInsert(hashmap);
+		personalDAO.controlMyinterestInsert(hashmap);
 		mav.setViewName("redirect: /personalcontrol.action?userkey=" + keynumber);
 
 		return mav;
@@ -972,10 +959,10 @@ public class PersonalController
 		hashmap.put("keynumber", keynumber);
 		hashmap.put("url", dragv);
 		
-		IPersonalLeftbarDAO dao = sqlSession.getMapper(IPersonalLeftbarDAO.class);
+		IPersonalDAO personalDAO = sqlSession.getMapper(IPersonalDAO.class);
 		session.setAttribute("pic", dragv);
 		
-		dao.profilePhotoModify(hashmap);
+		personalDAO.profilePhotoModify(hashmap);
 
 		mav.setViewName("redirect: /personalcontrol.action?userkey=" + keynumber);
 

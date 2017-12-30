@@ -24,6 +24,8 @@ import com.test.admin.IGroupDAO;
 import com.test.admin.NoticeDTO;
 import com.test.admin.PaymentDTO;
 import com.test.admin.QNADTO;
+import com.test.dao.IPublicDAO;
+import com.test.dto.FilterDTO;
 import com.test.members.IMemberDAO;
 import com.test.members.MemberDTO;
 
@@ -97,14 +99,56 @@ public class AdminServiceController
 		AdminPage adminpage = new AdminPage();
 		try
 		{
-			String groupName = request.getParameter("groupName");
-			 
+			
+			IPublicDAO publicDAO = sqlSession.getMapper(IPublicDAO.class);
+			String filter = request.getParameter("filter");
+			FilterDTO filterDTO = new FilterDTO();
+			
+			if(filter != null) {
+				
+				String groupCategory = request.getParameter("groupCategory");
+				String groupCity = request.getParameter("groupCity");
+				String groupPublic = request.getParameter("groupPublic");
+				
+				if( !( groupCategory == null || groupCategory.equals("") ) ) {
+					String category_content = publicDAO.getCategory_content(groupCategory);
+					filterDTO.setCategory_content(category_content);
+				}
+				
+				if( !( groupCity == null || groupCity.equals("") ) ) {
+					String city_name = publicDAO.getCity_name(groupCity);
+					filterDTO.setCity_name(city_name);
+				}
+				
+				if( !( groupPublic == null || groupPublic.equals("") ) ) {
+					String grPublic_name = publicDAO.getGrPublic_name(groupPublic);
+					filterDTO.setGrPublic_name(grPublic_name);
+				}
+				
+				filterDTO.setCategory_code(groupCategory);
+				filterDTO.setCityPe_id(groupCity);
+				filterDTO.setGrPublic_id(groupPublic);
+				
+			} else {
+				
+				filter = "1";
+				
+			}
+			
+			filterDTO.setSort(filter);
+			publicDAO.getGroupList(filterDTO);
+			
+			String groupName = request.getParameter("groupSearchName");
+
+			if(groupName != null) {
+				filterDTO.setGroup_name(groupName);
+			}
 			// 현재 페이지
-			int page = Integer.parseInt(request.getParameter("page")==null?"1":request.getParameter("page"));
+			int page = Integer.parseInt( (request.getParameter("page")==null || request.getParameter("page").equals("") ) ?"1":request.getParameter("page"));
 			
 			// 한 화면에 출력될 페이지 수
 			int countPage = 10;
-			int[] sePage = adminpage.StartEndPage(page,  dao.groupCount(groupName), countPage, 10);
+			int[] sePage = adminpage.StartEndPage(page,  publicDAO.getGroupCount(filterDTO), countPage, 10);
 			
 			int startPage = sePage[0];
 			int endPage = sePage[1];
@@ -115,17 +159,14 @@ public class AdminServiceController
 			//System.out.println(String.valueOf((page-1)*10+1));
 			//System.out.println(String.valueOf(page*countPage));
 			
-			HashMap<String,String> stMap = new HashMap<String,String>();
-			stMap.put("startPage", String.valueOf((page-1)*10+1));
-			stMap.put("countPage", String.valueOf(page*countPage));
-			if(groupName != null) {
-				stMap.put("GROUPNAME", groupName);
-				mav.addObject("groupName", groupName);
-			}
+			int startNum = (page-1)*10+1;
+			int endNum = page*countPage;
 			
+			filterDTO.setStartNum(startNum);
+			filterDTO.setEndNum(endNum);
+			groupList = publicDAO.getGroupList(filterDTO);
 			
-			groupList = dao.group_List(stMap);
-			
+			mav.addObject("filterDTO", filterDTO);
 			mav.addObject("page", page);
 			mav.addObject("groupLists", groupList);
 			mav.addObject("startPage", startPage);
@@ -133,13 +174,14 @@ public class AdminServiceController
 			mav.addObject("totalPage", totalPage);
 			
 			
-			com.test.dao.IGroupDAO groupDAO = sqlSession.getMapper(com.test.dao.IGroupDAO.class);
+			
+			
 			// 카테고리 목록
-			
+			mav.addObject("categorys", publicDAO.getCategorys());
 			// 관심지역 목록
-			
+			mav.addObject("city_Types", publicDAO.getCity_types());
 			// 그룹공개여부 목록
-			
+			mav.addObject("groupPublics", publicDAO.getGroupPublic());
 			
 			mav.setViewName("/WEB-INF/view/admin/AdminMain.jsp");
 			 

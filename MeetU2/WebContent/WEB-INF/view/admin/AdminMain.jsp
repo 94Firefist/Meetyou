@@ -99,17 +99,23 @@ $(document).ready(
 	
 	$(document).ready(function()
 	{
+		$('input[type="text"]').keydown(function() {
+		    if (event.keyCode === 13) {
+		        event.preventDefault();
+		    }
+		});
+		
 		// 검색 키워드 남기기
-		if(<%=groupName != null%>)
+		if('${filterDTO.group_name}' != '')
 		{
-			$("#groupName").val("<%=groupName%>");
+			$("#groupSearchName").val("${filterDTO.group_name}");
 		}
 		
 		
 		$("#grNameSearch").click(function()
 		{
 			// 공백이면 전체가 검색되도록 에러메세지 삭제
-			$("#groupName").val($("#groupName").val().trim());
+			$("#groupSearchName").val($("#groupSearchName").val().trim());
 			$("#groupSearchForm").submit();
 		});
 		
@@ -133,12 +139,78 @@ $(document).ready(
 			}
 			
 		});
+		$(".formSelSubmit").change(function()
+		{
+			$("#groupSearchForm").submit();
+		})
+		$(".formBtnSubmit").click(function()
+		{
+			if ( '${filterDTO.sort}' == $(this).val()) {
+				$("#filter").val('10' + $(this).val());
+			} else {
+				$("#filter").val($(this).val());
+			}
+			$("#groupSearchForm").submit();
+		});
 		
-	})
+		$(".formPageBtn").click(function()
+		{
+			$("#page").val($(this).val());
+			$("#groupSearchForm").submit();
+		})
+		
+		switch ('${filterDTO.sort}')
+		{
+		//    
+		case '1':
+			$("#groupNumber").html($("#groupNumber").html()+'▼');
+			break;
+		case '2':
+			$("#groupName").html($("#groupName").html()+'▼');
+			break;
+		case '3':
+			$("#groupMaster").html($("#groupMaster").html()+'▼');
+			break;
+		case '4':
+			$("#groupMemberCount").html($("#groupMemberCount").html()+'▼');
+			break;
+		case '5':
+			$("#groupCreateDate").html($("#groupCreateDate").html()+'▼');
+			break;
+		case '101':
+			$("#groupNumber").html($("#groupNumber").html()+'▲');
+			break;
+		case '102':
+			$("#groupName").html($("#groupName").html()+'▲');
+			break;
+		case '103':
+			$("#groupMaster").html($("#groupMaster").html()+'▲');
+			break;
+		case '104':
+			$("#groupMemberCount").html($("#groupMemberCount").html()+'▲');
+			break;
+		case '105':
+			$("#groupCreateDate").html($("#groupCreateDate").html()+'▲');
+			break;
+		default:
+			alert('안됨');
+			break;
+		}
+		
+
+	});
 </script>
 
 
-
+<style type="text/css">
+	select
+	{
+		width: 100%;
+		-webkit-appearance: none; 
+		-moz-appearance: none; 
+		appearance: none;
+	}
+</style>
 
 
 </head>
@@ -200,11 +272,9 @@ $(document).ready(
 								<div class="grNameSel"
 									style=" float: left; height: 100%; width: 30%; display: inline; margin-top: 0.5%; margin-right: 1%;">
 					
-									<input id="groupName" name="groupName" class="" type="text"
-										style="width: 60%; height:100%;" placeholder="그룹명을 입력하세요.">
-									<button id="grNameSearch" type="button" style="width: 30%; height:100%;"
-										class="ui-button ui-corner-all">검색</button>
-									
+									<input id="groupSearchName" name="groupSearchName" class="" type="text"
+										style="width: 60%; height:100%;" placeholder="그룹명을 입력하세요." value="${fliterDTO.group_name}">
+									<button id="grNameSearch" type="button" style="width: 30%; height:100%;" class="ui-button ui-corner-all">검색</button>
 								</div>
 								
 							
@@ -219,43 +289,56 @@ $(document).ready(
 
 							<!-- 그룹인덱스 리스트 뿌릴 영역 -->
 							<div class="" style="height: 10%; width: 100%; padding: 2%;">
+								<input type="hidden" id="filter" name="filter" value="${filterDTO.sort}">
 								<div class="" style="height: 100%; width: 5%; float: left; margin-top: 0.5%; text-align: center;">
-									NO
+									<button type="button" class="btn btn-link formBtnSubmit" value="1" id="groupNumber" name="number">
+										NO
+									</button>
 								</div>	
 								<div class="" style="height: 100%; width: 18%; float: left; margin-top: 0.5%; text-align: center;">
-									그룹명
+									<button type="button" class="btn btn-link formBtnSubmit" value="2" id="groupName" name="groupName">
+										그룹명
+									</button>
 								</div>
 								<div class="" style="height: 100%; width: 8%; float: left; margin-top: 0.5%; text-align: center;">
-									그룹장
+									<button type="button" class="btn btn-link formBtnSubmit" value="3" id="groupMaster" name="groupMaster">
+										그룹장
+									</button>
 								</div>
 								<div class="" style="height: 100%; width: 7%; float: left; margin-top: 0.5%; text-align: center;">
-									멤버수
-								</div>
+									<button type="button" class="btn btn-link formBtnSubmit" value="4" id="groupMemberCount" name="groupMemberCount">
+										멤버수
+									</button> 
+								</div> 
 								<div class="" style="height: 100%; width: 13%; float: left; margin-top: 0.5%; text-align: center;">
-									그룹생성날짜
+									<button type="button" class="btn btn-link formBtnSubmit" value="5" id="groupCreateDate" name="groupCreateDate">
+										그룹생성날짜
+									</button>
 								</div>
 								<div class="" style="height: 100%; width: 15%; float: left; margin-top: 0.5%; text-align: center;">
-									<select>
-										<option>카테고리</option>
-										<c:set var="options" value="" scope="request"></c:set>
+									<select class="btn btn-link formSelSubmit" id="groupCategory" name="groupCategory">
+										<option value="">카테고리</option>
+										<c:set var="options" value="${categorys}" scope="request"></c:set>
+										<c:set var="optionSel" value="${filterDTO.category_code}" scope="request"></c:set>
 										<c:import url="${cp}import/IPubilcOptions.jsp"></c:import>
 									</select>
 								</div>
 								<div class="" style="height: 100%; width: 12%; float: left; margin-top: 0.5%; text-align: center;">
-									<select>
-										<option>지역</option>
-										<c:set var="options" value="" scope="request"></c:set>
+									<select class="btn btn-link formSelSubmit" id="groupCity" name="groupCity">
+										<option value="">지역</option>
+										<c:set var="options" value="${city_Types}" scope="request"></c:set>
+										<c:set var="optionSel" value="${filterDTO.cityPe_id}" scope="request"></c:set>
 										<c:import url="${cp}import/IPubilcOptions.jsp"></c:import>
 									</select>
 									
 								</div>
 								<div class="" style="height: 100%; width: 13%; float: left; margin-top: 0.5%; text-align: center;">
-									<select>
-										<option>검색공개여부</option>
-										<c:set var="options" value="" scope="request"></c:set>
+									<select class="btn btn-link formSelSubmit" id="groupPublic" name="groupPublic" style="">
+										<option value="">검색공개</option>
+										<c:set var="options" value="${groupPublics}" scope="request"></c:set>
+										<c:set var="optionSel" value="${filterDTO.grPublic_id}" scope="request"></c:set>
 										<c:import url="${cp}import/IPubilcOptions.jsp"></c:import>
 									</select>
-									
 								</div>
 								<div class="" style="height: 100%; width: 8%; float: left; margin-top: 0.5%; text-align: center;">
 									관리
@@ -273,24 +356,26 @@ $(document).ready(
 
 							<!-- 페이징 -->
 							<div style="text-align: center; margin-top: 17%;">
+								<input type="hidden" id="page" name="page">
 								<nav>
 									<ul class="pagination pagination-sm">
 										
 										<c:if test="${startPage > 1 }">
 											<li>
-												<a href="/grouplist.action?groupName=${groupName}&page=1">
+												<button type="button" class="btn btn-link formPageBtn" value="1">
 													<span aria-hidden="true">«</span>
 													<span class="sr-only">Previous</span>
-												</a>
+												</button>
 											</li>
 										</c:if>
 										
 										<c:if test="${page > 1 }">
 											<li>
-												<a href="/grouplist.action?groupName=${groupName}&page=${page-1 }">
+												
+												<button type="button" class="btn btn-link formPageBtn" value="${page-1 }">
 													<span aria-hidden="true">＜</span>
 													<span class="sr-only">Prev</span>
-												</a>
+												</button>
 											</li>
 										</c:if>
 										
@@ -298,26 +383,38 @@ $(document).ready(
 										<c:forEach var="item" begin="${startPage }" end="${endPage }" step="1">
 											<c:choose>
 												<c:when test="${item == page }">
-													<li class="active"><a href="/grouplist.action?groupName=${groupName}&page=${item }">${item }</a></li>
+													<li class="active">
+														<button type="button" class="btn btn-link formPageBtn" value="${item}">
+															${item }
+														</button>
+													</li>
 												</c:when>
 												<c:otherwise>
-													<li><a href="/grouplist.action?groupName=${groupName}&page=${item }">${item }</a></li>
+													<li>
+														<button type="button" class="btn btn-link formPageBtn" value="${item }">
+															${item }
+														</button>
+													</li>
 												</c:otherwise>
 											</c:choose>
 										</c:forEach>
 										
 										<c:if test="${page < totalPage }">
-										<li><a href="/grouplist.action?groupName=${groupName}&page=${page+1 }">
-											<span aria-hidden="true">〉</span>
-											<span class="sr-only">Next</span>
-										</a></li>
+											<li>
+												<button type="button" class="btn btn-link formPageBtn" value="${page+1 }">		
+													<span aria-hidden="true">〉</span>
+													<span class="sr-only">Next</span>
+												</button>
+											</li>
 										</c:if>
 										
 										<c:if test="${endPage < totalPage }">
-										<li><a href="/grouplist.action?groupName=${groupName}&page=${totalPage }">
-											<span aria-hidden="true">»</span>
-											<span class="sr-only">END</span>
-										</a></li>
+											<li>
+												<button type="button" class="btn btn-link formPageBtn" value="${totalPage }">
+													<span aria-hidden="true">»</span>
+													<span class="sr-only">END</span>
+												</button>
+											</li>
 										</c:if>
 										
 									</ul>
