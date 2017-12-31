@@ -9,9 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.test.admin.FAQDTO;
-import com.test.admin.NoticeDTO;
-import com.test.admin.IAdminDAO;
+import com.test.dao.IAdminDAO;
+import com.test.dto.AFAQDTO;
+import com.test.dto.ANoticeDTO;
 
 @Controller
 public class AjaxController
@@ -37,7 +37,7 @@ public class AjaxController
 		{
 			if (noticeId != null)
 			{
-				NoticeDTO result = new NoticeDTO();
+				ANoticeDTO result = new ANoticeDTO();
 				result = dao.getNoticeContent(noticeId);
 				
 				mav.addObject("title", result.getTitle());
@@ -47,7 +47,7 @@ public class AjaxController
 			}
 			if (faqId != null)
 			{
-				FAQDTO result = new FAQDTO();
+				AFAQDTO result = new AFAQDTO();
 				result = dao.getFAQContent(faqId);
 				
 				mav.addObject("title", result.getTitle());

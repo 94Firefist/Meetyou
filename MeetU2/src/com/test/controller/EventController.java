@@ -19,8 +19,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.test.event.EventDTO;
-import com.test.event.EventIDAO;
+import com.test.dao.EventIDAO;
+import com.test.dto.EEventDTO;
 import com.test.java.FileManager;
 
 @Controller
@@ -48,9 +48,9 @@ public class EventController
 
 		String tag = dao.getTag(keynumber);		// 남은 태그 갯수
 		String power = dao.getPower(keynumber);	// 남은 파워링크 갯수
-		ArrayList<EventDTO> grouplist = dao.groupList(keynumber);	// 그룹 리스트 뿌려주기
-		ArrayList<EventDTO> categorylist = dao.categoryList(); // 카테고리 리스트
-		ArrayList<EventDTO> publiclist = dao.evepublicList();	// 공개범위 리스트 처음뿌려주기용
+		ArrayList<EEventDTO> grouplist = dao.groupList(keynumber);	// 그룹 리스트 뿌려주기
+		ArrayList<EEventDTO> categorylist = dao.categoryList(); // 카테고리 리스트
+		ArrayList<EEventDTO> publiclist = dao.evepublicList();	// 공개범위 리스트 처음뿌려주기용
 		
 		map.addAttribute("tag", tag);
 		map.addAttribute("power", power);
@@ -176,7 +176,7 @@ public class EventController
 //		System.out.println(money);
 //		System.out.println(dragv);
 		
-		EventDTO eventDTO = new EventDTO();
+		EEventDTO eventDTO = new EEventDTO();
 		
 		
 		eventDTO.setEvent_name(eventName);

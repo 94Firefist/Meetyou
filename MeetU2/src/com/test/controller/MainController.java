@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.test.dao.IMainListDAO;
+import com.test.dto.MEventDTO;
+import com.test.dto.MGroupDTO;
+import com.test.dto.SearchDetailDTO;
 import com.test.java.PowerLinkPick;
-import com.test.main.EventDTO;
-import com.test.main.GroupDTO;
-import com.test.main.IMainListDAO;
-import com.test.main.SearchDetailDTO;
 
 @Controller
 public class MainController
@@ -71,7 +71,7 @@ public class MainController
 			
 			dto.setCity((String)session.getAttribute("city"));
 			
-			ArrayList<GroupDTO> groupList = dao.groupList(dto);
+			ArrayList<MGroupDTO> groupList = dao.groupList(dto);
 			int size = groupList.size();
 			
 			mav.addObject("size", size);
@@ -131,7 +131,7 @@ public class MainController
 			
 			
 			// 파워링크 --------------------------------------------------------
-			ArrayList<EventDTO> list = dao.powerList();
+			ArrayList<MEventDTO> list = dao.powerList();
 			
 			int length = list.size();
 			
@@ -139,7 +139,7 @@ public class MainController
 			{
 				int[] index = PowerLinkPick.select(length);
 				
-				ArrayList<EventDTO> powerList = new ArrayList<EventDTO>();
+				ArrayList<MEventDTO> powerList = new ArrayList<MEventDTO>();
 				
 				for(int i=0; i<4; i++)
 				{
@@ -280,7 +280,7 @@ public class MainController
 			if(session.getAttribute("keynumber")!=null)
 				dto.setId((String)session.getAttribute("keynumber"));
 			
-			ArrayList<EventDTO> eventList = dao.eventList(dto);
+			ArrayList<MEventDTO> eventList = dao.eventList(dto);
 			int size = eventList.size();
 			
 			mav.addObject("size", size);
@@ -299,7 +299,7 @@ public class MainController
 			
 			IMainListDAO dao = sqlSession.getMapper(IMainListDAO.class);
 			
-			EventDTO dto = new EventDTO();
+			MEventDTO dto = new MEventDTO();
 			
 			String eventnum = request.getParameter("id");
 			

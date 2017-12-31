@@ -50,7 +50,7 @@
 
 
 
-	<select id="getGroupList" parameterType="com.test.dto.FilterDTO" resultType="com.test.admin.GroupDTO">
+	<select id="getGroupList" parameterType="com.test.dto.FilterDTO" resultType="com.test.dto.GroupDTO">
 		SELECT *
 		FROM(
 			SELECT ROWNUM AS ROWNUMBER, GG.* 

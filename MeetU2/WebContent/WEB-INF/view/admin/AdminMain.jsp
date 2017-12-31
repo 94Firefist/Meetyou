@@ -216,8 +216,6 @@ $(document).ready(
 </head>
 <body>
 	
-	<button id="testBtn">테스트</button>
-	
 	<c:import url="../Menu.jsp"></c:import>
 	
 	<div class="container" style="height: 100%; width: 75%;">

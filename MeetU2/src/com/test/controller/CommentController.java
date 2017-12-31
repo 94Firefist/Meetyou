@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.test.comment.CommentDTO;
-import com.test.comment.ICommentDAO;
-import com.test.comment.ReviewDTO;
+import com.test.dao.ICommentDAO;
+import com.test.dto.CommentDTO;
+import com.test.dto.ReviewDTO;
 
 
 @Controller

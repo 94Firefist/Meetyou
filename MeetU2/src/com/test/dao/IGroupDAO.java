@@ -5,17 +5,26 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.test.dto.AlbumDTO;
-import com.test.dto.EventDTO;
+import com.test.dto.CategoryDTO;
 import com.test.dto.GroupDTO;
+import com.test.dto.AlbumDTO;
+import com.test.dto.CityDTO;
+import com.test.dto.EventDTO;
 import com.test.dto.MemberDTO;
 import com.test.dto.Public_DTO;
 import com.test.dto.TagDTO;
-import com.test.main.CategoryDTO;
-import com.test.main.CityDTO;
 
 public interface IGroupDAO
 {
+	//1.그룹리스트 출력
+	public ArrayList<GroupDTO> group_List(HashMap<String, String> stMap) throws SQLException, ClassNotFoundException;
+	
+	//2.그룹전체 리스트 페이지 처리
+	public int groupCount(String groupName) throws SQLException, ClassNotFoundException;
+	
+	//3.그룹 삭제 
+	//public int groupDel(String groupid) throws SQLException, ClassNotFoundException;
+	
 	// 특정 그룹의 모든 정보를 담는 메소드
 	public GroupDTO getGroupInfo(String groupId);
 	
@@ -117,21 +126,20 @@ public interface IGroupDAO
 	
 	//
 	public int addTag(List<HashMap<String, Object>> list);
-	
-	//
+		
+		//
 	public int groupSEQ();
-	
-	// 
+		
+		// 
 	public int addCategory(List<HashMap<String, Object>> list);
-	
-	//
+		
+		//
 	public int categorySEQ();
-	
-	//
+		
+		//
 	public void eventupdate(HashMap<String, Object> eventMap);
-	
-	// 
+		
+		// 
 	public String categoryupdate(String eventId);
+	
 }
-
-
