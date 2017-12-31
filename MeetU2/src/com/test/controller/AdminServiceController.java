@@ -39,7 +39,7 @@ public class AdminServiceController
 	private AdminPage adminpage;
 	
 	@RequestMapping(value="/memberlist.action")
-	public ModelAndView handleRequest(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws Exception
+	public ModelAndView memberlist(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
 		ModelAndView mav = new ModelAndView();
 		
@@ -81,7 +81,7 @@ public class AdminServiceController
 	}
 	
 	@RequestMapping(value="/grouplist.action")
-	public ModelAndView handleRequest(HttpServletRequest request, HttpSession session)
+	public ModelAndView grouplist(HttpServletRequest request, HttpSession session)
 	{
 		
 		ModelAndView mav = new ModelAndView();
@@ -153,8 +153,6 @@ public class AdminServiceController
 			int startPage = sePage[0];
 			int endPage = sePage[1];
 			int totalPage = sePage[2];
-			
-			
 			
 			//System.out.println(String.valueOf((page-1)*10+1));
 			//System.out.println(String.valueOf(page*countPage));

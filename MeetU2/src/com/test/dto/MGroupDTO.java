@@ -15,7 +15,20 @@ public class MGroupDTO
 	// 그룹 공개 여부
 	private int grouppublic_id;
 
+	private String grProfile_url;
 	
+	
+	
+	public String getGrProfile_url()
+	{
+		return grProfile_url;
+	}
+
+	public void setGrProfile_url(String grProfile_url)
+	{
+		this.grProfile_url = grProfile_url;
+	}
+
 	public String getLockcheck()
 	{
 		return lockcheck;
