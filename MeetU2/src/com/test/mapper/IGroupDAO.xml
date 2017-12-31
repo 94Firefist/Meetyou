@@ -377,7 +377,7 @@
 		WHERE LEVENT_ID = #{eventId}
 	</select>
 
-	<select id="group_List" resultType="com.test.dto.GroupDTO">
+	<select id="group_List2" resultType="com.test.dto.GroupDTO">
 		SELECT * 
 					 FROM(SELECT ROWNUM AS ROWNUMBER, G.* FROM 
 					 (SELECT LGROUP_ID AS GROUP_ID, GROUP_NAME 
@@ -406,7 +406,7 @@
 	</select>
 
 
-	<select id="groupCount"  resultType="java.lang.Integer">
+	<select id="groupCount2"  resultType="java.lang.Integer">
 
 		SELECT COUNT(*) FROM TBL_GROUP
 		WHERE GROUP_NAME LIKE ('%' || #{groupName, jdbcType=VARCHAR} || '%')

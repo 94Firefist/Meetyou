@@ -115,7 +115,7 @@
 			 		AND group_category LIKE ('%' || #{category_content} || '%')
 			 	</if>
 			 	<if test="grPublic_name != null">
-			 		AND public_gr LIKE ('%' || #{grPublic_name} || '%')
+			 		AND PUBLIC_GR LIKE ('%' || #{grPublic_name} || '%')
 			 	</if>
 			</where>
 			

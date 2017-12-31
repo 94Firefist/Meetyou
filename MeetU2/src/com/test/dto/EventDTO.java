@@ -6,11 +6,70 @@ public class EventDTO
 	, event_maxattend, public_attendl, public_place, public_gender, public_age, public_eve, event_minm, event_minAge, event_maxAge, event_maxMoney, event_gender;
 
 	private String city_code, city_name, lgroup_name, event_name, loc_geolat, loc_geolng, event_place, event_info, event_date, event_ymd, event_hm
-	, event_url, public_eveName;
+	, event_url, public_eveName, load_name, eveProfile_url, category_content, tag, lockcheck, count;
 
 	
 	
-	
+	public String getCount()
+	{
+		return count;
+	}
+
+	public void setCount(String count)
+	{
+		this.count = count;
+	}
+
+	public String getLockcheck()
+	{
+		return lockcheck;
+	}
+
+	public void setLockcheck(String lockcheck)
+	{
+		this.lockcheck = lockcheck;
+	}
+
+	public String getLoad_name()
+	{
+		return load_name;
+	}
+
+	public void setLoad_name(String load_name)
+	{
+		this.load_name = load_name;
+	}
+
+	public String getEveProfile_url()
+	{
+		return eveProfile_url;
+	}
+
+	public void setEveProfile_url(String eveProfile_url)
+	{
+		this.eveProfile_url = eveProfile_url;
+	}
+
+	public String getCategory_content()
+	{
+		return category_content;
+	}
+
+	public void setCategory_content(String category_content)
+	{
+		this.category_content = category_content;
+	}
+
+	public String getTag()
+	{
+		return tag;
+	}
+
+	public void setTag(String tag)
+	{
+		this.tag = tag;
+	}
+
 	public int getLevent_id()
 	{
 		return levent_id;

@@ -101,7 +101,7 @@
 			<c:forEach var="dto" items="${grouplist}">
 				<c:if test="${dto.lockcheck.equals('0')}">
 				<div class="grouplist_main" id="${dto.lgroup_id}">
-					<div class="grouplist_itemform" style="background-image: url('${dto.grprofile_url}')">
+					<div class="grouplist_itemform" style="background-image: url('${dto.grProfile_url}')">
 			
 						<div class="grouplist_itemInfoTextForm" style="width: 80%; height: 100%;">
 							<div class="grouplist_itemInfoEmpty1"></div>
