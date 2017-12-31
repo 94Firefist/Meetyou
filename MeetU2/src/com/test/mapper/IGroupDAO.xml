@@ -5,13 +5,13 @@
 <mapper namespace="com.test.dao.IGroupDAO">
 
 	<!-- 카테고리 리스트 -->
-	<select id="categoryList" resultType="com.test.main.CategoryDTO">
+	<select id="categoryList" resultType="com.test.dto.CategoryDTO">
 		SELECT CATEGORY_CODE, CATEGORY_CONTENT, CATEGORY_IMAGE
 		FROM TBL_CATEGORY
 	</select>
 	
 	<!-- 관심지역 리스트 -->
-	<select id="citytypelist" resultType="com.test.find.CityTypeDTO">
+	<select id="citytypelist" resultType="com.test.dto.CityTypeDTO">
 		SELECT CITYPE_ID, CITY_NAME
 		FROM CITY_TYPE
 	</select>
@@ -104,7 +104,7 @@
 		ORDER BY 1
 	</select>
 	
-	<select id="getGroupCategorys" resultType="com.test.main.CategoryDTO">
+	<select id="getGroupCategorys" resultType="com.test.dto.CategoryDTO">
 		SELECT GC.GRCATEGORY_ID AS CATEGORY_CODE, C.CATEGORY_CONTENT
 		FROM GRCATEGORY GC
 		    JOIN TBL_CATEGORY C
@@ -274,7 +274,7 @@
 		WHERE G.LGROUP_ID = #{groupId, jdbcType=VARCHAR}
 	</select>
 	
-	<select id="getGroupUsableCategorys" resultType="com.test.main.CategoryDTO">
+	<select id="getGroupUsableCategorys" resultType="com.test.dto.CategoryDTO">
 		SELECT c.category_code, c.category_content
 		FROM tbl_category C
 		    LEFT OUTER JOIN (SELECT CATEGORY_CODE FROM grcategory WHERE LGROUP_ID = #{groupId}) GC
@@ -375,5 +375,41 @@
 		SELECT CATEGORY_CODE
 		FROM EVECATEGORY
 		WHERE LEVENT_ID = #{eventId}
+	</select>
+
+	<select id="group_List" resultType="com.test.dto.GroupDTO">
+		SELECT * 
+					 FROM(SELECT ROWNUM AS ROWNUMBER, G.* FROM 
+					 (SELECT LGROUP_ID AS GROUP_ID, GROUP_NAME 
+					 , (SELECT LMEMBER_ID FROM GRLIST WHERE GRPOWER_ID='1' AND LGROUP_ID=T.LGROUP_ID) AS member_id 
+					 , (SELECT COUNT(*) FROM GRLIST WHERE LGROUP_ID=T.LGROUP_ID) AS group_memberCount 
+					 , TO_CHAR(GROUP_CREDATE, 'YYYY-MM-DD') AS group_credate 
+					 , (SELECT CITY_NAME FROM CITY_TYPE WHERE CITYPE_ID = T.CITYPE_ID) AS group_citypeName 
+					 , (SELECT LISTAGG(CATEGORY_CONTENT, '/') WITHIN GROUP(ORDER BY LGROUP_ID) 
+					    FROM VGRCAT WHERE LGROUP_ID=T.LGROUP_ID GROUP BY LGROUP_ID) AS group_category 
+					 , (SELECT GRPUBLIC_NAME FROM GRPUBLIC WHERE T.PUBLIC_GR = GRPUBLIC_ID) AS public_gr
+					  ,(SELECT COUNT(*)FROM EVENT WHERE LGROUP_ID=T.LGROUP_ID AND SYSDATE>EVENT_DATE) AS PAST_EVENT
+					 ,(SELECT COUNT(*)FROM EVENT WHERE LGROUP_ID=T.LGROUP_ID AND EVENT_DATE>SYSDATE) AS FUTURE_EVENT
+					,(SELECT (case when (max(EVENT_CREDATE) is null) then '없음' else TO_CHAR(max(EVENT_CREDATE),'YYYY-MM-DD') end ) FROM EVENT WHERE LGROUP_ID=T.LGROUP_ID) AS CURRENT_CREATE
+ 					,(SELECT (case when (max(EVENT_DATE) is null) then '없음' else TO_CHAR(max(EVENT_CREDATE),'YYYY-MM-DD') end ) FROM EVENT WHERE LGROUP_ID=T.LGROUP_ID) AS CURRENT_HOLD
+					 ,(SELECT (CASE WHEN (SYSDATE-180>MAX(EVENT_CREDATE)   OR (SYSDATE-180>GROUP_CREDATE AND MAX(EVENT_CREDATE)IS NULL )) THEN '휴면' ELSE '활동' END)FROM EVENT   
+					WHERE LGROUP_ID=T.LGROUP_ID) AS GRSTATUS_STOP
+					 FROM TBL_GROUP T
+					 <if test="GROUPNAME != null">
+					 WHERE T.GROUP_NAME LIKE ('%' || #{GROUPNAME} || '%')
+					 </if>
+					 ORDER BY LGROUP_ID
+					 )G) 
+		 WHERE ROWNUMBER BETWEEN #{startPage} AND #{countPage}  
+		 ORDER BY ROWNUMBER
+		
+	</select>
+
+
+	<select id="groupCount"  resultType="java.lang.Integer">
+
+		SELECT COUNT(*) FROM TBL_GROUP
+		WHERE GROUP_NAME LIKE ('%' || #{groupName, jdbcType=VARCHAR} || '%')
+
 	</select>
 </mapper>

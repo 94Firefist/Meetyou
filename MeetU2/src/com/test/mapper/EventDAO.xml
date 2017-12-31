@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.test.event.EventIDAO">
+<mapper namespace="com.test.dao.EventIDAO">
 
    <!-- 이벤트 생성 프로시저 -->
    <parameterMap type="hashmap" id="eventMap">
@@ -55,28 +55,28 @@
    </select>
    
    <!-- 그룹장이나, 운영진인 그룹리스트 -->
-   <select id="groupList" resultType="com.test.event.EventDTO">
+   <select id="groupList" resultType="com.test.dto.EEventDTO">
       SELECT LGROUP_ID, GROUP_NAME
       FROM GROUPLIST
       WHERE LMEMBER_ID = #{keynumber}
    </select>
 
    <!-- 이벤트 공개범위 리스트 -->
-   <select id="evepublicList" resultType="com.test.event.EventDTO">
+   <select id="evepublicList" resultType="com.test.dto.EEventDTO">
       SELECT EVEPUBLIC_ID PUBLIC_ID, EVEPUBLIC_NAME PUBLIC_NAME
       FROM EVEPUBLIC
       ORDER BY PUBLIC_ID
    </select>
    
    <!-- 그룹 공개범위 리스트 -->
-   <select id="grpublicList" resultType="com.test.event.EventDTO">
+   <select id="grpublicList" resultType="com.test.dto.EEventDTO">
       SELECT GRPUBLIC_ID PUBLIC_ID, GRPUBLIC_NAME PUBLIC_NAME
       FROM GRPUBLIC
       ORDER BY PUBLIC_ID
    </select>
    
    <!-- 카테고리 리스트 -->
-   <select id="categoryList" resultType="com.test.event.EventDTO">
+   <select id="categoryList" resultType="com.test.dto.EEventDTO">
       SELECT CATEGORY_CODE, CATEGORY_CONTENT
       FROM TBL_CATEGORY
       ORDER BY CATEGORY_CODE

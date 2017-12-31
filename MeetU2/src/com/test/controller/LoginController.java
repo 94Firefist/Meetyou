@@ -12,8 +12,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.test.members.IMemberDAO;
-import com.test.members.MemberDTO;
+import com.test.dao.IMemberDAO;
+import com.test.dto.MemberDTO;
 @Controller
 public class LoginController
 {
@@ -63,7 +63,7 @@ public class LoginController
 				session.setAttribute("city", dto.getCity_name());
 				session.setAttribute("name", dto.getMember_name());
 				session.setAttribute("pic", dao.myprofile(keynumber));
-				if(Integer.parseInt(dto.getMember_admin()) == 0)
+				if(dto.getMember_admin() == 0)
 					session.setAttribute("admin", "");
 			}
 			else

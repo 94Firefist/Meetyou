@@ -23,9 +23,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-import com.test.event.EventIDAO;
+import com.test.dao.EventIDAO;
+import com.test.dao.IMemberDAO;
 import com.test.java.ExampleUTF8SendSMS;
-import com.test.members.IMemberDAO;
 
 @Controller
 public class Ajax

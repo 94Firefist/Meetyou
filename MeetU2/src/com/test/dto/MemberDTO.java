@@ -3,8 +3,73 @@ package com.test.dto;
 public class MemberDTO
 {
 	private int lmember_id, member_admin, public_fri, public_grl, public_email, public_tel, public_br, eveattend_id, member_age, blackgr_id;	 
-	private String citype_id ,member_realid, member_pw, member_email, member_name, member_tel, member_birth, member_gender, member_info, lgroup_id, grpower_id, grjoin_day, member_imageUrl, blackgr_reason;
+	private String citype_id, member_join, member_realid, member_pw, member_email, member_name, member_tel, member_birth, member_gender, member_info, lgroup_id, grpower_id, grjoin_day, member_imageUrl, blackgr_reason;
 	
+	// 관심지역
+	private String city_name;
+	
+	// 가입 그룹 수 
+	private String joinGrCount;
+	
+	// 참석 이벤트 수
+	private String atEvent;
+	
+	// 최근 이벤트 참석일
+	private String curEveAttend;
+	
+	// 최근 로그인 기록
+	private String curLogIn;
+	
+	
+	
+	public String getAtEvent()
+	{
+		return atEvent;
+	}
+	public void setAtEvent(String atEvent)
+	{
+		this.atEvent = atEvent;
+	}
+	public String getCurEveAttend()
+	{
+		return curEveAttend;
+	}
+	public void setCurEveAttend(String curEveAttend)
+	{
+		this.curEveAttend = curEveAttend;
+	}
+	public String getCurLogIn()
+	{
+		return curLogIn;
+	}
+	public void setCurLogIn(String curLogIn)
+	{
+		this.curLogIn = curLogIn;
+	}
+	public String getMember_join()
+	{
+		return member_join;
+	}
+	public void setMember_join(String member_join)
+	{
+		this.member_join = member_join;
+	}
+	public String getJoinGrCount()
+	{
+		return joinGrCount;
+	}
+	public void setJoinGrCount(String joinGrCount)
+	{
+		this.joinGrCount = joinGrCount;
+	}
+	public String getCity_name()
+	{
+		return city_name;
+	}
+	public void setCity_name(String city_name)
+	{
+		this.city_name = city_name;
+	}
 	public String getBlackgr_reason()
 	{
 		return blackgr_reason;

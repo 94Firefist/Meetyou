@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.test.footer.FAQDTO;
-import com.test.footer.IFAQListDAO;
-import com.test.footer.INoticeListDAO;
-import com.test.footer.ISiteInfoDAO;
+import com.test.dao.IFAQListDAO;
+import com.test.dao.INoticeListDAO;
+import com.test.dao.ISiteInfoDAO;
+import com.test.dto.FAQDTO;
 
 @Controller
 public class FooterController

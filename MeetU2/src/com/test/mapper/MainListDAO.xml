@@ -2,25 +2,25 @@
 <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.test.main.IMainListDAO">
+<mapper namespace="com.test.dao.IMainListDAO">
 
 
 <!-- 검색바 관심사 -->
-	<select id="interestList" resultType="com.test.main.CategoryDTO">
+	<select id="interestList" resultType="com.test.dto.CategoryDTO">
 		SELECT CATEGORY_CODE, CATEGORY_CONTENT
 		FROM TBL_CATEGORY
 		ORDER BY CATEGORY_CODE
 	</select>
 
 <!-- 검색바 지역 -->
-	<select id="cityList" resultType="com.test.main.CityDTO">
+	<select id="cityList" resultType="com.test.dto.CityDTO">
 		SELECT CITYPE_ID, CITY_NAME
 		FROM CITY_TYPE
 		ORDER BY CITYPE_ID
 	</select>
 
 <!-- 파워링크 -->
-	<select id="powerList" resultType="com.test.main.EventDTO">
+	<select id="powerList" resultType="com.test.dto.EventDTO">
 		SELECT LEVENT_ID, EVENT_NAME, LGROUP_ID, LMEMBER_ID, LOAD_NAME, EVEPROFILE_URL, CATEGORY_CONTENT, TAG
 		FROM VIEW_PO
 		ORDER BY LEVENT_ID
@@ -29,7 +29,7 @@
 
 	
 <!-- 이벤트 리스트 출력 -->
-	<select id="eventList" resultType="com.test.main.EventDTO" >
+	<select id="eventList" resultType="com.test.dto.EventDTO" >
 		SELECT LEVENT_ID, EVENT_NAME, LGROUP_ID, LMEMBER_ID, PUBLIC_EVE, EVENT_DATE
 		, EVENT_MAXATTEND, EVENT_MINM, LOAD_NAME, COUNT, MENCOUNT, AGEAVG, CATEGORY_CODE, TAG, CITY_NAME
 		, (SELECT COUNT(*) FROM VIEW_LOCK WHERE LUMEMBER_ID = LEVENT_ID) AS LOCKCHECK
@@ -156,7 +156,7 @@
 
 
 <!-- 그룹 리스트 출력 -->
-	<select id="groupList" resultType="com.test.main.GroupDTO" >
+	<select id="groupList" resultType="com.test.dto.GroupDTO" >
 		<![CDATA[SELECT LGROUP_ID, GROUP_NAME,GROUP_CREDATE, PUBLIC_GR, CITY_NAME, COUNT, CHANGEMEMBER, HISTORY_ATTEND
 			, (CHANGEMEMBER*0.2 + HISTORY_ATTEND*0.8) AS SCORE
 			, SUBSTR(TAG,0,DECODE(INSTR(TAG, '#', 2,3),0,90,INSTR(TAG, '#', 2,3)-2)) AS TAG
@@ -180,7 +180,7 @@
 	</select>
 
 <!-- 이벤트 주인 찾기 -->
-	<select id="whoEvent" resultType="com.test.main.EventDTO">
+	<select id="whoEvent" resultType="com.test.dto.EventDTO">
 		SELECT LGROUP_ID, LMEMBER_ID
 		FROM EVENT
 		<where>

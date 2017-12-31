@@ -2,10 +2,10 @@
 <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.test.message.Message_IDAO">
+<mapper namespace="com.test.dao.Message_IDAO">
 
 	<!-- 개인 받은 메시지 리스트 -->
-	<select id="receiveMsgnew" resultType="com.test.message.Message_DTO">
+	<select id="receiveMsgnew" resultType="com.test.dto.Message_DTO">
 		SELECT LiMember_Name,
 		limember_realid, Mbtextsend_Title, Mbtextsend_Date, Mbtextre_Date,
 		Lmbtextsend_Id
@@ -13,7 +13,7 @@
 	</select>
 
 	<!--그룹 받은 메시지 리스트 및 내용 가져오기 -->
-	<resultMap id="getGMsg_m" type="com.test.message.Message_DTO">
+	<resultMap id="getGMsg_m" type="com.test.dto.Message_DTO">
 		<result property="lmbtextsend_id" column="LGRTEXTSEND_ID" />  <!-- 쪽지아이디 -->
 		<result property="lgroup_id" column="LGROUP_ID" />		<!-- 보낸사람아이디 -->
 		<result property="mbtextsend_date" column="GRTEXTSEND_DATE" />  <!-- 보낸날짜 -->
@@ -38,7 +38,7 @@
 	<!-- 보낸 메시지 리스트 -->
 	
 	
-	<select id="sendMsgList" resultType="com.test.message.Message_DTO">
+	<select id="sendMsgList" resultType="com.test.dto.Message_DTO">
 		    select *
 		from
 		(SELECT LuMember_Name,
@@ -85,7 +85,7 @@
 
 
 	<!-- 개인 쪽지 내용 가져오기 (받은 쪽지) -->
-	<resultMap id="getMsg_m" type="com.test.message.Message_DTO">
+	<resultMap id="getMsg_m" type="com.test.dto.Message_DTO">
 		<result property="lmbtextsend_id" column="lmbtextsend_id" />
 		<result property="mbtextsend_date" column="mbtextsend_date" />
 		<result property="mbtextsend_title" column="mbtextsend_title" />
@@ -109,7 +109,7 @@
 
 
 	<!-- 개인 쪽지 내용 가져오기 (보낸 쪽지) -->
-	<resultMap id="getsendMsg_m" type="com.test.message.Message_DTO">
+	<resultMap id="getsendMsg_m" type="com.test.dto.Message_DTO">
 		<result property="lmbtextsend_id" column="lmbtextsend_id" />
 		<result property="mbtextsend_date" column="mbtextsend_date" />
 		<result property="mbtextsend_title" column="mbtextsend_title" />
@@ -200,7 +200,7 @@
 	</select>
 	
 	<!-- 내가 받은 메시지 번호/ 타입 가져오기 -->
-	<select id="getUesrReceiveMessage" resultType="com.test.message.ReceiveMessageDTO">
+	<select id="getUesrReceiveMessage" resultType="com.test.dto.ReceiveMessageDTO">
 		SELECT ROWNUMBER, MESSAGEID, MESSAGETYPE
 		FROM
 		(

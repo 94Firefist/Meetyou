@@ -240,7 +240,7 @@ $(document).ready(
 										<div style=" float: left; width: 10%; height: 100%; text-align: center;">${member.lmember_id}</div>
 										<div style=" float: left; width: 15%; height: 100%; text-align: center;">${member.member_realid}</div>
 										<div style=" float: left; width: 10%; height: 100%; text-align: center;">${member.joinGrCount}</div>
-										<div style=" float: left; width: 13%; height: 100%; text-align: center;">${member.joinDate}</div>
+										<div style=" float: left; width: 13%; height: 100%; text-align: center;">${member.member_join}</div>
 										<div style=" float: left; width: 15%; height: 100%; text-align: center;">
 											<c:choose> 
 												<c:when test="${member.atEvent!=null}">${member.atEvent}</c:when>
@@ -285,7 +285,7 @@ $(document).ready(
 										</c:if>
 										
 										<c:if test="${page > 1 }">
-										<li><a href="/memberlist.action?page=${page-1 }"><span aria-hidden="true">〈</a></li>
+										<li><a href="/memberlist.action?page=${page-1 }"><span aria-hidden="true">〈</span></a></li>
 										</c:if>
 										
 										

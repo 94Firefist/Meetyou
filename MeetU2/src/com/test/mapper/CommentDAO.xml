@@ -2,11 +2,11 @@
 <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.test.comment.ICommentDAO">
+<mapper namespace="com.test.dao.ICommentDAO">
 
 
 <!-- 이벤트 코맨트 가져오기 -->
-	<select id="getComment" resultType="com.test.comment.CommentDTO">
+	<select id="getComment" resultType="com.test.dto.CommentDTO">
 		SELECT LCOMMENT_ID, LREVIEW_ID, LMEMBER_ID, REVIEW_SEQ, REVIEW_LEV, COMMENT_DATE, COMMENT_CONTENT, LEVENT_ID, MEMBER_REALID, MBPROFILE_URL, LOCKCHECK
 		FROM VIEW_COMMENT
 		<where>
@@ -16,7 +16,7 @@
 	</select>
 	
 <!-- 이벤트 리뷰 가져오기 -->
-	<select id="getReview" resultType="com.test.comment.ReviewDTO">
+	<select id="getReview" resultType="com.test.dto.ReviewDTO">
 		SELECT LREVIEW_ID, REVIEW_DATE, REVIEW_CONTENT, LMEMBER_ID, MEMBER_REALID, LEVENT_ID, MBPROFILE_URL, LOCKCHECK
 		FROM VIEW_REVIEW
 		<where>

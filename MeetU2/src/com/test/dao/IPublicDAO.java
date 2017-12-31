@@ -11,7 +11,7 @@ public interface IPublicDAO
 	ArrayList<OptionDTO> getCity_types();
 	ArrayList<OptionDTO> getGroupPublic();
 	
-	ArrayList<com.test.admin.GroupDTO> getGroupList(FilterDTO filterDTO);
+	ArrayList<com.test.dto.AGroupDTO> getGroupList(FilterDTO filterDTO);
 	
 	String getCity_name(String groupCity);
 	String getCategory_content(String category_code);

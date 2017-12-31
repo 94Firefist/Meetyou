@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.test.dao.EventIDAO;
 import com.test.dao.IAlbumDAO;
 import com.test.dao.IEventDAO;
 import com.test.dao.IGroupDAO;
@@ -28,11 +29,10 @@ import com.test.dto.EventDTO;
 import com.test.dto.GroupDTO;
 import com.test.dto.MemberDTO;
 import com.test.dto.TagDTO;
-import com.test.event.EventIDAO;
 import com.test.java.FileManager;
 import com.test.java.GroupStaticClass;
-import com.test.main.CategoryDTO;
-import com.test.main.CityDTO;
+import com.test.dto.CategoryDTO;
+import com.test.dto.CityDTO;
 import com.test.dao.IMemberDAO;
 
 @Controller
@@ -82,7 +82,7 @@ public class GroupFormController
 		String[] tags = request.getParameterValues("tags");
 		String pub = request.getParameter("pub")==null?"3":request.getParameter("pub");
 		
-		com.test.members.IMemberDAO groupDAO = sqlsession.getMapper(com.test.members.IMemberDAO.class);
+		com.test.dao.IMemberDAO groupDAO = sqlsession.getMapper(com.test.dao.IMemberDAO.class);
 		ArrayList<CategoryDTO> categorylist =  groupDAO.categoryList();
 		
 		map.addAttribute("categorylist", categorylist);
@@ -1835,9 +1835,9 @@ public class GroupFormController
 		String birthday = dto.get(0).getEvent_ymd().replaceAll(" ", "-").replace("년", "").replace("월", "").replace("일", "");
 		String picker = dto.get(0).getEvent_hm().replaceAll(" ", "");
 		
-		ArrayList<com.test.event.EventDTO> grouplist = dao2.groupList(keynumber);
-		ArrayList<com.test.event.EventDTO> categorylist = dao2.categoryList(); // 카테고리 리스트
-		ArrayList<com.test.event.EventDTO> publiclist = dao2.evepublicList();	// 공개범위 리스트 처음뿌려주기용
+		ArrayList<com.test.dto.EEventDTO> grouplist = dao2.groupList(keynumber);
+		ArrayList<com.test.dto.EEventDTO> categorylist = dao2.categoryList(); // 카테고리 리스트
+		ArrayList<com.test.dto.EEventDTO> publiclist = dao2.evepublicList();	// 공개범위 리스트 처음뿌려주기용
 		map.addAttribute("grouplist", grouplist);
 		map.addAttribute("categorylist", categorylist);
 		map.addAttribute("publiclist", publiclist);
