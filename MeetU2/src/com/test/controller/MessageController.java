@@ -39,7 +39,7 @@ public class MessageController
 
 		String id = request.getParameter("friendId");
 
-		return "/WEB-INF/view/message/messageSendForm.jsp?friendId=" + id;
+		return "/messagesendform.action?friendId=" + id;
 	}
 
 	@RequestMapping(value = "/messageHostPick.action", method = RequestMethod.GET)
