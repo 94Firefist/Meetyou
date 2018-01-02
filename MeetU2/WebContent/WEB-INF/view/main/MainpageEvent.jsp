@@ -215,7 +215,7 @@
 	
 	
 	
-	<div class="mar">
+	<div class="mar" style="min-height: 200px;">
 		
 		<c:choose>
 			<c:when test="${size!=0}">
