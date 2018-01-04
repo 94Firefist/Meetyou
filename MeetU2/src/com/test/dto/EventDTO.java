@@ -2,74 +2,20 @@ package com.test.dto;
 
 public class EventDTO
 {
-	private int levent_id, evestatus_id, lgroup_id, lmember_id, event_minattend, attend_count, eventused, eveattend_id
+		
+	private int levent_id, evestatus_id, lmember_id, event_minattend, attend_count, eventused, eveattend_id
 	, event_maxattend, public_attendl, public_place, public_gender, public_age, public_eve, event_minm, event_minAge, event_maxAge, event_maxMoney, event_gender;
 
-	private String city_code, city_name, lgroup_name, event_name, loc_geolat, loc_geolng, event_place, event_info, event_date, event_ymd, event_hm
+	private String city_code, city_name, lgroup_id, lgroup_name, event_name, loc_geolat, loc_geolng, event_place, event_info, event_date, event_ymd, event_hm
 	, event_url, public_eveName, load_name, eveProfile_url, category_content, tag, lockcheck, count;
 
+	private int event_id;
+
+	private String  group_name, public_id, public_name, category_code;
 	
 	
-	public String getCount()
-	{
-		return count;
-	}
-
-	public void setCount(String count)
-	{
-		this.count = count;
-	}
-
-	public String getLockcheck()
-	{
-		return lockcheck;
-	}
-
-	public void setLockcheck(String lockcheck)
-	{
-		this.lockcheck = lockcheck;
-	}
-
-	public String getLoad_name()
-	{
-		return load_name;
-	}
-
-	public void setLoad_name(String load_name)
-	{
-		this.load_name = load_name;
-	}
-
-	public String getEveProfile_url()
-	{
-		return eveProfile_url;
-	}
-
-	public void setEveProfile_url(String eveProfile_url)
-	{
-		this.eveProfile_url = eveProfile_url;
-	}
-
-	public String getCategory_content()
-	{
-		return category_content;
-	}
-
-	public void setCategory_content(String category_content)
-	{
-		this.category_content = category_content;
-	}
-
-	public String getTag()
-	{
-		return tag;
-	}
-
-	public void setTag(String tag)
-	{
-		this.tag = tag;
-	}
-
+	
+	
 	public int getLevent_id()
 	{
 		return levent_id;
@@ -80,14 +26,14 @@ public class EventDTO
 		this.levent_id = levent_id;
 	}
 
-	public int getEveattend_id()
+	public int getAttend_count()
 	{
-		return eveattend_id;
+		return attend_count;
 	}
 
-	public void setEveattend_id(int eveattend_id)
+	public void setAttend_count(int attend_count)
 	{
-		this.eveattend_id = eveattend_id;
+		this.attend_count = attend_count;
 	}
 
 	public int getEventused()
@@ -98,6 +44,16 @@ public class EventDTO
 	public void setEventused(int eventused)
 	{
 		this.eventused = eventused;
+	}
+
+	public int getEveattend_id()
+	{
+		return eveattend_id;
+	}
+
+	public void setEveattend_id(int eveattend_id)
+	{
+		this.eveattend_id = eveattend_id;
 	}
 
 	public int getEvent_minAge()
@@ -140,14 +96,14 @@ public class EventDTO
 		this.event_gender = event_gender;
 	}
 
-	public String getPublic_eveName()
+	public String getCity_name()
 	{
-		return public_eveName;
+		return city_name;
 	}
 
-	public void setPublic_eveName(String public_eveName)
+	public void setCity_name(String city_name)
 	{
-		this.public_eveName = public_eveName;
+		this.city_name = city_name;
 	}
 
 	public String getLgroup_name()
@@ -180,34 +136,134 @@ public class EventDTO
 		this.event_hm = event_hm;
 	}
 
-	public String getCity_name()
+	public String getPublic_eveName()
 	{
-		return city_name;
+		return public_eveName;
 	}
 
-	public void setCity_name(String city_name)
+	public void setPublic_eveName(String public_eveName)
 	{
-		this.city_name = city_name;
+		this.public_eveName = public_eveName;
 	}
 
-	public int getAttend_count()
+	public String getLoad_name()
 	{
-		return attend_count;
+		return load_name;
 	}
 
-	public void setAttend_count(int attend_count)
+	public void setLoad_name(String load_name)
 	{
-		this.attend_count = attend_count;
+		this.load_name = load_name;
 	}
 
-	public String getEvent_url()
+	public String getEveProfile_url()
 	{
-		return event_url;
+		return eveProfile_url;
 	}
 
-	public void setEvent_url(String event_url)
+	public void setEveProfile_url(String eveProfile_url)
 	{
-		this.event_url = event_url;
+		this.eveProfile_url = eveProfile_url;
+	}
+
+	public String getTag()
+	{
+		return tag;
+	}
+
+	public void setTag(String tag)
+	{
+		this.tag = tag;
+	}
+
+	public String getLockcheck()
+	{
+		return lockcheck;
+	}
+
+	public void setLockcheck(String lockcheck)
+	{
+		this.lockcheck = lockcheck;
+	}
+
+	public String getCount()
+	{
+		return count;
+	}
+
+	public void setCount(String count)
+	{
+		this.count = count;
+	}
+
+	public String getLgroup_id()
+	{
+		return lgroup_id;
+	}
+
+	public void setLgroup_id(String lgroup_id)
+	{
+		this.lgroup_id = lgroup_id;
+	}
+
+	public String getCategory_code()
+	{
+		return category_code;
+	}
+
+	public void setCategory_code(String category_code)
+	{
+		this.category_code = category_code;
+	}
+
+	public String getCategory_content()
+	{
+		return category_content;
+	}
+
+	public void setCategory_content(String category_content)
+	{
+		this.category_content = category_content;
+	}
+
+	public String getPublic_id()
+	{
+		return public_id;
+	}
+
+	public void setPublic_id(String public_id)
+	{
+		this.public_id = public_id;
+	}
+
+	public String getPublic_name()
+	{
+		return public_name;
+	}
+
+	public void setPublic_name(String public_name)
+	{
+		this.public_name = public_name;
+	}
+
+	public String getGroup_name()
+	{
+		return group_name;
+	}
+
+	public void setGroup_name(String group_name)
+	{
+		this.group_name = group_name;
+	}
+
+	public int getEvent_id()
+	{
+		return event_id;
+	}
+
+	public void setEvent_id(int event_id)
+	{
+		this.event_id = event_id;
 	}
 
 	public int getEvestatus_id()
@@ -218,26 +274,6 @@ public class EventDTO
 	public void setEvestatus_id(int evestatus_id)
 	{
 		this.evestatus_id = evestatus_id;
-	}
-
-	public String getCity_code()
-	{
-		return city_code;
-	}
-
-	public void setCity_code(String city_code)
-	{
-		this.city_code = city_code;
-	}
-
-	public int getLgroup_id()
-	{
-		return lgroup_id;
-	}
-
-	public void setLgroup_id(int lgroup_id)
-	{
-		this.lgroup_id = lgroup_id;
 	}
 
 	public int getLmember_id()
@@ -328,6 +364,26 @@ public class EventDTO
 	public void setEvent_minm(int event_minm)
 	{
 		this.event_minm = event_minm;
+	}
+
+	public String getEvent_url()
+	{
+		return event_url;
+	}
+
+	public void setEvent_url(String event_url)
+	{
+		this.event_url = event_url;
+	}
+
+	public String getCity_code()
+	{
+		return city_code;
+	}
+
+	public void setCity_code(String city_code)
+	{
+		this.city_code = city_code;
 	}
 
 	public String getEvent_name()
