@@ -88,15 +88,15 @@
 
 				<div class="form-group">
 					<input type="radio" name="chk_info" id="chk_info" value="1"
-						onclick="div_OnOff(this.value,'con1');" ${param.friendId==null?'':'checked=checked;'} >친구 <input
+						onclick="div_OnOff(this.value,'con1');" ${memberName==null?'':'checked=checked;'} >친구 <input
 						type="radio" name="chk_info" id="chk_info" value="2"
 						onclick="div_OnOff(this.value,'con2');" > 그룹
 				</div>
 										<!-- 친구 아이디의 값이 null이 아닐때만 이 섹션을 보인다 -->
-				<div id="con1" style=${param.friendId==null?'display:none;':'display:inline;'}>
+				<div id="con1" style=${memberName==null?'display:none;':'display:inline;'}>
 
 					<div class="form-group" id="friendSelect">
-						<input type="text" class="" id="userId" name="userId" value="${param.friendId }"
+						<input type="text" class="" id="userId" name="userId" value="${memberName }"
 							placeholder="받는이 ID" required style="width: 150px;">
 						<input type="text" id="F_keynumber" name="F_keynumber" value="${param.friendKey }"
 						style="width: 50px;"
