@@ -1835,9 +1835,9 @@ public class GroupFormController
 		String birthday = dto.get(0).getEvent_ymd().replaceAll(" ", "-").replace("년", "").replace("월", "").replace("일", "");
 		String picker = dto.get(0).getEvent_hm().replaceAll(" ", "");
 		
-		ArrayList<com.test.dto.EEventDTO> grouplist = dao2.groupList(keynumber);
-		ArrayList<com.test.dto.EEventDTO> categorylist = dao2.categoryList(); // 카테고리 리스트
-		ArrayList<com.test.dto.EEventDTO> publiclist = dao2.evepublicList();	// 공개범위 리스트 처음뿌려주기용
+		ArrayList<com.test.dto.EventDTO> grouplist = dao2.groupList(keynumber);
+		ArrayList<com.test.dto.EventDTO> categorylist = dao2.categoryList(); // 카테고리 리스트
+		ArrayList<com.test.dto.EventDTO> publiclist = dao2.evepublicList();	// 공개범위 리스트 처음뿌려주기용
 		map.addAttribute("grouplist", grouplist);
 		map.addAttribute("categorylist", categorylist);
 		map.addAttribute("publiclist", publiclist);

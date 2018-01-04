@@ -55,28 +55,28 @@
    </select>
    
    <!-- 그룹장이나, 운영진인 그룹리스트 -->
-   <select id="groupList" resultType="com.test.dto.EEventDTO">
+   <select id="groupList" resultType="com.test.dto.EventDTO">
       SELECT LGROUP_ID, GROUP_NAME
       FROM GROUPLIST
       WHERE LMEMBER_ID = #{keynumber}
    </select>
 
    <!-- 이벤트 공개범위 리스트 -->
-   <select id="evepublicList" resultType="com.test.dto.EEventDTO">
+   <select id="evepublicList" resultType="com.test.dto.EventDTO">
       SELECT EVEPUBLIC_ID PUBLIC_ID, EVEPUBLIC_NAME PUBLIC_NAME
       FROM EVEPUBLIC
       ORDER BY PUBLIC_ID
    </select>
    
    <!-- 그룹 공개범위 리스트 -->
-   <select id="grpublicList" resultType="com.test.dto.EEventDTO">
+   <select id="grpublicList" resultType="com.test.dto.EventDTO">
       SELECT GRPUBLIC_ID PUBLIC_ID, GRPUBLIC_NAME PUBLIC_NAME
       FROM GRPUBLIC
       ORDER BY PUBLIC_ID
    </select>
    
    <!-- 카테고리 리스트 -->
-   <select id="categoryList" resultType="com.test.dto.EEventDTO">
+   <select id="categoryList" resultType="com.test.dto.EventDTO">
       SELECT CATEGORY_CODE, CATEGORY_CONTENT
       FROM TBL_CATEGORY
       ORDER BY CATEGORY_CODE
