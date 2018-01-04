@@ -633,9 +633,9 @@ public class AdminServiceController
 			
 		 IGroupDAO dao = sqlSession.getMapper(IGroupDAO.class);
 		 
-		 String group_id = request.getParameter("group_id");
+		 int group_id = Integer.parseInt(request.getParameter("group_id"));
 
-		 //dao.groupDel(group_id);
+		 dao.groupDel(group_id);
 			
 		 mav.setViewName("redirect:grouplist.action");
 		

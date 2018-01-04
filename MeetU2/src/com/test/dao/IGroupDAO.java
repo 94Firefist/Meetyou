@@ -141,5 +141,7 @@ public interface IGroupDAO
 		
 		// 
 	public String categoryupdate(String eventId);
+
+	public void groupDel(int group_id) throws SQLException, ClassNotFoundException;
 	
 }

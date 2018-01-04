@@ -19,8 +19,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.test.dao.Friend_IDAO;
 import com.test.dao.IMemberDAO;
+import com.test.dao.IPersonalDAO;
 import com.test.dto.Friend_DTO;
 import com.test.dto.GroupDTO;
+import com.test.dto.MemberDTO;
+import com.test.dto.PersonalDTO;
 import com.test.java.AdminPage;
 
 @Controller
@@ -344,6 +347,15 @@ public class MessageController
 		String keynumber = (String) session.getAttribute("keynumber");
 		
 		ModelAndView mav = new ModelAndView();
+		IPersonalDAO personalDAO = sqlSession.getMapper(IPersonalDAO.class);
+		String friendKey = request.getParameter("friendKey");
+		if(friendKey != null && friendKey != "")
+		{
+			PersonalDTO personalDto= personalDAO.userInfo(friendKey);
+			mav.addObject("memberName", personalDto.getUserName());
+		}
+		
+		
 		mav.setViewName("/WEB-INF/view/message/messageSendForm.jsp");
 		
 		//그룹리스트 넘겨주기 
@@ -354,7 +366,6 @@ public class MessageController
 		ArrayList<Friend_DTO> msgFriendlist = fdao.msgFriendList(keynumber);
 		mav.addObject("msgFriendlist", msgFriendlist);
 		
-
 		return mav;
 	}
 
@@ -404,6 +415,8 @@ public class MessageController
 		
 		//그룹메시지 보내기 
 		dao.sendGroupMsg(groupTextMap);
+		
+
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/messagemyreceive.action");
