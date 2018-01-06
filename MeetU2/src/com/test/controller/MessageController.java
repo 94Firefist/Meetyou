@@ -36,6 +36,7 @@ public class MessageController
 	@Resource(name = "AdminPage")
 	private AdminPage adminpage;
 	
+	// 메세지 보낼 대상 선택 했을 때
 	@RequestMapping(value = "/messageFriendPick.action", method = RequestMethod.GET)
 	public String messageFriendPick(HttpServletRequest request)
 	{
@@ -99,12 +100,13 @@ public class MessageController
 			
 			com.test.dto.Message_DTO message = null;
 			
-			if(typeid == 6) 
+			
+			if(typeid == 6) // 개인 쪽지일 때
 			{
 				message = dao.receiveMsgnew(msgid);
 				receiveMsgDtos.add(message);
 			} 
-			else 
+			else 			// 그룹 쪽지일 때
 			{
 				HashMap<String, Object> hashmap = new HashMap<String, Object>();
 				hashmap.put("lmbtextsend_id", msgid);
@@ -112,7 +114,6 @@ public class MessageController
 				message = dao.getGMsg(hashmap);
 				receiveMsgDtos.add(message);
 			}
-			
 		}
 		
 		mav.setViewName("/WEB-INF/view/message/messageMyreceive.jsp");
@@ -152,6 +153,7 @@ public class MessageController
 		//클릭한 메시지의 메시지 번호 가져오기 
 		com.test.dao.Message_IDAO dao = sqlSession.getMapper(com.test.dao.Message_IDAO.class);
 		String lmbtextsend_id = request.getParameter("lmbtextsend_id");
+		String mbtextre_date = request.getParameter("redate");
 		
 		//메시지의 타입 가져오기 
 		String type = dao.msgType(lmbtextsend_id);
@@ -165,7 +167,8 @@ public class MessageController
 			com.test.dto.Message_DTO receiveMsg = dao.getMsg(lmbtextsend_id);
 			
 			// 수신확인데이터 넣기
-			dao.readMsg(lmbtextsend_id);
+			if(mbtextre_date.equals("읽지않음"))
+				dao.readMsg(lmbtextsend_id);
 			
 			//뷰에 해당 내용 뿌려주기 
 			mav.setViewName("/WEB-INF/view/message/messageMyreceiveForm.jsp");
@@ -180,7 +183,8 @@ public class MessageController
 			com.test.dto.Message_DTO receiveMsg = dao.getGMsg(hashmap);
 			
 			//수신확인하기 
-			dao.readGMsg(hashmap);
+			if(mbtextre_date.equals("읽지않음"))
+				dao.readGMsg(hashmap);
 			
 			//뷰에 해당 내용 뿌려주기 
 			mav.setViewName("/WEB-INF/view/message/messageMyreceiveForm.jsp");
