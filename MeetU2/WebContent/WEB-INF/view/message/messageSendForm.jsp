@@ -43,16 +43,28 @@
 			
 			if($("input:radio[name=chk_info]:checked").val()== "1")
 			{
-			
-			 $("#sendMemberMsg").attr("action", "messagesendtofriend.action" );
-			 $("#sendMemberMsg").submit();
-			
+				if($("#F_keynumber").val() == null || $("#F_keynumber").val() == "")
+					alert("대상을 선택해주세요");
+				else
+				{
+					$("#sendMemberMsg").attr("action", "messagesendtofriend.action" );
+					$("#sendMemberMsg").submit();
+				}
+			}
+			else if($("input:radio[name=chk_info]:checked").val()== "2")
+			{
+				if($("#groupid").val() == null || $("#groupid").val() == "")
+					alert("대상을 선택해주세요");
+				else
+				{
+					$("#sendMemberMsg").attr("action", "messagesendtogroup.action" );
+					$("#sendMemberMsg").submit();
+				}
 			}
 			else
 			{
-				$("#sendMemberMsg").attr("action", "messagesendtogroup.action" );
-				$("#sendMemberMsg").submit();
-			};		
+				alert("대상을 선택해주세요");
+			}
 		});
 	});
 	
@@ -99,7 +111,7 @@
 						<input type="text" class="" id="userId" name="userId" value="${memberName }"
 							placeholder="받는이 ID" required style="width: 150px;">
 						<input type="text" id="F_keynumber" name="F_keynumber" value="${param.friendKey }"
-						style="width: 50px;"
+						style="width: 50px;" readonly="readonly"
 						>	
 						<c:import url="friendListSearchSample.jsp"></c:import> 
 					</div>
@@ -111,7 +123,7 @@
 						<select id="groupid" name="groupid" class="form-control" style="width: 200px;">
 							
 							<c:forEach items="${msgGrouplist}" var="msg">
-								<option value="${msg.lGroup_id }">${msg.group_name }</option>
+								<option value="${msg.lgroup_id }">${msg.group_name }</option>
 							</c:forEach>
 							
 						</select>
