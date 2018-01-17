@@ -3,7 +3,7 @@ package com.test.dto;
 public class CategoryDTO
 {
 	private String category_code, category_content, category_image;
-
+	
 	public String getCategory_image()
 	{
 		return category_image;

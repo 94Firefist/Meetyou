@@ -504,7 +504,7 @@ var power = 0;
 	{
 		var picker1 = new Date($("#powerpicker1").datepicker("getDate"));
 		var picker2 = new Date($("#powerpicker2").datepicker("getDate"));
-		var event = (picker2.getTime()-picker1.getTime()) / 1000 / 60 / 60 / 24 + 1;
+		var event = ((picker2.getTime-picker1.getTime) / 1000 / 60 / 60 / 24) + 1;
 		
 		if(power<event)
 		{
@@ -934,7 +934,7 @@ var power = 0;
 									<option value="solo">개인</option>
 									<c:if test="${grouplist!=null }">
 										<c:forEach items="${grouplist }" var="group">
-											<option value="${group.lgroup_id }">${group.group_name }</option>
+											<option value="${group.lGroup_id }">${group.group_name }</option>
 										</c:forEach>
 									</c:if>
 									

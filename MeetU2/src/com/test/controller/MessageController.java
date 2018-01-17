@@ -23,7 +23,6 @@ import com.test.dao.IPersonalDAO;
 import com.test.dto.Friend_DTO;
 import com.test.dto.GroupDTO;
 import com.test.dto.MemberDTO;
-import com.test.dto.PersonalDTO;
 import com.test.java.AdminPage;
 
 @Controller
@@ -355,7 +354,7 @@ public class MessageController
 		String friendKey = request.getParameter("friendKey");
 		if(friendKey != null && friendKey != "")
 		{
-			PersonalDTO personalDto= personalDAO.userInfo(friendKey);
+			MemberDTO personalDto= personalDAO.userInfo(friendKey);
 			mav.addObject("memberName", personalDto.getUserName());
 		}
 		

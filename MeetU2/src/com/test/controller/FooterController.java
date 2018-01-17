@@ -104,9 +104,9 @@ public class FooterController
 		
 		FAQDTO faq = new FAQDTO();	
 		
-		faq.setUserId(userId);
-		faq.setTitle(title);
-		faq.setContent(content);
+		faq.setFaq_id(userId);
+		faq.setFaq_title(title);
+		faq.setFaq_content(content);
 		
 		dao.qnaAdd(faq);
 		

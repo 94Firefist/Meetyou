@@ -119,20 +119,20 @@
 						<c:forEach var="groupMember" items="${groupAdmins}">
 							<div class="w3-half">
 								<div style="float: left;">
-								<button id="${groupMember.member_name}" class="memberBtn" value="${groupMember.lmember_id}" tabindex="0"  data-trigger="focus" data-toggle="popover" class="text-primary" title="MeetU"
+								<button id="${groupMember.member_name}" class="memberBtn" value="${groupMember.lMember_id}" tabindex="0"  data-trigger="focus" data-toggle="popover" class="text-primary" title="MeetU"
 								data-content="<a class='memberPage'>개인페이지</a><a onclick='showPopup2();'> 쪽지보내기</a>" data-html="true"
 								style="border: none; background-color: white;"><img src="${groupMember.member_imageUrl}" class="img-circle" alt="Cinque Terre"
 								width="70" height="70" style="padding: 5px; ">${groupMember.member_name}</button>
 								</div>
-								<button class="btn btn-link downgradeMember" style="float: left; margin-top: 2%;" value="${groupMember.lmember_id}">
+								<button class="btn btn-link downgradeMember" style="float: left; margin-top: 2%;" value="${groupMember.lMember_id}">
 									<span class="glyphicon glyphicon-chevron-down" style="font-size: 30px;"></span>
 								</button>
 								<!-- x -->
-								<button class="btn btn-link removeMember" style="float: left; margin-top: 2%;" value="${groupMember.lmember_id}">
+								<button class="btn btn-link removeMember" style="float: left; margin-top: 2%;" value="${groupMember.lMember_id}">
 									<span class="glyphicon glyphicon-remove" style="font-size: 30px; color: red;"></span>
 								</button>
 								<!-- 양도 -->
-								<button type="button" class="btn btn-info switchMaster" style="float: left; margin-top: 3%;" value="${groupMember.lmember_id}">그룹 양도</button>
+								<button type="button" class="btn btn-info switchMaster" style="float: left; margin-top: 3%;" value="${groupMember.lMember_id}">그룹 양도</button>
 							</div>
 						</c:forEach>
 					</div>
@@ -146,19 +146,19 @@
 							<div class="w3-half">
 								
 									<div style="float: left;">
-									<button id="${groupMember.member_name}" class="memberBtn" value="${groupMember.lmember_id}" tabindex="0"  data-trigger="focus" data-toggle="popover" class="text-primary" title="MeetU"
+									<button id="${groupMember.member_name}" class="memberBtn" value="${groupMember.lMember_id}" tabindex="0"  data-trigger="focus" data-toggle="popover" class="text-primary" title="MeetU"
 									data-content="<a class='memberPage'>개인페이지</a><a onclick='showPopup2();'> 쪽지보내기</a>" data-html="true"
 									style="border: none; background-color: white;"><img src="${groupMember.member_imageUrl}" class="img-circle" alt="Cinque Terre"
 									width="70" height="70" style="padding: 5px;">${groupMember.member_name}</button>
 									</div>
 								
 								<c:if test="${groupPower == 1}">
-									<button class="btn btn-link upgradeMember" style="float: left; margin-top: 2%;" value="${groupMember.lmember_id}">
+									<button class="btn btn-link upgradeMember" style="float: left; margin-top: 2%;" value="${groupMember.lMember_id}">
 										<span class="glyphicon glyphicon-chevron-up" style="font-size: 30px;"></span>
 									</button>
 								</c:if>
 								<!-- x -->
-								<button class="btn btn-link removeMember" style="float: left; margin-top: 2%;" value="${groupMember.lmember_id}">
+								<button class="btn btn-link removeMember" style="float: left; margin-top: 2%;" value="${groupMember.lMember_id}">
 									<span class="glyphicon glyphicon-remove" style="font-size: 30px; color: red;"></span>
 								</button>
 							</div>

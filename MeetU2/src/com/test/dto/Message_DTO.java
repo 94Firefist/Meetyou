@@ -10,6 +10,68 @@ public class Message_DTO
 	//쪽지 고유번호 , 메시지 보내는 사람 고유아이디, 메시지 받는 상대 
 	int  lmbtextsend_id, limember_id, lumember_id;
 
+	String lgrtextsend_id, grtextsend_date, grtextsend_title, grtextsend_content, grtextmbl_date, group_name;
+	
+	public String getLgrtextsend_id()
+	{
+		return lgrtextsend_id;
+	}
+
+	public void setLgrtextsend_id(String lgrtextsend_id)
+	{
+		this.lgrtextsend_id = lgrtextsend_id;
+	}
+
+	public String getGrtextsend_date()
+	{
+		return grtextsend_date;
+	}
+
+	public void setGrtextsend_date(String grtextsend_date)
+	{
+		this.grtextsend_date = grtextsend_date;
+	}
+
+	public String getGrtextsend_title()
+	{
+		return grtextsend_title;
+	}
+
+	public void setGrtextsend_title(String grtextsend_title)
+	{
+		this.grtextsend_title = grtextsend_title;
+	}
+
+	public String getGrtextsend_content()
+	{
+		return grtextsend_content;
+	}
+
+	public void setGrtextsend_content(String grtextsend_content)
+	{
+		this.grtextsend_content = grtextsend_content;
+	}
+
+	public String getGrtextmbl_date()
+	{
+		return grtextmbl_date;
+	}
+
+	public void setGrtextmbl_date(String grtextmbl_date)
+	{
+		this.grtextmbl_date = grtextmbl_date;
+	}
+
+	public String getGroup_name()
+	{
+		return group_name;
+	}
+
+	public void setGroup_name(String group_name)
+	{
+		this.group_name = group_name;
+	}
+
 	public String getLgroup_id()
 	{
 		return lgroup_id;

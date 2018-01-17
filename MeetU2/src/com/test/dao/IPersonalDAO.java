@@ -3,12 +3,12 @@ package com.test.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.test.dto.PersonalDTO;
+import com.test.dto.MemberDTO;
 
 public interface IPersonalDAO
 {
 	// 페이지 주인 공개여부
-	public PersonalDTO hostCheckList(String hostId);
+	public MemberDTO hostCheckList(String hostId);
 	
 	// 페이지 주인, 들어간 사람 (친구여부) 
 	public int friendCheck(HashMap<String, Object> hashmap);
@@ -23,16 +23,16 @@ public interface IPersonalDAO
 	//public ArrayList<PersonalCheckDTO> hostEventCheck(String hostId);
 	
 	//나의 정보리스트
-	public PersonalDTO controlList(String keyNumber);
+	public MemberDTO controlList(String keyNumber);
 	
 	//나의 관심사리스트  
-	public ArrayList<PersonalDTO> controlInterestList(String keyNumber);
+	public ArrayList<MemberDTO> controlInterestList(String keyNumber);
 	
 	//관심사의 모든 정보 가져오기 
-	public ArrayList<PersonalDTO> interestList();
+	public ArrayList<MemberDTO> interestList();
 	
 	//지역의 모든 정보 가져오기 
-	public ArrayList<PersonalDTO> cityList();
+	public ArrayList<MemberDTO> cityList();
 	
 	//나의 정보 수정하기 
 	public void controlMyinfo(HashMap<String, Object> hashmap);
@@ -47,16 +47,16 @@ public interface IPersonalDAO
 	public void controlMyinterestInsert(HashMap<String, Object> hashmap);
 	
 	// 친구 리스트
-	public ArrayList<PersonalDTO> friendList(String hostId);
+	public ArrayList<MemberDTO> friendList(String hostId);
 	
 	// 블랙 리스트
-	public ArrayList<PersonalDTO> blackList(String hostId);
+	public ArrayList<MemberDTO> blackList(String hostId);
 	
 	// 친구신청중
-	public ArrayList<PersonalDTO> friendSend(String hostId);
+	public ArrayList<MemberDTO> friendSend(String hostId);
 
 	// 친구신청받음
-	public ArrayList<PersonalDTO> friendReceive(String hostId);
+	public ArrayList<MemberDTO> friendReceive(String hostId);
 	
 	// 친구신청취소(본인)
 	public int friendnoSend(String friendNum);
@@ -77,16 +77,16 @@ public interface IPersonalDAO
 	public int blackRemove(String blackNum);
 	
 	//개인페이지의 일반회원, 운영진인 그룹리스트 뿌리기 
-	public ArrayList<PersonalDTO> groupList(String userNumber);
+	public ArrayList<MemberDTO> groupList(String userNumber);
 	
 	//개인페이지의 일반회원, 운영진인 그룹리스트 뿌리기 (비밀그룹)
-	public ArrayList<PersonalDTO> groupList_secret(String userNumber);
+	public ArrayList<MemberDTO> groupList_secret(String userNumber);
 	
 	//개인페이지의 그룹장인 그룹리스트 뿌리기 
-	public ArrayList<PersonalDTO> groupList_owner(String userNumber);
+	public ArrayList<MemberDTO> groupList_owner(String userNumber);
 	
 	//개인페이지의 그룹장인 그룹리스트 뿌리기 (비밀그룹)
-	public ArrayList<PersonalDTO> groupList_owner_secret(String userNumber);
+	public ArrayList<MemberDTO> groupList_owner_secret(String userNumber);
 	
 	//그룹 탈퇴 기능
 	public void groupOut(HashMap<String, Object> hashMap);
@@ -101,10 +101,10 @@ public interface IPersonalDAO
 	public String userContent(String userNumber);
 	
 	// 내가 주최한 이벤트
-	public ArrayList<PersonalDTO> userEvent(String userNumber);
+	public ArrayList<MemberDTO> userEvent(String userNumber);
 	
 	// 참가 예정 이벤트								<< 그룹번호 알아와야행~
-	public ArrayList<PersonalDTO> goEvent(String userNumber);
+	public ArrayList<MemberDTO> goEvent(String userNumber);
 	
 	// 이름
 	public String memberName(String userNumber);
@@ -116,10 +116,10 @@ public interface IPersonalDAO
 	public int pastMeetU(String userNumber);
 	
 	// 관심 지역
-	public ArrayList<PersonalDTO> userCityList(String userNumber);
+	public ArrayList<MemberDTO> userCityList(String userNumber);
 	
 	// 관심사
-	public ArrayList<PersonalDTO> userTagList(String userNumber);
+	public ArrayList<MemberDTO> userTagList(String userNumber);
 	
 	// 개인 프로필 사진
 	public String profilePhoto(String userNumber);
@@ -128,12 +128,12 @@ public interface IPersonalDAO
 	public void profilePhotoModify(HashMap<String, String> hashmap);
 	
 	// 개인 정보
-	public PersonalDTO userInfo(String userNumber);
+	public MemberDTO userInfo(String userNumber);
 	
 	// 타임라인
 	// 개인 주최 이벤트
-	public ArrayList<PersonalDTO> hostEventList(String hostId);
+	public ArrayList<MemberDTO> hostEventList(String hostId);
 	
 	// 개인 참여 예정 이벤트
-	public ArrayList<PersonalDTO> hostInEventList(String hostId);
+	public ArrayList<MemberDTO> hostInEventList(String hostId);
 }

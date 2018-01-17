@@ -11,7 +11,6 @@ import com.test.dto.AlbumDTO;
 import com.test.dto.CityDTO;
 import com.test.dto.EventDTO;
 import com.test.dto.MemberDTO;
-import com.test.dto.NewGroupDTO;
 import com.test.dto.Public_DTO;
 import com.test.dto.TagDTO;
 
@@ -147,6 +146,6 @@ public interface IGroupDAO
 
 	public void groupDel(int group_id) throws SQLException, ClassNotFoundException;
 	
-	public ArrayList<NewGroupDTO> getGroupList();
+	public ArrayList<GroupDTO> getGroupList();
 	
 }

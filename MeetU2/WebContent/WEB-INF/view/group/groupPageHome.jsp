@@ -124,7 +124,7 @@
 									style="display: inline-block; width: 500px; float: left;">
 									<div id="pastEventName"
 										style="position: relative; font-size: 27px; margin: 0px; float: left; padding: 0px;">
-										<a href="/groupevent.action?lGroup_id=${lGroup_id}&eventId=${posEventDto.levent_id}">${posEventDto.event_name}</a>
+										<a href="/groupevent.action?lGroup_id=${lGroup_id}&eventId=${posEventDto.lEvent_id}">${posEventDto.event_name}</a>
 									</div>
 									<br> <br>
 									<div id="pastEventLocation" style="margin: 0px; font-size: 17px;">${posEventDto.city_name}</div>
@@ -139,7 +139,7 @@
 									<div id="pastEventTime" style="margin: 0px; font-size: 18px;">${posEventDto.event_hm}</div>
 									<div id="pastEventCount">
 										<p style="color: #5c95f2; font-size: 27px;">
-											<span class="glyphicon glyphicon-user" aria-hidden="true"></span>${posEventDto.attend_count}/${posEventDto.event_maxattend}
+											<span class="glyphicon glyphicon-user" aria-hidden="true"></span>${posEventDto.attend_count}/${posEventDto.event_maxAttend}
 										</p>
 									</div>
 								</div>
@@ -170,7 +170,7 @@
 									style="display: inline-block; width: 500px; float: left;">
 									<div id="pastEventName"
 										style="position: relative; font-size: 27px; margin: 0px; float: left; padding: 0px;">
-										<a href="/groupevent.action?lGroup_id=${lGroup_id}&eventId=${preEventDto.levent_id}">${preEventDto.event_name}</a>
+										<a href="/groupevent.action?lGroup_id=${lGroup_id}&eventId=${preEventDto.lEvent_id}">${preEventDto.event_name}</a>
 									</div>
 									<br> <br>
 									<div id="pastEventLocation" style="margin: 0px; font-size: 17px;">${preEventDto.city_name}</div>
@@ -185,7 +185,7 @@
 									<div id="pastEventTime" style="margin: 0px; font-size: 18px;">${preEventDto.event_hm}</div>
 									<div id="pastEventCount">
 										<p style="color: #5c95f2; font-size: 27px;">
-											<span class="glyphicon glyphicon-user" aria-hidden="true"></span>${preEventDto.attend_count}/${preEventDto.event_maxattend}
+											<span class="glyphicon glyphicon-user" aria-hidden="true"></span>${preEventDto.attend_count}/${preEventDto.event_maxAttend}
 										</p>
 									</div>
 								</div>

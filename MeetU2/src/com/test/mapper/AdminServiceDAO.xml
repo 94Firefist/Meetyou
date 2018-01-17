@@ -80,7 +80,7 @@
 
 <!-- FAQ -->
 	<!-- 리스트 -->
-		<select id="faqList" resultType="com.test.dto.AFAQDTO">
+		<select id="faqList" resultType="com.test.dto.FAQDTO">
 			SELECT ROWNUMBER, FAQID, TITLE, HITCOUNT
 			FROM
 			(
@@ -111,7 +111,7 @@
 			DELETE FROM FAQ WHERE FAQ_ID = #{faqId}
 		</delete>
 	<!-- 내용 -->
-		<select id="getFAQContent" resultType="com.test.dto.AFAQDTO">
+		<select id="getFAQContent" resultType="com.test.dto.FAQDTO">
 			SELECT FAQ_TITLE AS TITLE, FAQ_CONTENT AS CONTENT
 			FROM FAQ
 			WHERE FAQ_ID = #{faqId}

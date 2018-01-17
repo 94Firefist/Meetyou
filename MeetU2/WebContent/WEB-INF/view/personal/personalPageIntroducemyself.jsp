@@ -135,15 +135,15 @@ $(document).ready(function()
 				<!--  친구 여부 -->
 				<input type="hidden" id="friendChk" value="${friendcheck }">
 				<!-- 전화번호 공개여부   -->
-				<input type="hidden" id="telOpen" value="${hostpublic.telpublic }">
+				<input type="hidden" id="telOpen" value="${hostpublic.telPublic }">
 				<!-- 친구 리스트 공개 여부 -->
-				<input type="hidden" id="fListOpen" value="${hostpublic.friendpublic }">
+				<input type="hidden" id="fListOpen" value="${hostpublic.friendPublic }">
 				<!-- 그룹 리스트 공개 여부 -->
-				<input type="hidden" id="gListOpen" value="${hostpublic.grouppublic }">
+				<input type="hidden" id="gListOpen" value="${hostpublic.groupPublic }">
 				<!-- 이메일 공개 여부 -->
-				<input type="hidden" id="emailOpen" value="${hostpublic.emailpublic }">
+				<input type="hidden" id="emailOpen" value="${hostpublic.emailPublic }">
 				<!-- 생년월일 공개 여부 -->		
-				<input type="hidden" id="birthOpen" value="${hostpublic.birpublic }">			
+				<input type="hidden" id="birthOpen" value="${hostpublic.birPublic }">			
 				<!-- 회원인지 여부 판단 및 자긴 여부 판단하기 위해 로그인한 사람 번호 받음 -->
 				<input type="hidden" id="keynumber" value="${keynumber }">
 				<!-- 홈주인님의 번호 -->

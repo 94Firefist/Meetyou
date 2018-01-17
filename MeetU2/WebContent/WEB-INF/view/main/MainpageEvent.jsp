@@ -55,7 +55,7 @@
 		margin-bottom: 100px;
 		overflow: hidden;
 	}
-	
+	   
 	
 	.disfooter
 	{
@@ -147,7 +147,7 @@
 						
 				
 				<c:forEach var="dto" items="${powerList}">
-					<div class="powerList" id="${dto.levent_id}" style="height: 100%;">
+					<div class="powerList" id="${dto.lEvent_id}" style="height: 100%;">
 						<div class="grouplist_itemform" style="background-size: 100% 100%; background-image: url(${dto.eveprofile_url});">
 																							
 							<div class="grouplist_itemInfoTextForm" style="width: 80%; height: 100%;">
@@ -209,74 +209,73 @@
 		
 			</div>
 		</div>
-
-	</div>
-	</c:if>
-	
-	
-	
-	
-	<div class="mar" style="min-height: 200px;">
+		</c:if>
+		<div class="mar" style="min-height: 200px;">
 		
-		
-		
-		
-		<div class="mar">
-			
-			<c:choose>
-				<c:when test="${size!=0}">
-				<c:forEach var="dto" items="${list}">
-					<div class="container event" id="${dto.levent_id}"
-						style="width: 50%; height: 220px; margin-bottom: 15px; float: left;">
-						<div style="width: 100%; height: 100%; border-radius: 8px; border: 1px solid #646464;">
-							<div style="width: 50%; height: 100%; float: left; padding: 2%;">
-								<c:choose>
-									<c:when test="${dto.eveProfile_url == null || dto.eveProfile_url == ''}">
-										<img src="<%=cp%>/images/meetU.png" alt="안녕" style="width: 100%; height: 100%;">
-									</c:when>
-									<c:otherwise>
-										<img src="${dto.eveProfile_url}" alt="안녕" style="width: 100%; height: 100%;">
-									</c:otherwise>
-								</c:choose>
-							</div>
-							<div style="width: 50%; height: 100%; float: left; padding: 4% 4% 2% 2%; text-align: right;">
-								<div style="width: 100%; height: 100%; text-align: left; padding-right: 10px;">
-									<!-- 이벤트 제목 -->
-									<div style="width: 100%; height: 50%;">
-										<span style="font-size: 20pt; font-weight: bolder;">${dto.event_name}</span>
-									</div>
-									<!-- 이벤트 장소 -->
-									<div style="width: 100%; height: 15%;">
-										<span style="font-size: 13pt; color: #2478FF; font-weight: bold;">${dto.load_name}</span>
-										<span style="font-size: 11pt; color: #2478FF;">${dto.event_place}</span>
-									</div>
-										
-									<!-- 이벤트 시간 -->
-									<div style="width: 100%; height: 15%;">
-										<span style="font-size: 10pt;">${dto.event_date}</span>
-									</div>
-									<!-- 이벤트 참석자/최대인원 -->
-									<div style="width: 100%; height: 15%;">
-										<span style="font-size: 15pt; font-weight: bolder;">
-											<span class="glyphicon glyphicon-user"></span>
-											${dto.count}/${dto.event_maxattend}
-										</span>
+			<div class="mar">
+				
+				<c:choose>
+					<c:when test="${size!=0}">
+					<c:forEach var="dto" items="${list}">
+						<div class="container event" id="${dto.lEvent_id}"
+							style="width: 50%; height: 220px; margin-bottom: 15px; float: left;">
+							<div style="width: 100%; height: 100%; border-radius: 8px; border: 1px solid #646464;">
+								<div style="width: 50%; height: 100%; float: left; padding: 2%;">
+									<c:choose>
+										<c:when test="${dto.eveProfile_url == null || dto.eveProfile_url == ''}">
+											<img src="<%=cp%>/images/meetU.png" alt="안녕" style="width: 100%; height: 100%;">
+										</c:when>
+										<c:otherwise>
+											<img src="${dto.eveProfile_url}" alt="안녕" style="width: 100%; height: 100%;">
+										</c:otherwise>
+									</c:choose>
+								</div>
+								<div style="width: 50%; height: 100%; float: left; padding: 4% 4% 2% 2%; text-align: right;">
+									<div style="width: 100%; height: 100%; text-align: left; padding-right: 10px;">
+										<!-- 이벤트 제목 -->
+										<div style="width: 100%; height: 50%;">
+											<span style="font-size: 20pt; font-weight: bolder;">${dto.event_name}</span>
+										</div>
+										<!-- 이벤트 장소 -->
+										<div style="width: 100%; height: 15%;">
+											<span style="font-size: 13pt; color: #2478FF; font-weight: bold;">${dto.load_name}</span>
+											<span style="font-size: 11pt; color: #2478FF;">${dto.event_place}</span>
+										</div>
+											
+										<!-- 이벤트 시간 -->
+										<div style="width: 100%; height: 15%;">
+											<span style="font-size: 10pt;">${dto.event_date}</span>
+										</div>
+										<!-- 이벤트 참석자/최대인원 -->
+										<div style="width: 100%; height: 15%;">
+											<span style="font-size: 15pt; font-weight: bolder;">
+												<span class="glyphicon glyphicon-user"></span>
+												${dto.count}/${dto.event_maxAttend}
+											</span>
+										</div>
 									</div>
 								</div>
+								
 							</div>
-							
 						</div>
-					</div>
-				</c:forEach>
-				</c:when>
-				<c:otherwise>
-					<div style="font-size: 20px; color: red; width: 100%; text-align: center;">
-						해당하는 이벤트가 없습니다.
-					</div>
-				</c:otherwise>
-			</c:choose>
+					</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<div style="font-size: 20px; color: red; width: 100%; text-align: center;">
+							해당하는 이벤트가 없습니다.
+						</div>
+					</c:otherwise>
+				</c:choose>
+			</div>
 		</div>
+		
 	</div>
+	
+	
+	
+	
+	
+	
 	<c:import url="../BottomBar.jsp"></c:import>
 </div>
 

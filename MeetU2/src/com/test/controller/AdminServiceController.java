@@ -20,11 +20,11 @@ import com.test.dao.IAdminDAO;
 import com.test.dao.IGroupDAO;
 import com.test.dao.IMemberDAO;
 import com.test.dao.IPublicDAO;
-import com.test.dto.AFAQDTO;
-import com.test.dto.AGroupDTO;
-import com.test.dto.ANoticeDTO;
+import com.test.dto.FAQDTO;
 import com.test.dto.FilterDTO;
+import com.test.dto.GroupDTO;
 import com.test.dto.MemberDTO;
+import com.test.dto.NoticeDTO;
 import com.test.dto.PaymentDTO;
 import com.test.dto.QNADTO;
 import com.test.java.AdminPage;
@@ -93,7 +93,7 @@ public class AdminServiceController
 			return mav;
 		}
 		
-		ArrayList<AGroupDTO> groupList = new ArrayList<AGroupDTO>();
+		ArrayList<GroupDTO> groupList = new ArrayList<GroupDTO>();
 		 
 		IGroupDAO dao = sqlSession.getMapper(IGroupDAO.class);
 		AdminPage adminpage = new AdminPage();
@@ -224,7 +224,7 @@ public class AdminServiceController
 		stMap.put("countPage", page*countPage);
 		
 		
-		ArrayList<ANoticeDTO> noticeList = new ArrayList<ANoticeDTO>();
+		ArrayList<NoticeDTO> noticeList = new ArrayList<NoticeDTO>();
 		noticeList = dao.noticeList(stMap);
 		
 		mav.addObject("page", page);
@@ -256,11 +256,11 @@ public class AdminServiceController
 		String title = request.getParameter("titleI");
 		String content = request.getParameter("contentI");
 		
-		ANoticeDTO notice = new ANoticeDTO();
+		NoticeDTO notice = new NoticeDTO();
 		
-		notice.setAdminid(admin);
-		notice.setTitle(title);
-		notice.setContent(content);
+		notice.setlMember_id(admin);
+		notice.setNotice_title(title);
+		notice.setNotice_content(content);
 	
 		dao.noticeAdd(notice);
 		
@@ -287,11 +287,11 @@ public class AdminServiceController
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		
-		ANoticeDTO notice = new ANoticeDTO();
+		NoticeDTO notice = new NoticeDTO();
 		
-		notice.setNoticeId(noticeId);
-		notice.setTitle(title);
-		notice.setContent(content);
+		notice.setNotice_id(noticeId);
+		notice.setNotice_title(title);
+		notice.setNotice_content(content);
 		
 		dao.noticeModify(notice);
 		
@@ -429,7 +429,7 @@ public class AdminServiceController
 		stMap.put("countPage", page*countPage);
 		
 		
-		ArrayList<AFAQDTO> faqList = new ArrayList<AFAQDTO>();
+		ArrayList<FAQDTO> faqList = new ArrayList<FAQDTO>();
 		faqList = dao.faqList(stMap);
 		
 		mav.addObject("page", page);
@@ -459,11 +459,11 @@ public class AdminServiceController
 		IAdminDAO dao = sqlSession.getMapper(IAdminDAO.class);
 		String title = request.getParameter("titleI");
 		String content = request.getParameter("contentI");
-		AFAQDTO faq = new AFAQDTO();
+		FAQDTO faq = new FAQDTO();
 		
 		//faq.setAdmin(admin);		세션으로 가져올것~~
-		faq.setTitle(title);
-		faq.setContent(content);
+		faq.setFaq_title(title);
+		faq.setFaq_content(content);
 
 		dao.faqAdd(faq);
 		
@@ -489,11 +489,11 @@ public class AdminServiceController
 		String faqId = request.getParameter("faqId");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		AFAQDTO faq = new AFAQDTO();
+		FAQDTO faq = new FAQDTO();
 		
-		faq.setFaqId(faqId);
-		faq.setTitle(title);
-		faq.setContent(content);
+		faq.setFaq_id(faqId);
+		faq.setFaq_title(title);
+		faq.setFaq_content(content);;
 		
 		dao.faqModify(faq);
 		
