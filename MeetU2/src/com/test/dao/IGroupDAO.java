@@ -11,6 +11,7 @@ import com.test.dto.AlbumDTO;
 import com.test.dto.CityDTO;
 import com.test.dto.EventDTO;
 import com.test.dto.MemberDTO;
+import com.test.dto.NewGroupDTO;
 import com.test.dto.Public_DTO;
 import com.test.dto.TagDTO;
 
@@ -53,16 +54,16 @@ public interface IGroupDAO
 	public int InsertGroupMember(HashMap<String, Object> groupAndTargetMap);
 	
 	// 특정 그룹의 멤버권한을 변경하는 메소드
-	public int changeGroupMemberPower(HashMap<String, Object> groupAndTargetMap);
+	public int setGroupMemberPower(HashMap<String, Object> groupAndTargetMap);
 	
 	// 특정 그룹의 가입승인 변경 메소드
-	public int singupchangeGroup(HashMap<String, Object> singupchange);
+	public int singupsetGroup(HashMap<String, Object> singupset);
 	
 	// 특정 그룹의 모든 공개범위를 가져오는 메소드
 	public ArrayList<Public_DTO> getGroupPublicList();
 	
 	// 특정 그룹의 모든 공개범위를 수정하는 메소드
-	public int changeGroupOption(HashMap<String, Object> groupOptionMap);
+	public int setGroupOption(HashMap<String, Object> groupOptionMap);
 	
 	// 특정 그룹의 모든 블랙리스트를 가져오는 메소드
 	public ArrayList<MemberDTO> getGroupBlackList(String group);
@@ -74,7 +75,7 @@ public interface IGroupDAO
 	public int removeGroupMember(HashMap<String, Object> groupTargetMap);
 	
 	// 특정 그룹의 그룹장을 변경하는 메소드
-	public int changeGroupMaster(HashMap<String, Object> groupTargetMap);
+	public int setGroupMaster(HashMap<String, Object> groupTargetMap);
 	
 	// 특정 그룹의 블랙리스트를 추가하는 메소드
 	public int insertGroupBlack(HashMap<String, Object> groupAndTargetMap);
@@ -104,7 +105,9 @@ public interface IGroupDAO
 	public void updateGroupSubject(HashMap<String, Object> groupAndTargetMap);
 	
 	// 특정 그룹의 이벤트중에서 앨범 생성 권한 정보를 가져오는 메소드
-	public String getGroupAcceptAlbum(String eventId);public int groupProfile(HashMap<String, String> groupproMap);
+	public String getGroupAcceptAlbum(String eventId);
+	
+	public int groupProfile(HashMap<String, String> groupproMap);
 	
 	// 특정 그룹의 특정 멤버 GRLIST_ID 가져오는 메소드
 	public String getGrlist(HashMap<String, Object> groupAndTargetMap);
@@ -141,5 +144,7 @@ public interface IGroupDAO
 		
 		// 
 	public String categoryupdate(String eventId);
+	
+	public ArrayList<NewGroupDTO> getGroupList();
 	
 }

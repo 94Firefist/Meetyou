@@ -11,20 +11,10 @@
 <meta charset="UTF-8">
 <title>관리자의 메인 그룹관리페이지</title>
 
-<!-- 제이쿼리 -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
-<!-- 부트스트랩 -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- 기본 CSS import -->
+<c:import url="../import/head.jsp"></c:import>
 
 <!-- 그룹검색을 위한 버튼생성 -->
 <script>
@@ -199,6 +189,9 @@ $(document).ready(
 		
 
 	});
+	
+	
+	
 </script>
 
 
@@ -210,11 +203,15 @@ $(document).ready(
 		-moz-appearance: none; 
 		appearance: none;
 	}
+	option
+	{
+		text-align:center; 
+	}
 </style>
 
 
 </head>
-<body>
+<body class="background">
 	
 	<c:import url="../Menu.jsp"></c:import>
 	
@@ -243,110 +240,71 @@ $(document).ready(
 
 			</div>
 
-			<div class="w3-threequarter"
-				style="width: 75%; height: 100%; margin-top: 3%;">
+			<div class="w3-threequarter" style="width: 75%; height: 100%; margin-top: 3%;">
 
 				<div style="width: 100%; height: 100%; padding: 5%;">
 
 					<div style="margin-bottom: 3%; height: 10%; width: 100%;">
-						<span
-							style="padding: 2%; background-color: #000000; font-size: 20px;
-							 border-radius: 6px; color: white;">미츄 그룹 관리</span>
+						<span style="padding: 2%; background-color: #000000; font-size: 20px; border-radius: 6px; color: white;">미츄 그룹 관리</span>
 					</div>
 
 					<!-- 리스트 ////////////////////////////////////////////////////////////////////// -->
-					<form action="/grouplist.action" method="post" id="groupSearchForm"
-						style="height: 80%; width: 100%;">
-						<div
-							style="border: 4px solid black; height: 100%; width: 100%; margin-top: 2%; padding: 1%;"
-							class="w3-container">
+					<form action="/grouplist.action" method="post" id="groupSearchForm"	style="height: 80%; width: 100%;">
+						<div style="border: 4px solid black; height: 100%; width: 100%; margin-top: 2%; padding: 1%;" class="w3-container">
 							
 							<!-- 핑크 -->
-							<div class=""
-								style="height: 10%; width: 100%; padding: 2%; margin-bottom: 2%;">
+							<div class="" style="height: 10%; width: 100%; padding: 2%; margin-bottom: 2%;">
 								
 								<!-- 그룹명검색 -->
 								 
-								<div class="grNameSel"
-									style=" float: left; height: 100%; width: 30%; display: inline; margin-top: 0.5%; margin-right: 1%;">
-					
-									<input id="groupSearchName" name="groupSearchName" class="" type="text"
-										style="width: 60%; height:100%;" placeholder="그룹명을 입력하세요." value="${fliterDTO.group_name}">
+								<div class="grNameSel" style=" float: left; height: 100%; width: 30%; display: inline; margin-top: 0.5%; margin-right: 1%;">
+									<input id="groupSearchName" name="groupSearchName" class="" type="text" style="width: 60%; height:100%;" placeholder="그룹명을 입력하세요." value="${fliterDTO.group_name}">
 									<button id="grNameSearch" type="button" style="width: 30%; height:100%;" class="ui-button ui-corner-all">검색</button>
 								</div>
-								
-							
-							</div> <!-- 핑크 -->
-							
-
-
-
-							<!--핑크  -->
-
+							</div> 
 
 
 							<!-- 그룹인덱스 리스트 뿌릴 영역 -->
-							<div class="" style="height: 10%; width: 100%; padding: 2%;">
+							<div class="btn-group btn-group-justified" role="group" aria-label="..." style="height: 6%; width: 100%; margin-bottom: 1%;">
 								<input type="hidden" id="filter" name="filter" value="${filterDTO.sort}">
-								<div class="" style="height: 100%; width: 5%; float: left; margin-top: 0.5%; text-align: center;">
-									<button type="button" class="btn btn-link formBtnSubmit" value="1" id="groupNumber" name="number">
-										NO
-									</button>
-								</div>	
-								<div class="" style="height: 100%; width: 18%; float: left; margin-top: 0.5%; text-align: center;">
-									<button type="button" class="btn btn-link formBtnSubmit" value="2" id="groupName" name="groupName">
-										그룹명
-									</button>
-								</div>
-								<div class="" style="height: 100%; width: 8%; float: left; margin-top: 0.5%; text-align: center;">
-									<button type="button" class="btn btn-link formBtnSubmit" value="3" id="groupMaster" name="groupMaster">
-										그룹장
-									</button>
-								</div>
-								<div class="" style="height: 100%; width: 7%; float: left; margin-top: 0.5%; text-align: center;">
-									<button type="button" class="btn btn-link formBtnSubmit" value="4" id="groupMemberCount" name="groupMemberCount">
-										멤버수
-									</button> 
-								</div> 
-								<div class="" style="height: 100%; width: 13%; float: left; margin-top: 0.5%; text-align: center;">
-									<button type="button" class="btn btn-link formBtnSubmit" value="5" id="groupCreateDate" name="groupCreateDate">
-										그룹생성날짜
-									</button>
-								</div>
-								<div class="" style="height: 100%; width: 15%; float: left; margin-top: 0.5%; text-align: center;">
-									<select class="btn btn-link formSelSubmit" id="groupCategory" name="groupCategory">
-										<option value="">카테고리</option>
-										<c:set var="options" value="${categorys}" scope="request"></c:set>
-										<c:set var="optionSel" value="${filterDTO.category_code}" scope="request"></c:set>
-										<c:import url="${cp}import/IPubilcOptions.jsp"></c:import>
-									</select>
-								</div>
-								<div class="" style="height: 100%; width: 12%; float: left; margin-top: 0.5%; text-align: center;">
-									<select class="btn btn-link formSelSubmit" id="groupCity" name="groupCity">
-										<option value="">지역</option>
-										<c:set var="options" value="${city_Types}" scope="request"></c:set>
-										<c:set var="optionSel" value="${filterDTO.cityPe_id}" scope="request"></c:set>
-										<c:import url="${cp}import/IPubilcOptions.jsp"></c:import>
-									</select>
-									
-								</div>
-								<div class="" style="height: 100%; width: 13%; float: left; margin-top: 0.5%; text-align: center;">
-									<select class="btn btn-link formSelSubmit" id="groupPublic" name="groupPublic" style="">
-										<option value="">검색공개</option>
-										<c:set var="options" value="${groupPublics}" scope="request"></c:set>
-										<c:set var="optionSel" value="${filterDTO.grPublic_id}" scope="request"></c:set>
-										<c:import url="${cp}import/IPubilcOptions.jsp"></c:import>
-									</select>
-								</div>
-								<div class="" style="height: 100%; width: 8%; float: left; margin-top: 0.5%; text-align: center;">
-									관리
-								</div>
+								<button type="button" class="btn btn-default formBtnSubmit" value="1" id="groupNumber" name="number" style="height: 100%; width: 5%; float: left; margin-top: 0.5%;">
+									NO
+								</button>
+								<button type="button" class="btn btn-default formBtnSubmit" value="2" id="groupName" name="groupName" style="height: 100%; width: 18%; float: left; margin-top: 0.5%;">
+									그룹명
+								</button>
+								<button type="button" class="btn btn-default formBtnSubmit" value="3" id="groupMaster" name="groupMaster" style="height: 100%; width: 8%; float: left; margin-top: 0.5%;">
+									그룹장
+								</button>
+								<button type="button" class="btn btn-default formBtnSubmit" value="4" id="groupMemberCount" name="groupMemberCount" style="height: 100%; width: 7%; float: left; margin-top: 0.5%;">
+									멤버수
+								</button>
+								<button type="button" class="btn btn-default formBtnSubmit" value="5" id="groupCreateDate" name="groupCreateDate" style="height: 100%; width: 13%; float: left; margin-top: 0.5%;">
+									그룹생성날짜
+								</button>
+								<select class="btn btn-default formSelSubmit" id="groupCategory" name="groupCategory" style="height: 100%; width: 23%; float: left; margin-top: 0.5%;">
+									<option value="">카테고리</option>
+									<c:set var="options" value="${categorys}" scope="request"></c:set>
+									<c:set var="optionSel" value="${filterDTO.category_code}" scope="request"></c:set>
+									<c:import url="${cp}import/IPubilcOptions.jsp"></c:import>
+								</select>
+
+								<select class="btn btn-default formSelSubmit" id="groupCity" name="groupCity" style="height: 100%; width: 12%; float: left; margin-top: 0.5%;">
+									<option value="">지역</option>
+									<c:set var="options" value="${city_Types}" scope="request"></c:set>
+									<c:set var="optionSel" value="${filterDTO.cityPe_id}" scope="request"></c:set>
+									<c:import url="${cp}import/IPubilcOptions.jsp"></c:import>
+								</select>
+								<select class="btn btn-default formSelSubmit" id="groupPublic" name="groupPublic" style="height: 100%; width: 13%; float: left; margin-top: 0.5%; text-align: center; padding: auto;">
+									<option value="">검색공개</option>
+									<c:set var="options" value="${groupPublics}" scope="request"></c:set>
+									<c:set var="optionSel" value="${filterDTO.grPublic_id}" scope="request"></c:set>
+									<c:import url="${cp}import/IPubilcOptions.jsp"></c:import>
+								</select>
 							</div>
 
-							<div class="" style=" float: left; height: 80%; width: 100%; padding: 2%;">
-								
-								<c:import url="${cp}import/IAdmingrouplist.jsp"></c:import>	
-							
+							<div class="" style=" float: left; height: 80%; width: 100%;">
+								<c:import url="import/IAdmingrouplist.jsp"></c:import>	
 							</div>
 
 							

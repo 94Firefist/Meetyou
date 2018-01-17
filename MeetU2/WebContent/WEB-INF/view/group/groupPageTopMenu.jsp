@@ -4,18 +4,16 @@
    request.setCharacterEncoding("UTF-8");
    String cp = request.getContextPath();
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="<%=cp%>/css/style.css">
 <style type="text/css">
 
-   span.menuText
-   {
-      color: #F0F0F0;
-   }
+	span.menuText
+	{
+		color: #F0F0F0;
+	}
+	body{
+   		background-color: #D5D5D5;
+	}
+   
 </style>
 
 <script type="text/javascript">
@@ -50,12 +48,7 @@ $(document).ready(function()
 })
 
 </script>
-<style type="text/css">
-   
-</style>
-</head>
 
-<body style="background-color: #D5D5D5;">
 
    <div class="container"
       style="background-image: url('images/grouptop.png'); width: 1130px; height: 200px; margin: 0px auto; padding: 0px;">
@@ -109,5 +102,3 @@ $(document).ready(function()
 
       </nav>
    </div>
-</body>
-</html>

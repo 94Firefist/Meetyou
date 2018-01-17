@@ -335,7 +335,7 @@
 	<update id="groupProfile">
 		UPDATE GRPROFILE
 	    SET GRPROFILE_URL = #{drag}
-	    WHERE LGROUP_ID = #{groupId}
+	    WHERE LGROUP_ID = #{lGroup_id}
 	</update>
 	
 	<select id="getGroupEventOk" resultType="String">
@@ -411,5 +411,10 @@
 		SELECT COUNT(*) FROM TBL_GROUP
 		WHERE GROUP_NAME LIKE ('%' || #{groupName, jdbcType=VARCHAR} || '%')
 
+	</select>
+	
+	<select id="getGroupList" resultType="com.test.dto.NewGroupDTO">
+		SELECT *
+		FROM TBL_GROUP
 	</select>
 </mapper>

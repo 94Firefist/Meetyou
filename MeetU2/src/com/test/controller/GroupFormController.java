@@ -205,6 +205,8 @@ public class GroupFormController
 			ArrayList<EventDTO> preEventDtos = groupDAO.getPreEventLists(GroupStaticClass.getGroupAndCountMap(lGroup_id, 2));
 			ArrayList<EventDTO> posEventDtos = groupDAO.getPosEventLists(GroupStaticClass.getGroupAndCountMap(lGroup_id, 2));
 
+			
+			
 			mav.setViewName("/WEB-INF/view/group/groupPageHome.jsp");
 			mav.addObject("groupPower", groupPower);
 			mav.addObject("groupCategorys", groupCategorys);
@@ -214,9 +216,6 @@ public class GroupFormController
 			mav.addObject("posEventDtos", posEventDtos);
 			mav.addObject("lGroup_id", lGroup_id);
 			mav.addObject("groupPower", groupPower);
-			System.out.println(lGroup_id);
-			System.out.println(lMember_id);
-			System.out.println(groupPower);
 
 		} catch (Exception e)
 		{
@@ -887,7 +886,7 @@ public class GroupFormController
 					groupDAO.InsertGroupMember(GroupStaticClass.getGroupJoin(lGroup_id, lMember_id, 3));
 				} else
 				{
-					groupDAO.changeGroupMemberPower(GroupStaticClass.getGroupJoin(lGroup_id, lMember_id, 3));
+					groupDAO.setGroupMemberPower(GroupStaticClass.getGroupJoin(lGroup_id, lMember_id, 3));
 				}
 			} else
 			{
@@ -896,7 +895,7 @@ public class GroupFormController
 					groupDAO.InsertGroupMember(GroupStaticClass.getGroupJoin(lGroup_id, lMember_id, 6));
 				} else
 				{
-					groupDAO.changeGroupMemberPower(GroupStaticClass.getGroupJoin(lGroup_id, lMember_id, 6));
+					groupDAO.setGroupMemberPower(GroupStaticClass.getGroupJoin(lGroup_id, lMember_id, 6));
 				}
 			}
 			mav.addObject("groupInfo", groupDTO);
@@ -938,7 +937,7 @@ public class GroupFormController
 				}
 			}
 
-			groupDAO.changeGroupMemberPower(GroupStaticClass.getGroupJoin(lGroup_id, lMember_id, 5));
+			groupDAO.setGroupMemberPower(GroupStaticClass.getGroupJoin(lGroup_id, lMember_id, 5));
 
 			mav.addObject("lGroup_id", lGroup_id);
 			mav.setViewName("redirect:/" + GroupFormController.GROUP_HOME);
@@ -952,8 +951,8 @@ public class GroupFormController
 		return mav;
 	}
 
-	@RequestMapping(value = "/groupsingupchange.action", method = RequestMethod.GET)
-	public ModelAndView GroupSinghupChange(HttpServletRequest request)
+	@RequestMapping(value = "/groupsingupset.action", method = RequestMethod.GET)
+	public ModelAndView GroupSinghupset(HttpServletRequest request)
 	{
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = request.getSession();
@@ -992,7 +991,7 @@ public class GroupFormController
 				singupVal = 1;
 			}
 
-			groupDAO.singupchangeGroup(GroupStaticClass.getSingupMap(lGroup_id, singupVal));
+			groupDAO.singupsetGroup(GroupStaticClass.getSingupMap(lGroup_id, singupVal));
 			mav.setViewName("redirect:/" + GroupFormController.GROUP_SINGUPINFO);
 
 		} catch (Exception e)
@@ -1002,8 +1001,8 @@ public class GroupFormController
 		return mav;
 	}
 
-	@RequestMapping(value = "/groupoptionchange.action", method = RequestMethod.POST)
-	public ModelAndView GroupOptionChange(HttpServletRequest request)
+	@RequestMapping(value = "/groupoptionset.action", method = RequestMethod.POST)
+	public ModelAndView GroupOptionset(HttpServletRequest request)
 	{
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = request.getSession();
@@ -1039,7 +1038,7 @@ public class GroupFormController
 			String public_gra = request.getParameter("photoOpen");
 
 			// 업데이트 하는 부분
-			groupDAO.changeGroupOption(GroupStaticClass.getGroupOptionMap(lGroup_id, public_gr, public_gra, public_grl));
+			groupDAO.setGroupOption(GroupStaticClass.getGroupOptionMap(lGroup_id, public_gr, public_gra, public_grl));
 
 			mav.setViewName("redirect:/" + GroupFormController.GROUP_OPENINFO);
 
@@ -1084,7 +1083,7 @@ public class GroupFormController
 			String targetId = request.getParameter("targetId");
 
 			// 업데이트 하는 부분
-			groupDAO.changeGroupMemberPower(GroupStaticClass.getGroupJoin(lGroup_id, targetId, 3));
+			groupDAO.setGroupMemberPower(GroupStaticClass.getGroupJoin(lGroup_id, targetId, 3));
 
 			mav.setViewName("redirect:/" + GroupFormController.GROUP_SINGUPINFO);
 
@@ -1129,7 +1128,7 @@ public class GroupFormController
 			String targetId = request.getParameter("targetId");
 
 			// 업데이트 하는 부분
-			groupDAO.changeGroupMemberPower(GroupStaticClass.getGroupJoin(lGroup_id, targetId, 5));
+			groupDAO.setGroupMemberPower(GroupStaticClass.getGroupJoin(lGroup_id, targetId, 5));
 
 			mav.setViewName("redirect:/" + GroupFormController.GROUP_SINGUPINFO);
 
@@ -1272,7 +1271,7 @@ public class GroupFormController
 			memberMap.put("GROUP_ID", lGroup_id);
 			memberMap.put("TARGET_ID", targetId);
 			
-			groupDAO.changeGroupMaster(memberMap);
+			groupDAO.setGroupMaster(memberMap);
 
 			mav.setViewName("redirect:/" + GroupFormController.GROUP_OPENINFO);
 
@@ -1317,7 +1316,7 @@ public class GroupFormController
 
 			String targetId = request.getParameter("targetId");
 			// 업데이트 하는 부분
-			groupDAO.changeGroupMemberPower(GroupStaticClass.getGroupJoin(lGroup_id, targetId, 2));
+			groupDAO.setGroupMemberPower(GroupStaticClass.getGroupJoin(lGroup_id, targetId, 2));
 
 			mav.setViewName("redirect:/" + GroupFormController.GROUP_MEMBERINFO);
 
@@ -1362,7 +1361,7 @@ public class GroupFormController
 
 			String targetId = request.getParameter("targetId");
 			// 업데이트 하는 부분
-			groupDAO.changeGroupMemberPower(GroupStaticClass.getGroupJoin(lGroup_id, targetId, 3));
+			groupDAO.setGroupMemberPower(GroupStaticClass.getGroupJoin(lGroup_id, targetId, 3));
 
 			mav.setViewName("redirect:/" + GroupFormController.GROUP_MEMBERINFO);
 

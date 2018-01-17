@@ -10,17 +10,8 @@
 <meta charset="UTF-8">
 <title>관리자페이지 회원활동관리(추가) 페이지</title>
 
-<!-- jquery -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
-<!-- bootstrap -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- 기본 CSS import -->
+<c:import url="../import/head.jsp"></c:import>
 
 <link rel="stylesheet" href="<%=cp%>/css/AdminMemberMain.css">
 

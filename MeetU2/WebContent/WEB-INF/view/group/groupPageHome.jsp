@@ -3,38 +3,16 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
+	System.out.println(cp);
 %>
 <!DOCTYPE html>
 <html>
 <head>
-
+<meta charset="utf-8">
 <title>나의 홈페이지</title>
 
-<meta charset="utf-8">
-
-<link rel="stylesheet" href="<%=cp%>/css/style.css">
-<!-- jQuery -->
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-<!-- 부트스트랩 -->
-<!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
-<!-- 부가적인 테마 -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-
-<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
-<!-- 나눔쏘스 -->
-<link rel="stylesheet" href="<%=cp %>/css/Nwagon.css" type="text/css">
-<script src="<%=cp %>/js/Nwagon.js"></script>
+<!-- 기본 CSS import -->
+<c:import url="../import/head.jsp"></c:import>
 
 <style type="text/css">
 #upcomingEventinfo1 {
@@ -92,19 +70,13 @@
 
 </head>
 <body>
-<head>
-</head>
-<body>
-
-<div>
+	<!-- 상단 메뉴 -->
 	<c:import url="../Menu.jsp"></c:import>
-</div>
-
-	<!-- 상단메뉴 -->
-	<div>
-		<c:import url="groupPageTopMenu.jsp"></c:import>
-	</div>
-	<!-- 상단메뉴 end -->
+	
+	<!-- 멤버 선택 메뉴 -->
+	
+	<!-- 그룹 상단메뉴 -->
+	<c:import url="groupPageTopMenu.jsp"></c:import>
 
 	<div class='container' style="padding: 20px;">
 

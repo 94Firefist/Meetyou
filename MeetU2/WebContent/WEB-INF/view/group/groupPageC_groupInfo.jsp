@@ -293,8 +293,7 @@ function remove(obj)
 									<p>수정하시려면 사진을 클릭하세요.</p>
 									<img id="drags" alt="drag" src="${groupInfo.group_imageUrl}" name="drag" style="width: 50%; height: 300px;" title="">
 									<input type="hidden" id="dragv" name="dragv" value="/images/drag.png">
-									<input type="hidden" name="lGroup_id" value="${lGroup_id }">
-									
+									<input type="hidden" name="lGroup_id" value="${lGroup_id}">
 								</div>
 								
 							</div>
