@@ -31,12 +31,17 @@
 	   window.open("/messagemyreceive.action", "a", "width=520, height=520, left=1060, top=50, location=no, directories=no, status=no");
 	}
 	
-	function showPopup2()
+	function showPopup2(Object)
 	{
-		if('${keynumber}' != null || '${keynumber}' != '')
-		{
-	   		window.open("/messagesendform.action?friendId=" + b + "&friendKey=" + a, "a", "width=520, height=520, left=1060, top=50, location=no, directories=no, status=no");
-		}
+
+		// JavaScript Object 는 값을 불러올 때 메소드 value 사용
+		// JQuery Object 는 값을 불러올 때 메소드 val() 을 사용
+		if("${keynumber}" !=null || "${keynumber}" != "")
+			{
+	  				window.open("/messagesendform.action?friendKey=" + Object.value,
+	               "a",
+	               "width=520, height=520, left=1060, top=50, location=no, directories=no, status=no");
+			}
 		else
 		{
 			$(location).attr("href", "/loginform.action?page="+location.href);
@@ -52,8 +57,8 @@
 	      $(".memberPage").attr("href", "/personalhome.action?userkey=" + a);
 	   });
 	   
-	   $('[data-toggle="popover"]').popover();
-	
+	   
+	   $('[data-toggle="popover"]').popover();  
 	});
 </script>
 	<div class="header" style="background-color: #EEEEEE;">

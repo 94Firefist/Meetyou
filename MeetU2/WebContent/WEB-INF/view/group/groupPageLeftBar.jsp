@@ -64,7 +64,7 @@ function showPopup(id)
 		<div style="text-align: center; width: 100%; height: 15%;">
 			<p style="float: inherit;">그룹장</p>
 
-					<button id="${groupInfo.member_name}" class="memberBtn" value="${groupInfo.lMember_id}" tabindex="0"  data-trigger="focus" data-toggle="popover" class="text-primary" title="MeetU"
+					<button id="${groupInfo.member_name}" class="memberBtn" value="${groupInfo.member_id}" tabindex="0"  data-trigger="focus" data-toggle="popover" class="text-primary" title="MeetU"
 						data-content="<a class='memberPage'>개인페이지</a><a onclick='showPopup2();'> 쪽지보내기</a>" data-html="true"
 						style="border: none; background-color: white;"><img src="${groupInfo.member_imageUrl}" class="img-circle" alt="Cinque Terre"
 						width="70" height="70" style="padding: 5px;">${groupInfo.member_name}</button>

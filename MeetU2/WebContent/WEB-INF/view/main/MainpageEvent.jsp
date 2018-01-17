@@ -209,7 +209,14 @@
 		
 			</div>
 		</div>
-		</c:if>
+
+	</div>
+	</c:if>
+	
+	
+	
+	
+	<div class="mar" style="min-height: 200px;">
 		
 		
 		

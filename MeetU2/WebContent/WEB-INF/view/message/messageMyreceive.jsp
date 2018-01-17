@@ -94,7 +94,7 @@
 								value="${receiveMsg.lmbtextsend_id }" /></td>
 							<td>${receiveMsg.limember_name}${receiveMsg.limember_realid==null?'':'('}${receiveMsg.limember_realid}${receiveMsg.limember_realid==null?'':')'}</td>
 							<td><a
-								href="/messagemyreceiveform.action?lmbtextsend_id=${receiveMsg.lmbtextsend_id }">${receiveMsg.mbtextsend_title }</a></td>
+								href="/messagemyreceiveform.action?lmbtextsend_id=${receiveMsg.lmbtextsend_id }&redate=${receiveMsg.mbtextre_date }">${receiveMsg.mbtextsend_title }</a></td>
 							<td>${receiveMsg.mbtextsend_date }</td>
 							<td>${receiveMsg.mbtextre_date }</td>
 						</tr>

@@ -19,8 +19,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.test.dao.Friend_IDAO;
 import com.test.dao.IMemberDAO;
+import com.test.dao.IPersonalDAO;
 import com.test.dto.Friend_DTO;
 import com.test.dto.GroupDTO;
+import com.test.dto.MemberDTO;
+import com.test.dto.PersonalDTO;
 import com.test.java.AdminPage;
 
 @Controller
@@ -33,13 +36,14 @@ public class MessageController
 	@Resource(name = "AdminPage")
 	private AdminPage adminpage;
 	
+	// 메세지 보낼 대상 선택 했을 때
 	@RequestMapping(value = "/messageFriendPick.action", method = RequestMethod.GET)
 	public String messageFriendPick(HttpServletRequest request)
 	{
 
 		String id = request.getParameter("friendId");
 
-		return "/WEB-INF/view/message/messageSendForm.jsp?friendId=" + id;
+		return "/messagesendform.action?friendId=" + id;
 	}
 
 	@RequestMapping(value = "/messageHostPick.action", method = RequestMethod.GET)
@@ -96,12 +100,13 @@ public class MessageController
 			
 			com.test.dto.Message_DTO message = null;
 			
-			if(typeid == 6) 
+			
+			if(typeid == 6) // 개인 쪽지일 때
 			{
 				message = dao.receiveMsgnew(msgid);
 				receiveMsgDtos.add(message);
 			} 
-			else 
+			else 			// 그룹 쪽지일 때
 			{
 				HashMap<String, Object> hashmap = new HashMap<String, Object>();
 				hashmap.put("lmbtextsend_id", msgid);
@@ -109,7 +114,6 @@ public class MessageController
 				message = dao.getGMsg(hashmap);
 				receiveMsgDtos.add(message);
 			}
-			
 		}
 		
 		mav.setViewName("/WEB-INF/view/message/messageMyreceive.jsp");
@@ -149,6 +153,7 @@ public class MessageController
 		//클릭한 메시지의 메시지 번호 가져오기 
 		com.test.dao.Message_IDAO dao = sqlSession.getMapper(com.test.dao.Message_IDAO.class);
 		String lmbtextsend_id = request.getParameter("lmbtextsend_id");
+		String mbtextre_date = request.getParameter("redate");
 		
 		//메시지의 타입 가져오기 
 		String type = dao.msgType(lmbtextsend_id);
@@ -162,7 +167,8 @@ public class MessageController
 			com.test.dto.Message_DTO receiveMsg = dao.getMsg(lmbtextsend_id);
 			
 			// 수신확인데이터 넣기
-			dao.readMsg(lmbtextsend_id);
+			if(mbtextre_date.equals("읽지않음"))
+				dao.readMsg(lmbtextsend_id);
 			
 			//뷰에 해당 내용 뿌려주기 
 			mav.setViewName("/WEB-INF/view/message/messageMyreceiveForm.jsp");
@@ -177,7 +183,8 @@ public class MessageController
 			com.test.dto.Message_DTO receiveMsg = dao.getGMsg(hashmap);
 			
 			//수신확인하기 
-			dao.readGMsg(hashmap);
+			if(mbtextre_date.equals("읽지않음"))
+				dao.readGMsg(hashmap);
 			
 			//뷰에 해당 내용 뿌려주기 
 			mav.setViewName("/WEB-INF/view/message/messageMyreceiveForm.jsp");
@@ -344,6 +351,15 @@ public class MessageController
 		String keynumber = (String) session.getAttribute("keynumber");
 		
 		ModelAndView mav = new ModelAndView();
+		IPersonalDAO personalDAO = sqlSession.getMapper(IPersonalDAO.class);
+		String friendKey = request.getParameter("friendKey");
+		if(friendKey != null && friendKey != "")
+		{
+			PersonalDTO personalDto= personalDAO.userInfo(friendKey);
+			mav.addObject("memberName", personalDto.getUserName());
+		}
+		
+		
 		mav.setViewName("/WEB-INF/view/message/messageSendForm.jsp");
 		
 		//그룹리스트 넘겨주기 
@@ -354,7 +370,6 @@ public class MessageController
 		ArrayList<Friend_DTO> msgFriendlist = fdao.msgFriendList(keynumber);
 		mav.addObject("msgFriendlist", msgFriendlist);
 		
-
 		return mav;
 	}
 
@@ -404,6 +419,8 @@ public class MessageController
 		
 		//그룹메시지 보내기 
 		dao.sendGroupMsg(groupTextMap);
+		
+
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/messagemyreceive.action");

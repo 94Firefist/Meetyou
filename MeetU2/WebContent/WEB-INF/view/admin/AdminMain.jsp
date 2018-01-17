@@ -35,12 +35,14 @@
 		$("#groupNameModal").html($("#groupname" +i).val() );
 		$("#groupLeader"  ).html($("#groupleader"+i).html());
 		
-		
 		$("#past_event"    ).html($("#pastevent" +i).val() );
 		$("#future_event"  ).html($("#futureevent"+i).val());
 		$("#event_curdate" ).html($("#eventcurdate"+i).val());
 		$("#event_holddate").html($("#eventholddate"+i).val());
 		$("#group_stop"    ).html($("#groupstop"+i).val());
+		
+		$("#grLeaderMsgSend").val($("#groupleader"+i).html());
+		
 		
 	}
 	
@@ -112,12 +114,11 @@ $(document).ready(
 		
 		$(".groupDel").click(function()
 		{
-			//alert("그룹삭제클릭");
+			alert("그룹삭제클릭");
 			
 			alert(this.value);
-			
-		
 			var con_test = confirm("정말 삭제하시겠습니까?");
+			
 			if(con_test)
 			{
 				$("#groupSearchForm").attr("action", "groupDel.action?group_id="+this.value );
@@ -429,7 +430,7 @@ $(document).ready(
 				<div class="modal-body">정말 삭제하시겠습니까?</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-					<button type="button" class="btn btn-primary">삭제</button>
+					<button type="button"  class="btn btn-primary" id="delGroup">삭제</button>
 				</div>
 			</div>
 		</div>
@@ -460,7 +461,7 @@ $(document).ready(
 							<div  style="float: left; position: relative; left: 10%;">
 								<div style="float: left;">그룹장아이디 : &nbsp;</div> 
 								<div id="groupLeader"  style="float: left;">&nbsp;</div>
-								<button type="button" style="background-color: white;">
+								<button type="button" class="" style="background-color: white;" onclick='showPopup2(this);' id="grLeaderMsgSend"  value="">
 									<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
 								</button>
 							</div>

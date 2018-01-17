@@ -43,16 +43,28 @@
 			
 			if($("input:radio[name=chk_info]:checked").val()== "1")
 			{
-			
-			 $("#sendMemberMsg").attr("action", "messagesendtofriend.action" );
-			 $("#sendMemberMsg").submit();
-			
+				if($("#F_keynumber").val() == null || $("#F_keynumber").val() == "")
+					alert("대상을 선택해주세요");
+				else
+				{
+					$("#sendMemberMsg").attr("action", "messagesendtofriend.action" );
+					$("#sendMemberMsg").submit();
+				}
+			}
+			else if($("input:radio[name=chk_info]:checked").val()== "2")
+			{
+				if($("#groupid").val() == null || $("#groupid").val() == "")
+					alert("대상을 선택해주세요");
+				else
+				{
+					$("#sendMemberMsg").attr("action", "messagesendtogroup.action" );
+					$("#sendMemberMsg").submit();
+				}
 			}
 			else
 			{
-				$("#sendMemberMsg").attr("action", "messagesendtogroup.action" );
-				$("#sendMemberMsg").submit();
-			};		
+				alert("대상을 선택해주세요");
+			}
 		});
 	});
 	
@@ -88,18 +100,18 @@
 
 				<div class="form-group">
 					<input type="radio" name="chk_info" id="chk_info" value="1"
-						onclick="div_OnOff(this.value,'con1');" ${param.friendId==null?'':'checked=checked;'} >친구 <input
+						onclick="div_OnOff(this.value,'con1');" ${memberName==null?'':'checked=checked;'} >친구 <input
 						type="radio" name="chk_info" id="chk_info" value="2"
 						onclick="div_OnOff(this.value,'con2');" > 그룹
 				</div>
 										<!-- 친구 아이디의 값이 null이 아닐때만 이 섹션을 보인다 -->
-				<div id="con1" style=${param.friendId==null?'display:none;':'display:inline;'}>
+				<div id="con1" style=${memberName==null?'display:none;':'display:inline;'}>
 
 					<div class="form-group" id="friendSelect">
-						<input type="text" class="" id="userId" name="userId" value="${param.friendId }"
+						<input type="text" class="" id="userId" name="userId" value="${memberName }"
 							placeholder="받는이 ID" required style="width: 150px;">
 						<input type="text" id="F_keynumber" name="F_keynumber" value="${param.friendKey }"
-						style="width: 50px;"
+						style="width: 50px;" readonly="readonly"
 						>	
 						<c:import url="friendListSearchSample.jsp"></c:import> 
 					</div>
@@ -111,7 +123,7 @@
 						<select id="groupid" name="groupid" class="form-control" style="width: 200px;">
 							
 							<c:forEach items="${msgGrouplist}" var="msg">
-								<option value="${msg.lGroup_id }">${msg.group_name }</option>
+								<option value="${msg.lgroup_id }">${msg.group_name }</option>
 							</c:forEach>
 							
 						</select>
