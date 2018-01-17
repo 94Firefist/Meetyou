@@ -4,25 +4,13 @@
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>메뉴</title>
-<%-- <link rel="stylesheet" href="<%=cp %>/css/bootstrap.min.css"> --%>
-<%-- <link rel="stylesheet" href="<%=cp %>/css/style.css"> --%>
+
 <link href="http://bootstrapk.com/examples/sticky-footer-navbar/sticky-footer-navbar.css" rel="stylesheet">
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 
-
-
-</head>
-<body>
 	
-	<footer class="footer">	
+<footer class="footer">	
 	
-	<div class="container">
+<div class="container">
 	
 	<div class="bottombar">
 		<div class="bottom">
@@ -51,9 +39,5 @@
 			</ul>
 		</div>
 	</div>
-	</div>
-	</footer>
-	
-	
-</body>
-</html>
+</div>
+</footer>

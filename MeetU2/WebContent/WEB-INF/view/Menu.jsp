@@ -4,16 +4,6 @@
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>메뉴</title>
-
-<%-- <link rel="stylesheet" href="<%=cp %>/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> --%>
-<link rel="stylesheet" href="<%=cp %>/css/style.css">
 <script type="text/javascript">
 
 	// 로그인 버튼 클릭
@@ -38,15 +28,12 @@
 	
 	function showPopup()
 	{
-	   window
-	         .open(
-	               "/messagemyreceive.action",
-	               "a",
-	               "width=520, height=520, left=1060, top=50, location=no, directories=no, status=no");
+	   window.open("/messagemyreceive.action", "a", "width=520, height=520, left=1060, top=50, location=no, directories=no, status=no");
 	}
 	
 	function showPopup2(Object)
 	{
+
 		// JavaScript Object 는 값을 불러올 때 메소드 value 사용
 		// JQuery Object 는 값을 불러올 때 메소드 val() 을 사용
 		if("${keynumber}" !=null || "${keynumber}" != "")
@@ -56,9 +43,9 @@
 	               "width=520, height=520, left=1060, top=50, location=no, directories=no, status=no");
 			}
 		else
-			{
-				$(location).attr("href", "/loginform.action?page="+location.href);
-			}
+		{
+			$(location).attr("href", "/loginform.action?page="+location.href);
+		}
 	}
 	
 	$(document).ready(function()
@@ -74,20 +61,11 @@
 	   $('[data-toggle="popover"]').popover();  
 	});
 </script>
-
-<style type="text/css">
-
-	
-
-</style>
-</head>
-<body>
-
 	<div class="header" style="background-color: #EEEEEE;">
 		<!--logo start-->
 		<div class="logo_wrap">
-			<a href="/maingroup.action"> <img alt="logo" src="<%=cp%>/images/meetU.png"
-				style="height: 50px; width: 50px;">
+			<a href="/maingroup.action"> 
+				<img alt="logo" src="<%=cp%>/images/meetU.png" style="height: 50px; width: 50px;">
 			</a>
 		</div>
 		<!--logo end-->
@@ -136,8 +114,7 @@
 								<a href="#" target="_self" class="gnb_1da"><button class="btn btn-primary" type="button" onclick="showPopup()">Messages</button></a>
 							</li>
 							<li class="dropdown" style="z-index: 996;">
-								<img src = "${pic }" class="img-circle" alt="Cinque Terre"
-                              width="45" height="45">
+								<img src = "${pic}" class="img-circle" alt="Cinque Terre" width="45" height="45">
 								<a href="" target="_self" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span style="color: skyblue">${sessionScope.name }님</span> <span class="caret"></span></a>
 								<ul class="dropdown-menu" role="menu" style="left: -60%;">
 				                    <li><a href="/personalhome.action?userkey=${sessionScope.keynumber}">개인 페이지</a></li>
@@ -165,6 +142,3 @@
 			</div>
 		</div>
 	</div>
-
-</body>
-</html>

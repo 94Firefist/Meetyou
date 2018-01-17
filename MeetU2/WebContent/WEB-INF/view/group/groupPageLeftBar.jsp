@@ -4,16 +4,6 @@
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- 타이틀 -->
-<title>왼쪽바</title>
-
-
-</head>
 <script type="text/javascript">
 
 /* 친구선택하기 버튼을 눌렀을 때 작동되는 스크립트*/
@@ -40,7 +30,6 @@ function showPopup(id)
 
 </script>
 
-<body>
 	<div id='content' class='container-fluid'
 		style="width: 170px; height: 750px; border: 1px solid white; float: left; padding: 0px; background-color: white;">
 		<div class="container"
@@ -104,5 +93,3 @@ function showPopup(id)
 			</div>
 		</div>
 	</div>
-</body>
-</html>

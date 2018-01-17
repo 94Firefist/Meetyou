@@ -8,7 +8,7 @@ public class MEventDTO
 {
 	private String levent_id, event_name, event_date, lgroup_id, lmember_id, event_maxattend, event_minm
 	, public_eve, evestatus_id, event_info, event_place, event_credate, city_code, load_name
-	, count, mencount, ageavg, eveprofile_url, city_name, tag, category_code, lockcheck;
+	, count, mencount, ageavg, eveProfile_url, city_name, tag, category_code, lockcheck;
 
 	public String getLockcheck()
 	{
@@ -210,14 +210,14 @@ public class MEventDTO
 		this.ageavg = ageavg;
 	}
 
-	public String getEveprofile_url()
+	public String getEveProfile_url()
 	{
-		return eveprofile_url;
+		return eveProfile_url;
 	}
 
-	public void setEveprofile_url(String eveprofile_url)
+	public void setEveProfile_url(String eveProfile_url)
 	{
-		this.eveprofile_url = eveprofile_url;
+		this.eveProfile_url = eveProfile_url;
 	}
 
 	public String getCity_name()
