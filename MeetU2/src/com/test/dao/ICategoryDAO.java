@@ -3,7 +3,7 @@ package com.test.dao;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.test.dto.ACategoryDTO;
+import com.test.dto.CategoryDTO;
 
 /*
  	categoryLists() 카테고리 컨텐츠 리스트 출력하는 메소드
@@ -15,13 +15,13 @@ import com.test.dto.ACategoryDTO;
 
 public interface ICategoryDAO
 {
-	public ArrayList<ACategoryDTO> catLists() throws SQLException, ClassNotFoundException;
-	public ArrayList<ACategoryDTO> mbcatLists() throws SQLException, ClassNotFoundException;
-	public ArrayList<ACategoryDTO> grcatLists() throws SQLException, ClassNotFoundException;
-	public ArrayList<ACategoryDTO> evecatLists() throws SQLException, ClassNotFoundException;
+	public ArrayList<CategoryDTO> catLists() throws SQLException, ClassNotFoundException;
+	public ArrayList<CategoryDTO> mbcatLists() throws SQLException, ClassNotFoundException;
+	public ArrayList<CategoryDTO> grcatLists() throws SQLException, ClassNotFoundException;
+	public ArrayList<CategoryDTO> evecatLists() throws SQLException, ClassNotFoundException;
 	
-	public int catAdd(ACategoryDTO employee) throws SQLException, ClassNotFoundException;
+	public int catAdd(CategoryDTO employee) throws SQLException, ClassNotFoundException;
   	public int catRemove(String employeeId) throws SQLException, ClassNotFoundException;
-  	public int catModify(ACategoryDTO employee) throws SQLException, ClassNotFoundException;
-  	public ACategoryDTO catSearch(String employeeId) throws SQLException, ClassNotFoundException;
+  	public int catModify(CategoryDTO employee) throws SQLException, ClassNotFoundException;
+  	public CategoryDTO catSearch(String employeeId) throws SQLException, ClassNotFoundException;
 }

@@ -150,10 +150,10 @@ ui.js"></script>
 
 						<c:forEach items="${groupdto}" var="dto">
 							<c:choose>
-								<c:when	test="${(userNumber eq keynumber) && (dto.mbpublicti_id==5 || dto.mbpublicti_id==1)}">
+								<c:when	test="${(userNumber eq keynumber) && (dto.mbPublicTi_id==5 || dto.mbPublicTi_id==1)}">
 									<div class="col-sm-3" style="padding: 0px; max-height: 150px;">
-										<a href="grouphome.action?lGroup_id=${dto.lgroup_id }"><img
-											src="${dto.grprofile_url }"
+										<a href="grouphome.action?lGroup_id=${dto.lGroup_id }"><img
+											src="${dto.grProfile_url }"
 											style="width: 212px; height: 120px;"></a>
 										<div id="grouplistText"
 											style="position: relative; left: 10px; top: -50px; color: lime; font-size: 26px;">
@@ -162,19 +162,19 @@ ui.js"></script>
 										<!-- 그룹 기능 버튼 -->
 										<div id="grouplistFunction"
 											style="position: relative; top: -167px; left: 153px; background-color: #f9fafc; width: 60px; height: 31px;">
-											<span class="glyphicon glyphicon-eye-${dto.mbpublicti_id==5?'close' : 'open' }" id="${dto.lgroup_id}"
+											<span class="glyphicon glyphicon-eye-${dto.mbPublicTi_id==5?'close' : 'open' }" id="${dto.lGroup_id}"
 												aria-hidden="true"
 												style="font-size: 20px; position: relative; left: 10px; top: 5px;" onclick="openChk(this)"></span>
 											<span class="glyphicon glyphicon-trash"
-												onclick="remove('${dto.lgroup_id}')" aria-hidden="true"
+												onclick="remove('${dto.lGroup_id}')" aria-hidden="true"
 												style="font-size: 20px; position: relative; left: 10px; top: 5px;"></span>
 										</div>
 									</div>
 								</c:when>
-								<c:when	test="${(!(userNumber eq keynumber))&& dto.mbpublicti_id==1}">
+								<c:when	test="${(!(userNumber eq keynumber))&& dto.mbPublicTi_id==1}">
 									<div class="col-sm-3" style="padding: 0px; max-height: 150px;">
-										<a href="grouphome.action?lGroup_id=${dto.lgroup_id }"><img
-											src="${dto.grprofile_url }"
+										<a href="grouphome.action?lGroup_id=${dto.lGroup_id }"><img
+											src="${dto.grProfile_url }"
 											style="width: 212px; height: 120px;"></a>
 										<div id="grouplistText"
 											style="position: relative; left: 10px; top: -50px; color: lime; font-size: 26px;">
@@ -199,10 +199,10 @@ ui.js"></script>
 						<c:forEach items="${groupdto_owner}" var="dto">
 							<c:choose>
 								<c:when
-									test="${(userNumber eq keynumber) && (dto.mbpublicti_id==5 || dto.mbpublicti_id==1)}">
+									test="${(userNumber eq keynumber) && (dto.mbPublicTi_id==5 || dto.mbPublicTi_id==1)}">
 									<div class="col-sm-3" style="padding: 0px; max-height: 150px;">
-										<a href="grouphome.action?lGroup_id=${dto.lgroup_id }"><img
-											src="${dto.grprofile_url }"
+										<a href="grouphome.action?lGroup_id=${dto.lGroup_id }"><img
+											src="${dto.grProfile_url }"
 											style="width: 212px; height: 120px;"></a>
 										<div id="grouplistText"
 											style="position: relative; left: 10px; top: -50px; color: lime; font-size: 26px; ">
@@ -212,20 +212,20 @@ ui.js"></script>
 										<div id="grouplistFunction"
 											style="position: relative; top: -167px; left: 153px; background-color: #f9fafc; width: 60px; height: 31px;">
 											<span
-												class="glyphicon glyphicon-eye-${dto.mbpublicti_id==5?'close':'open' }" id="${dto.lgroup_id}"
+												class="glyphicon glyphicon-eye-${dto.mbPublicTi_id==5?'close':'open' }" id="${dto.lGroup_id}"
 												aria-hidden="true"
 												style="font-size: 20px; position: relative; left: 10px; top: 5px;" onclick="openChk(this)"></span>
 											<span class="glyphicon glyphicon-trash"
-												onclick="remove_owner('${dto.lgroup_id}')" aria-hidden="true"
+												onclick="remove_owner('${dto.lGroup_id}')" aria-hidden="true"
 												style="font-size: 20px; position: relative; left: 10px; top: 5px;"></span>
 										</div>
 									</div>
 								</c:when>
 								<c:when
-									test="${(!(userNumber eq keynumber))&& dto.mbpublicti_id==1}">
+									test="${(!(userNumber eq keynumber))&& dto.mbPublicTi_id==1}">
 									<div class="col-sm-3" style="padding: 0px; max-height: 150px;">
-										<a href="grouphome.action?lGroup_id=${dto.lgroup_id }"><img
-											src="${dto.grprofile_url }"
+										<a href="grouphome.action?lGroup_id=${dto.lGroup_id }"><img
+											src="${dto.grProfile_url }"
 											style="width: 212px; height: 120px;"></a>
 										<div id="grouplistText"
 											style="position: relative; left: 10px; top: -50px; color: lime; font-size: 26px;">

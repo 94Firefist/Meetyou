@@ -21,7 +21,7 @@ import com.test.dto.EventDTO;
 import com.test.dto.MemberDTO;
 import com.test.java.FileManager;
 import com.test.java.GroupStaticClass;
-import com.test.dto.PersonalDTO;
+import com.test.dto.MemberDTO;
 
 @Controller
 public class PersonalController
@@ -85,8 +85,8 @@ public class PersonalController
          mav.addObject("my", 0);
          
          // 개인 리스트
-         ArrayList<PersonalDTO> result = new ArrayList<PersonalDTO>();
-         for( PersonalDTO dto : personalDAO.hostEventList(userNumber) )
+         ArrayList<MemberDTO> result = new ArrayList<MemberDTO>();
+         for( MemberDTO dto : personalDAO.hostEventList(userNumber) )
          {
             // 전체공개
             if(dto.getEventOpen().equals("1")) 
@@ -129,8 +129,8 @@ public class PersonalController
          System.out.println("-------------------------------------------------------");
          
          // 참여 예정 리스트
-         ArrayList<PersonalDTO> result2 = new ArrayList<PersonalDTO>();
-         for( PersonalDTO dto : personalDAO.hostInEventList(userNumber) )
+         ArrayList<MemberDTO> result2 = new ArrayList<MemberDTO>();
+         for( MemberDTO dto : personalDAO.hostInEventList(userNumber) )
          {
             // 전체 공개
             if (dto.getEventOpen().equals("1"))
@@ -282,8 +282,8 @@ public class PersonalController
 			mav.addObject("my", 0);
 			
 			// 개인 리스트
-			ArrayList<PersonalDTO> result = new ArrayList<PersonalDTO>();
-			for( PersonalDTO dto : personalDAO.hostEventList(userNumber) )
+			ArrayList<MemberDTO> result = new ArrayList<MemberDTO>();
+			for( MemberDTO dto : personalDAO.hostEventList(userNumber) )
 			{
 				// 전체공개
 				if(dto.getEventOpen().equals("1")) 
@@ -326,8 +326,8 @@ public class PersonalController
 			//System.out.println("-------------------------------------------------------");
 			
 			// 참여 예정 리스트
-			ArrayList<PersonalDTO> result2 = new ArrayList<PersonalDTO>();
-			for( PersonalDTO dto : personalDAO.hostInEventList(userNumber) )
+			ArrayList<MemberDTO> result2 = new ArrayList<MemberDTO>();
+			for( MemberDTO dto : personalDAO.hostInEventList(userNumber) )
 			{
 				// 전체 공개
 				if (dto.getEventOpen().equals("1"))
@@ -424,11 +424,11 @@ public class PersonalController
 
 		// 그룹리스트 뽑는 메소드 발생!!!!
 		// 페이지주인이 운영진, 회원인 그룹이고 공개인 배열리스트
-		ArrayList<PersonalDTO> groupdto = personalDAO.groupList(userNumber);
+		ArrayList<MemberDTO> groupdto = personalDAO.groupList(userNumber);
 		mav.addObject("groupdto", groupdto);
 
 		// 페이지주인이 그룹장인 그룹 배열 리스트 공개인 배열리스트
-		ArrayList<PersonalDTO> groupdto_owner = personalDAO.groupList_owner(userNumber);
+		ArrayList<MemberDTO> groupdto_owner = personalDAO.groupList_owner(userNumber);
 		mav.addObject("groupdto_owner", groupdto_owner);
 
 		mav.setViewName("/WEB-INF/view/personal/personalPageGrouplist.jsp");
@@ -520,7 +520,7 @@ public class PersonalController
 		// 개인 정보 여부
 		mav.addObject("hostpublic", personalDAO.hostCheckList(userNumber));
 
-		PersonalDTO dto = personalDAO.hostCheckList(userNumber);
+		MemberDTO dto = personalDAO.hostCheckList(userNumber);
 		// System.out.println(dto.getFriendpublic());
 
 		//System.out.println("여부확인중");
@@ -542,9 +542,9 @@ public class PersonalController
 			{
 				//System.out.println("본인 아님");
 
-				if (dto.getFriendpublic() == 2) // 회원
+				if (dto.getFriendPublic() == 2) // 회원
 					mav.addObject("friendList", personalDAO.friendList(userNumber));
-				else if (dto.getFriendpublic() == 3) // 친구여부
+				else if (dto.getFriendPublic() == 3) // 친구여부
 				{
 					HashMap<String, Object> hashmap = new HashMap<String, Object>();
 					hashmap.put("guestId", keynumber);
@@ -558,7 +558,7 @@ public class PersonalController
 			}
 		} else
 		{
-			if (dto.getFriendpublic() == 1) // 전체
+			if (dto.getFriendPublic() == 1) // 전체
 				mav.addObject("friendList", personalDAO.friendList(userNumber));
 		}
 
@@ -736,19 +736,19 @@ public class PersonalController
 		// System.out.println(userNumber);
 
 		// 컨트롤 개인정보 보내기
-		PersonalDTO conList = personalDAO.controlList(userNumber); // 이거 나중에 키넘버로 바꿔야됨
+		MemberDTO conList = personalDAO.controlList(userNumber); // 이거 나중에 키넘버로 바꿔야됨
 		mav.addObject("conList", conList);
 
 		// 컨트롤 나의 관심사리스트 보내기
-		ArrayList<PersonalDTO> conInterestList = personalDAO.controlInterestList(userNumber);
+		ArrayList<MemberDTO> conInterestList = personalDAO.controlInterestList(userNumber);
 		mav.addObject("conInterestList", conInterestList);
 
 		// 전체관심사리스트 보내기
-		ArrayList<PersonalDTO> totalInterestList = personalDAO.interestList();
+		ArrayList<MemberDTO> totalInterestList = personalDAO.interestList();
 		mav.addObject("totalInterestList", totalInterestList);
 
 		// 전체지역리스트 보내기
-		ArrayList<PersonalDTO> cityList = personalDAO.cityList();
+		ArrayList<MemberDTO> cityList = personalDAO.cityList();
 		mav.addObject("cityList", cityList);
 
 		mav.setViewName("/WEB-INF/view/personal/personalPageControl.jsp");
@@ -789,8 +789,8 @@ public class PersonalController
             EventDTO dto = eventDAO.getEventInfo(GroupStaticClass.getEventUesd(eventId, memberId)).get(0);
             
             
-            mav.addObject("memberName", (daoLeft.memberName(dto.getLmember_id()+"")));
-            mav.addObject("userkey", dto.getLmember_id());
+            mav.addObject("memberName", (daoLeft.memberName(dto.getlMember_id()+"")));
+            mav.addObject("userkey", dto.getlMember_id());
          
             ArrayList<MemberDTO> yesAttends = eventDAO.getAttendMember(GroupStaticClass.getEalist(eventId, "1", 1, 5));
             ArrayList<MemberDTO> noAttends = eventDAO.getAttendMember(GroupStaticClass.getEalist(eventId, "2", 1, 5));

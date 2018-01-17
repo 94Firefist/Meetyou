@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.test.dao.IAdminDAO;
-import com.test.dto.AFAQDTO;
-import com.test.dto.ANoticeDTO;
+import com.test.dto.FAQDTO;
+import com.test.dto.NoticeDTO;
 
 @Controller
 public class AjaxController
@@ -37,21 +37,21 @@ public class AjaxController
 		{
 			if (noticeId != null)
 			{
-				ANoticeDTO result = new ANoticeDTO();
+				NoticeDTO result = new NoticeDTO();
 				result = dao.getNoticeContent(noticeId);
 				
-				mav.addObject("title", result.getTitle());
-				mav.addObject("content", result.getContent());
+				mav.addObject("title", result.getNotice_title());
+				mav.addObject("content", result.getNotice_content());
 				mav.setViewName("/ajax/Ajax.jsp");
 				
 			}
 			if (faqId != null)
 			{
-				AFAQDTO result = new AFAQDTO();
+				FAQDTO result = new FAQDTO();
 				result = dao.getFAQContent(faqId);
 				
-				mav.addObject("title", result.getTitle());
-				mav.addObject("content", result.getContent());
+				mav.addObject("title", result.getFaq_title());
+				mav.addObject("content", result.getFaq_content());
 				mav.setViewName("/ajax/Ajax.jsp");
 			}
 			if (qnaId != null)

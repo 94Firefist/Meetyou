@@ -5,11 +5,11 @@
 	response.setContentType("text/xml");
 %><?xml version="1.0" encoding="UTF-8"?>
 <list>
-	<Ireppro_date>${result.reppro_date}</Ireppro_date>
-	<Irep_type>${result.rep_type }</Irep_type>
-	<Irep_panalty>${result.rep_panalty }</Irep_panalty>
-	<reportTest2>${result.rep_panaltypol }</reportTest2>
-	<panaltyDay>${result.rep_day }</panaltyDay>
+	<Ireppro_date>${result.repPro_date}</Ireppro_date>
+	<Irep_type>${result.repType_name }</Irep_type>
+	<Irep_panalty>${result.panaltyPol_content }</Irep_panalty>
+	<reportTest2>${result.panaltyTy_content }</reportTest2>
+	<panaltyDay>${result.panaltyDay }</panaltyDay>
 </list>
 			
 

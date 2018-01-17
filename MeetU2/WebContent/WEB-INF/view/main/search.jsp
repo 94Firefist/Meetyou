@@ -4,24 +4,7 @@
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 
-
-<!-- <link rel="stylesheet" -->
-<!-- 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
-<%-- <script src="<%=cp%>/js/jquery-ui.js"></script> --%>
-
-<!-- <link rel="stylesheet" -->
-<!-- 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
-<!-- <link rel="stylesheet" -->
-<!-- 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"> -->
-<!-- <script -->
-<!-- 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 
 <script type="text/javascript">
 
@@ -542,9 +525,6 @@ input.typeRadio
 }
 
 </style>
-
-</head>
-<body>
 	<form id="searchDetail" action="" name="form" method="get">
 	<div id="tabs" style="z-index: 100;">
 		<div class="col-md-12" style="height: 75px; width: 1170px; padding: 0">
@@ -753,5 +733,3 @@ input.typeRadio
 		
 	</div>
 	</form>
-</body>
-</html>

@@ -139,7 +139,7 @@
 								
 								<img src="images/attendance.PNG" style="height: 23px; float: left;">
 								<p id="eventAttendance" style="float: left; font-size: 23px;">&nbsp;
-									${eventInfo.attend_count}/${eventInfo.event_maxattend} 참석</p>
+									${eventInfo.attend_count}/${eventInfo.event_maxAttend} 참석</p>
 								
 							</div>
 						</div>
@@ -239,7 +239,7 @@
 						<!----------------- 나이별 그래프 끝 -->
 						</div>
 						</c:if>
-						<c:if test="${eventInfo.public_attendl == 1 || (eventInfo.public_attendl == 2 && groupPower != 0) || (eventInfo.public_attendl == 3 && (groupPower == 1 || groupPower == 2 || groupPower == 3))}">
+						<c:if test="${eventInfo.public_attendL == 1 || (eventInfo.public_attendL == 2 && groupPower != 0) || (eventInfo.public_attendL == 3 && (groupPower == 1 || groupPower == 2 || groupPower == 3))}">
 							<hr>
 							
 							<div>
@@ -259,7 +259,7 @@
 								<div class="container" style="padding: 0px;">
 									<c:forEach var="attend" items="${yesAttends}">
 										<div>
-											<button id="${attend.member_name}" class="memberBtn" value="${attend.lmember_id}" tabindex="0"  data-trigger="focus" data-toggle="popover" class="text-primary" title="MeetU"
+											<button id="${attend.member_name}" class="memberBtn" value="${attend.lMember_id}" tabindex="0"  data-trigger="focus" data-toggle="popover" class="text-primary" title="MeetU"
 									data-content="<a class='memberPage'>개인페이지</a><a onclick='showPopup2();'> 쪽지보내기</a>" data-html="true"
 									style="border: none; background-color: white;"><img src="${attend.member_imageUrl}" class="img-circle" alt="Cinque Terre"
 									width="70" height="70" style="padding: 5px;">${attend.member_name}</button>
@@ -277,7 +277,7 @@
 									<div class="container" style="padding: 0px;">
 										<c:forEach var="attend" items="${noAttends}">
 											<div>
-												<button id="${attend.member_name}" class="memberBtn" value="${attend.lmember_id}" tabindex="0"  data-trigger="focus" data-toggle="popover" class="text-primary" title="MeetU"
+												<button id="${attend.member_name}" class="memberBtn" value="${attend.lMember_id}" tabindex="0"  data-trigger="focus" data-toggle="popover" class="text-primary" title="MeetU"
 										data-content="<a class='memberPage'>개인페이지</a><a onclick='showPopup2();'> 쪽지보내기</a>" data-html="true"
 										style="border: none; background-color: white;"><img src="${attend.member_imageUrl}" class="img-circle" alt="Cinque Terre"
 										width="70" height="70" style="padding: 5px;">${attend.member_name}</button>
@@ -300,7 +300,7 @@
 								</c:forEach>
 							</p>
 						</div>
-						<c:if test="${eventInfo.eventused == 1}">
+						<c:if test="${eventInfo.eventUsed == 1}">
 								<button type="button" class="btn btn-primary" onclick="evupdate(${eventId})" >수정하기</button>
 						</c:if>
 						<c:if test="${ (groupPower == 1 || groupPower == 2) && acceptAlbum != null }">
@@ -332,7 +332,7 @@
 	</div>
 
 <!-- 
-	<c:if test="${eventInfo.eventused == 1}">
+	<c:if test="${eventInfo.eventUsed == 1}">
 		<hr>
 		<div class="eventOpenCheck">
 			<p id="eventOpen" style="color: #518eef;">

@@ -5,7 +5,7 @@
 <mapper namespace="com.test.dao.IPersonalDAO">
 	
 	<!-- 본인 개최 이벤트 -->
-	<select id="hostEventList" resultType="com.test.dto.PersonalDTO">
+	<select id="hostEventList" resultType="com.test.dto.MemberDTO">
 		SELECT LMEMBER_ID AS EVENTHOSTID
 			 , PUBLIC_EVE AS EVENTOPEN
 		     , LEVENT_ID AS EVENTID, EVENT_NAME AS EVENTNAME
@@ -23,7 +23,7 @@
 
 
 <!-- 참여 예정 리스트 -->
-	<select id="hostInEventList" resultType="com.test.dto.PersonalDTO">
+	<select id="hostInEventList" resultType="com.test.dto.MemberDTO">
 		SELECT E.LMEMBER_ID AS EVENTHOSTID
 		     , E.PUBLIC_EVE AS EVENTOPEN
 		     , E.LEVENT_ID AS EVENTID, E.EVENT_NAME AS EVENTNAME
@@ -41,7 +41,7 @@
 		ORDER BY EVENT_DATE
 	</select>
 <!-- 개인정보 -->
-<select id="userInfo" resultType="com.test.dto.PersonalDTO">
+<select id="userInfo" resultType="com.test.dto.MemberDTO">
 	SELECT MEMBER_NAME AS USERNAME, TO_CHAR(MEMBER_BIRTH, 'YYYY-MM-DD') AS USERBIR
 	     , MEMBER_TEL AS USERTEL, MEMBER_INFO AS USERCONTENT, MEMBER_EMAIL AS USEREMAIL
 	FROM MU_MEMBER
@@ -96,7 +96,7 @@
 
 
 <!-- 관심 지역 -->
-<select id="userCityList" resultType="com.test.dto.PersonalDTO">
+<select id="userCityList" resultType="com.test.dto.MemberDTO">
 	SELECT CITY_NAME AS USERCITY
 	FROM MU_MEMBER M JOIN CITY_TYPE C
 	ON M.CITYPE_ID = C.CITYPE_ID
@@ -105,7 +105,7 @@
 
 
 <!-- 관심사 -->
-<select id="userTagList" resultType="com.test.dto.PersonalDTO">
+<select id="userTagList" resultType="com.test.dto.MemberDTO">
 	SELECT C.CATEGORY_CONTENT AS USERTAG
 	FROM TBL_CATEGORY C JOIN MBCATEGORY MC
 	ON C.CATEGORY_CODE = MC.CATEGORY_CODE
@@ -121,7 +121,7 @@
 
 
 <!-- 내가 주최한 이벤트 -->
-<select id="userEvent" resultType="com.test.dto.PersonalDTO">
+<select id="userEvent" resultType="com.test.dto.MemberDTO">
 	SELECT EVENT_NAME AS EVENTNAME, LOAD_NAME AS ADDRESS, EVENT_PLACE AS MAINADDR
 	     , TO_CHAR(EVENT_DATE, 'MM"월" DD"일" DAY') AS EVENTDATE1, TO_CHAR(EVENT_DATE, 'HH24 : MI') AS EVENTDATE2
 	     , COUNT AS GUESTCOUNT, EVENT_MAXATTEND AS MAXCOUNT
@@ -132,7 +132,7 @@
 
 	
 <!-- 참가 예정 이벤트 -->
-<select id="goEvent" resultType="com.test.dto.PersonalDTO">
+<select id="goEvent" resultType="com.test.dto.MemberDTO">
 	SELECT EVENT_NAME AS EVENTNAME, LOAD_NAME AS ADDRESS, EVENT_PLACE AS MAINADDR
 	     , TO_CHAR(EVENT_DATE, 'MM"월" DD"일" DAY') AS EVENTDATE1, TO_CHAR(EVENT_DATE, 'HH24 : MI') AS EVENTDATE2
 	     , COUNT AS GUESTCOUNT, EVENT_MAXATTEND AS MAXCOUNT
@@ -143,7 +143,7 @@
 	ORDER BY EVENT_DATE DESC
 </select>
 <!-- 페이지 주인이 회원인 그룹리스트(그룹이 전체공개인 경우 수정이 가능) -->
-	<select id="groupList" resultType="com.test.dto.PersonalDTO">
+	<select id="groupList" resultType="com.test.dto.MemberDTO">
 		SELECT G.LGROUP_ID AS LGROUP_ID, G.LMEMBER_ID AS LMEMBER_ID, G.MBPUBLICTI_ID AS MBPUBLICTI_ID, TG.GROUP_NAME AS GROUP_NAME, GF.GRPROFILE_URL AS GRPROFILE_URL, G.GRPOWER_ID AS GRPOWER_ID
 		FROM GRLIST G JOIN TBL_GROUP TG 
 		ON G.LGROUP_ID = TG.LGROUP_ID
@@ -153,7 +153,7 @@
 	</select>
 	
 <!-- 페이지 주인이 회원인 그룹리스트(그룹이 멤버공개인 경우 수정이 불가)  -->	
-    <select id="groupList_secret" resultType="com.test.dto.PersonalDTO">
+    <select id="groupList_secret" resultType="com.test.dto.MemberDTO">
 		SELECT G.LGROUP_ID AS LGROUP_ID, G.LMEMBER_ID AS LMEMBER_ID, G.MBPUBLICTI_ID AS MBPUBLICTI_ID, TG.GROUP_NAME AS GROUP_NAME, GF.GRPROFILE_URL AS GRPROFILE_URL, G.GRPOWER_ID AS GRPOWER_ID
 		FROM GRLIST G JOIN TBL_GROUP TG 
 		ON G.LGROUP_ID = TG.LGROUP_ID
@@ -164,7 +164,7 @@
 
 	
 <!-- 페이지 주인이 그룹장인 그룹리스트(그룹이 전체공개인 경우 수정이 가능)  -->	
-	<select id="groupList_owner" resultType="com.test.dto.PersonalDTO">
+	<select id="groupList_owner" resultType="com.test.dto.MemberDTO">
 		SELECT G.LGROUP_ID AS LGROUP_ID, G.LMEMBER_ID AS LMEMBER_ID, G.MBPUBLICTI_ID AS MBPUBLICTI_ID, TG.GROUP_NAME AS GROUP_NAME, GF.GRPROFILE_URL AS GRPROFILE_URL, G.GRPOWER_ID AS GRPOWER_ID
 		FROM GRLIST G JOIN TBL_GROUP TG 
 		ON G.LGROUP_ID = TG.LGROUP_ID
@@ -174,7 +174,7 @@
 	</select>
 	
 <!-- 페이지 주인이 그룹장인 그룹리스트(그룹이 멤버공개인 경우 수정이 불가)  -->	
-	<select id="groupList_owner_secret" resultType="com.test.dto.PersonalDTO">
+	<select id="groupList_owner_secret" resultType="com.test.dto.MemberDTO">
 		SELECT G.LGROUP_ID AS LGROUP_ID, G.LMEMBER_ID AS LMEMBER_ID, G.MBPUBLICTI_ID AS MBPUBLICTI_ID, TG.GROUP_NAME AS GROUP_NAME, GF.GRPROFILE_URL AS GRPROFILE_URL, G.GRPOWER_ID AS GRPOWER_ID
 		FROM GRLIST G JOIN TBL_GROUP TG 
 		ON G.LGROUP_ID = TG.LGROUP_ID
@@ -204,7 +204,7 @@
 		WHERE LGROUP_ID = #{groupid } AND LMEMBER_ID = #{keynumber }
    	</update>
 <!-- 페이지 주인 공개 여부 -->
-	<select id="hostCheckList" resultType="com.test.dto.PersonalDTO">
+	<select id="hostCheckList" resultType="com.test.dto.MemberDTO">
 		SELECT PUBLIC_FRI AS FRIENDPUBLIC, PUBLIC_GRL AS GROUPPUBLIC
 		     , PUBLIC_EMAIL AS EMAILPUBLIC, PUBLIC_TEL AS TELPUBLIC
 		     , PUBLIC_BR AS BIRPUBLIC
@@ -243,7 +243,7 @@
 	
 	
 <!-- 같은 그룹번호(주인, 손님) -->
-	<!-- <select id="sameGroupCheck" resultType="com.test.dto.PersonalDTO">
+	<!-- <select id="sameGroupCheck" resultType="com.test.dto.MemberDTO">
 		SELECT LGROUP_ID
 		FROM GRLIST G JOIN MU_MEMBER M
 		ON M.LMEMBER_ID = G.LMEMBER_ID
@@ -252,7 +252,7 @@
 		ORDER BY LGROUP_ID
 	</select> -->
 <!-- 나의 관리정보리스트 -->
-	<select id="controlList" resultType="com.test.dto.PersonalDTO">
+	<select id="controlList" resultType="com.test.dto.MemberDTO">
 		select m.lmember_id as lmember_id, m.member_realid as member_realid, m.member_email as member_email, m.member_name as member_name, m.member_tel as member_tel, m.public_fri as public_fri, m.public_grl as public_grl, m.public_email as public_email, m.public_tel as public_tel
 		, m.public_br as public_br, c.citype_id as citype_id, c.city_name as city_name, m.member_info as member_info, m.member_birth as member_birth
 		from mu_member m join city_type c
@@ -261,7 +261,7 @@
 	</select>
 
 <!-- 나의 관심사리스트 -->
-   <select id="controlInterestList" resultType="com.test.dto.PersonalDTO">
+   <select id="controlInterestList" resultType="com.test.dto.MemberDTO">
    		SELECT MC.lmember_id as lmember_id, C.category_content as category_content, MC.mbcategory_id as mbcategory_id, c.category_code as category_code
 		FROM TBL_CATEGORY C JOIN MBCATEGORY MC
 		ON C.CATEGORY_CODE = MC.CATEGORY_CODE
@@ -269,13 +269,13 @@
    </select>	
    
 <!-- 모든 관심사리스트-->
- <select id="interestList" resultType="com.test.dto.PersonalDTO">
+ <select id="interestList" resultType="com.test.dto.MemberDTO">
  	select category_code, category_content
     from TBL_CATEGORY
  </select>   
  
 <!-- 모든 지역리스트 -->
-<select id="cityList" resultType="com.test.dto.PersonalDTO">
+<select id="cityList" resultType="com.test.dto.MemberDTO">
 	select citype_id, city_name
 	from city_type
 </select>
@@ -306,7 +306,7 @@
 	insert into MBCATEGORY(MBCATEGORY_ID, LMEMBER_ID, CATEGORY_CODE) values(MBCATEGORYseq.nextval, #{keynumber}, #{category_code})
 </insert>
 <!-- 친구리스트 -->
-	<select id="friendList" resultType="com.test.dto.PersonalDTO">
+	<select id="friendList" resultType="com.test.dto.MemberDTO">
 		SELECT M.LMEMBER_ID AS FRIENDID, M.MEMBER_NAME AS FRIENDNAME, MF.MBPROFILE_URL AS FRIENDPIC, F.FRIEND_ID AS FRIENDNO
 		FROM MU_MEMBER M LEFT OUTER JOIN MBPROFILE MF
 		ON M.LMEMBER_ID = MF.LMEMBER_ID
@@ -329,7 +329,7 @@
 
 
 <!-- 블랙리스트 -->
-	<select id="blackList" resultType="com.test.dto.PersonalDTO">
+	<select id="blackList" resultType="com.test.dto.MemberDTO">
 		SELECT BLACKMB_ID AS BLACKID, B.BLACKMB_REASON AS BLACKCONTENT
 		     , (SELECT MEMBER_NAME FROM MU_MEMBER WHERE LMEMBER_ID = B.LUMEMBER_ID) AS BLACKNAME
 		     , (SELECT MBPROFILE_URL FROM MBPROFILE WHERE LMEMBER_ID = B.LUMEMBER_ID) AS BLACKPIC
@@ -347,7 +347,7 @@
 	
 	
 <!-- 친구신청중 -->
-	<select id="friendSend" resultType="com.test.dto.PersonalDTO">
+	<select id="friendSend" resultType="com.test.dto.MemberDTO">
 		SELECT FRIEND_ID AS FRIENDNO, LUMEMBER_ID AS friendId
 			 , (SELECT MEMBER_NAME FROM MU_MEMBER WHERE LMEMBER_ID = F.LUMEMBER_ID) AS FRIENDNAME
 		     , (SELECT MBPROFILE_URL FROM MBPROFILE WHERE LMEMBER_ID = F.LUMEMBER_ID) AS FRIENDPIC
@@ -359,7 +359,7 @@
 
 
 <!-- 친구신청받음 -->
-	<select id="friendReceive" resultType="com.test.dto.PersonalDTO">
+	<select id="friendReceive" resultType="com.test.dto.MemberDTO">
 		SELECT FRIEND_ID AS FRIENDNO, LIMEMBER_ID AS friendId
 			 , (SELECT MEMBER_NAME FROM MU_MEMBER WHERE LMEMBER_ID = F.LIMEMBER_ID) AS FRIENDNAME
      		 , (SELECT MBPROFILE_URL FROM MBPROFILE WHERE LMEMBER_ID = F.LIMEMBER_ID) AS FRIENDPIC

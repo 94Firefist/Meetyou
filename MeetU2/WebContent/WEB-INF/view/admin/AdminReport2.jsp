@@ -466,7 +466,7 @@
 						<textarea id="panalty_content" readonly="readonly"
 						rows="5" cols="50" style="resize: none;"></textarea>
 					</div>
-					<div class="modal-title" style="padding: 1%; float: left; width: 100%">
+					<div class="modal-title" style=" padding: 1%; float: left; width: 100%">
 						처리관리자 : <input id="master" type="text" readonly="readonly" value="">
 					</div>
 					<div style="padding: 1%;">

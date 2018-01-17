@@ -4,12 +4,6 @@
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>GoogleMapTest04.jsp</title>
-
 
 <!-- API 키 -->
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnB0zyJqTidAvsh3yRe4BEMMrvEU_oHNY"></script>
@@ -66,10 +60,6 @@
 
 </script>
 
-
-</head>
-<body>
-
 <div class="container"> 
 
 
@@ -106,6 +96,3 @@
    </div>
 
 </div>
-
-</body>
-</html>

@@ -3,6 +3,7 @@ package com.test.dao;
 import java.util.ArrayList;
 
 import com.test.dto.FilterDTO;
+import com.test.dto.GroupDTO;
 import com.test.dto.OptionDTO;
 
 public interface IPublicDAO
@@ -11,7 +12,7 @@ public interface IPublicDAO
 	ArrayList<OptionDTO> getCity_types();
 	ArrayList<OptionDTO> getGroupPublic();
 	
-	ArrayList<com.test.dto.AGroupDTO> getGroupList(FilterDTO filterDTO);
+	ArrayList<GroupDTO> getGroupList(FilterDTO filterDTO);
 	
 	String getCity_name(String groupCity);
 	String getCategory_content(String category_code);

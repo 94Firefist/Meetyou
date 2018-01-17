@@ -2,62 +2,67 @@ package com.test.dto;
 
 public class NoticeDTO
 {
-	// 공지사항 리스트 & 상세 내용
 	
-	// 번호 제목 작성일 조회수
-	// (제목) 글쓴이 (작성일) 내용
-	private String no, title, noticeDate, adminId, content;
-	private int count;
-	
-	
-	//
-	public String getAdminId()
+	private String notice_id, lMember_id, notice_title, notice_date, notice_hit, notice_content;
+
+	public String getNotice_id()
 	{
-		return adminId;
+		return notice_id;
 	}
-	public void setAdminId(String adminId)
+
+	public void setNotice_id(String notice_id)
 	{
-		this.adminId = adminId;
+		this.notice_id = notice_id;
 	}
-	public String getNoticeDate()
+
+	public String getlMember_id()
 	{
-		return noticeDate;
+		return lMember_id;
 	}
-	public void setNoticeDate(String noticeDate)
+
+	public void setlMember_id(String lMember_id)
 	{
-		this.noticeDate = noticeDate;
+		this.lMember_id = lMember_id;
 	}
-	public String getNo()
+
+	public String getNotice_title()
 	{
-		return no;
+		return notice_title;
 	}
-	public void setNo(String no)
+
+	public void setNotice_title(String notice_title)
 	{
-		this.no = no;
+		this.notice_title = notice_title;
 	}
-	public String getTitle()
+
+	public String getNotice_date()
 	{
-		return title;
+		return notice_date;
 	}
-	public void setTitle(String title)
+
+	public void setNotice_date(String notice_date)
 	{
-		this.title = title;
+		this.notice_date = notice_date;
 	}
-	public String getContent()
+
+	public String getNotice_hit()
 	{
-		return content;
+		return notice_hit;
 	}
-	public void setContent(String content)
+
+	public void setNotice_hit(String notice_hit)
 	{
-		this.content = content;
+		this.notice_hit = notice_hit;
 	}
-	public int getCount()
+
+	public String getNotice_content()
 	{
-		return count;
+		return notice_content;
 	}
-	public void setCount(int count)
+
+	public void setNotice_content(String notice_content)
 	{
-		this.count = count;
+		this.notice_content = notice_content;
 	}
 	
 	

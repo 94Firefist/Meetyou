@@ -879,7 +879,7 @@ public class GroupFormController
 			}
 			GroupDTO groupDTO = groupDAO.getGroupInfo(lGroup_id);
 
-			if (groupDTO.getGrauto_accept() == 1)
+			if (groupDTO.getGrauto_accept().equals("1"))
 			{
 				if (groupPower == null)
 				{
@@ -983,7 +983,7 @@ public class GroupFormController
 			GroupDTO groupDTO = groupDAO.getGroupInfo(lGroup_id);
 			mav.addObject("groupInfo", groupDTO);
 			int singupVal;
-			if (groupDTO.getGrauto_accept() == 1)
+			if (groupDTO.getGrauto_accept().equals("1"))
 			{
 				singupVal = 0;
 			} else
@@ -1845,12 +1845,12 @@ public class GroupFormController
 		map.addAttribute("lGroup_id", lGroup_id);
 		map.addAttribute("eventName", dto.get(0).getEvent_name());
 		map.addAttribute("mbPublic", dto.get(0).getPublic_eveName());
-		map.addAttribute("minsu", dto.get(0).getEvent_minattend());
-		map.addAttribute("maxsu", dto.get(0).getEvent_maxattend());
-		map.addAttribute("money", dto.get(0).getEvent_minm());
+		map.addAttribute("minsu", dto.get(0).getEvent_minAttend());
+		map.addAttribute("maxsu", dto.get(0).getEvent_maxAttend());
+		map.addAttribute("money", dto.get(0).getEvent_minM());
 		map.addAttribute("drags", dto.get(0).getEvent_url());
 		map.addAttribute("content", dto.get(0).getEvent_info());
-		map.addAttribute("lGroup_id", String.valueOf(dto.get(0).getLgroup_id()));
+		map.addAttribute("lGroup_id", String.valueOf(dto.get(0).getlGroup_id()));
 		map.addAttribute("url", dto.get(0).getEvent_url());
 		map.addAttribute("birthday", birthday);
 		map.addAttribute("picker", picker);

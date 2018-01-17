@@ -97,7 +97,7 @@
 							style="display: inline-block; width: 500px;">
 							<div id="upcomingEventName"
 								style="position: relative; font-size: 27px; margin: 0px; float: left; padding: 0px;">
-								<a href="/groupevent.action?lGroup_id=${lGroup_id}&eventId=${groupEvent.levent_id}"><span>${groupEvent.event_name}</span></a>
+								<a href="/groupevent.action?lGroup_id=${lGroup_id}&eventId=${groupEvent.lEvent_id}"><span>${groupEvent.event_name}</span></a>
 							</div>
 							<br> <br>
 							<div id="upcomingEventLocation"
@@ -114,7 +114,7 @@
 								style="margin: 0px; font-size: 18px; text-align: right">${groupEvent.event_hm}</div>
 							<div id="upcomingEventCount">
 								<p style="color: #5c95f2; font-size: 27px;">
-									<span class="glyphicon glyphicon-user" aria-hidden="true"></span>${groupEvent.attend_count}/${groupEvent.event_maxattend}
+									<span class="glyphicon glyphicon-user" aria-hidden="true"></span>${groupEvent.attend_count}/${groupEvent.event_maxAttend}
 									
 
 								</p>

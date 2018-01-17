@@ -237,8 +237,8 @@ $(document).ready(
 									<div 
 										style=" float: left; width: 100%; height: 10%; border: 1px solid black; padding: 0.5%;">
 										
-										<div style=" float: left; width: 10%; height: 100%; text-align: center;">${member.lmember_id}</div>
-										<div style=" float: left; width: 15%; height: 100%; text-align: center;">${member.member_realid}</div>
+										<div style=" float: left; width: 10%; height: 100%; text-align: center;">${member.lMember_id}</div>
+										<div style=" float: left; width: 15%; height: 100%; text-align: center;">${member.member_realId}</div>
 										<div style=" float: left; width: 10%; height: 100%; text-align: center;">${member.joinGrCount}</div>
 										<div style=" float: left; width: 13%; height: 100%; text-align: center;">${member.member_join}</div>
 										<div style=" float: left; width: 15%; height: 100%; text-align: center;">
@@ -260,7 +260,7 @@ $(document).ready(
 											</c:choose>
 										</div>
 										<div style=" float: left; width: 8%; height: 100%; text-align: center;">
-											<button class="memberDel" value="${member.lmember_id}" type="button" class="btn btn-warning" >
+											<button class="memberDel" value="${member.lMember_id}" type="button" class="btn btn-warning" >
 												삭제
 											</button>
 										</div>

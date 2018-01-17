@@ -88,7 +88,7 @@
 			            </div>
 			            <div class="mediaa-body">
 			                <div class="mediaa-heading">
-				                <div class="writer">${re.member_realid}</div>
+				                <div class="writer">${re.member_realId}</div>
 				                <div class="writedate">${re.review_date}</div>
 			                </div>
 			                <div class="b_content">${re.review_content}
@@ -105,11 +105,11 @@
         		<c:otherwise>
         			<div class="mediaa">
 			            <div class="mediaa-left">
-			            	<div class="img" style="background-image: url('${re.mbprofile_url}')"></div>
+			            	<div class="img" style="background-image: url('${re.mbProfile_url}')"></div>
 			            </div>
 			            <div class="mediaa-body">
 			                <div class="mediaa-heading">
-				                <div class="writer">${re.member_realid}</div>
+				                <div class="writer">${re.member_realId}</div>
 				                <div class="writedate">${re.review_date}</div>
 			                </div>
 			                <div class="b_content"><span style="color: red">잠금 처리된 글입니다.</span>

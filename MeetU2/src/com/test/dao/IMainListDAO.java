@@ -9,27 +9,27 @@ import java.util.ArrayList;
 
 import com.test.dto.CategoryDTO;
 import com.test.dto.CityDTO;
-import com.test.dto.MEventDTO;
-import com.test.dto.MGroupDTO;
+import com.test.dto.GroupDTO;
+import com.test.dto.EventDTO;
 import com.test.dto.SearchDetailDTO;
 
 public interface IMainListDAO
 {
 	// 파워링크
-	public ArrayList<MEventDTO> powerList();
+	public ArrayList<EventDTO> powerList();
 	
 	// 이벤트 리스트 출력
-	public ArrayList<MEventDTO> eventList(SearchDetailDTO dto);
+	public ArrayList<EventDTO> eventList(SearchDetailDTO dto);
 	
 	// 검색바 관심사 출력
 	public ArrayList<CategoryDTO> interestList();
 	
 	// 그룹 리스트 출력
-	public ArrayList<MGroupDTO> groupList(SearchDetailDTO dto);
+	public ArrayList<GroupDTO> groupList(SearchDetailDTO dto);
 	
 	// 지역 리스트 출력
 	public ArrayList<CityDTO> cityList();
 	
 	// 이벤트 주인 찾기
-	public MEventDTO whoEvent(String levent_id);
+	public EventDTO whoEvent(String levent_id);
 }

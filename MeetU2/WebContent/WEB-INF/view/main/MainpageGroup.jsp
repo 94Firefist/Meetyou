@@ -99,8 +99,8 @@
 		<c:choose>
 		<c:when test="${size!=0}">
 			<c:forEach var="dto" items="${grouplist}">
-				<c:if test="${dto.lockcheck.equals('0')}">
-				<div class="grouplist_main" id="${dto.lgroup_id}">
+				<c:if test="${dto.lockCheck.equals('0')}">
+				<div class="grouplist_main" id="${dto.lGroup_id}">
 					<div class="grouplist_itemform" style="background-image: url('${dto.grProfile_url}')">
 			
 						<div class="grouplist_itemInfoTextForm" style="width: 80%; height: 100%;">

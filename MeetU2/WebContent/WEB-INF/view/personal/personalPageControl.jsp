@@ -44,7 +44,7 @@ ui.js"></script>
 	function interestRemove(id)
 	{
 		$(location).attr("href",
-				"/personalInterestRemove.action?mbcategory_id=" + id);
+				"/personalInterestRemove.action?mbCategory_id=" + id);
 	}
 
 	function interestModify(id)
@@ -52,7 +52,7 @@ ui.js"></script>
 
 		$(location).attr(
 				"href",
-				"/personalInterestModity.action?mbcategory_id=" + id
+				"/personalInterestModity.action?mbCategory_id=" + id
 						+ "&category_code=" + $("#sel" + id).val());
 	}
 
@@ -194,10 +194,10 @@ ui.js"></script>
 								<c:forEach items="${cityList }" var="city">
 									<c:choose>
 										<c:when test="${conList.city_name eq city.city_name}">
-											<option selected="selected" value="${city.citype_id}">${city.city_name }</option>
+											<option selected="selected" value="${city.cityPe_id}">${city.city_name }</option>
 										</c:when>
 										<c:otherwise>
-											<option value="${city.citype_id}">${city.city_name }</option>
+											<option value="${city.cityPe_id}">${city.city_name }</option>
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
@@ -211,7 +211,7 @@ ui.js"></script>
 								<strong>관심사</strong>
 							</div>
 							<c:forEach items="${conInterestList}" var="dto">
-								<select style="width: 100px;" id="sel${dto.mbcategory_id}">
+								<select style="width: 100px;" id="sel${dto.mbCategory_id}">
 									<c:forEach items="${totalInterestList}" var="interest">
 										<c:choose>
 											<c:when
@@ -226,9 +226,9 @@ ui.js"></script>
 									</c:forEach>
 								</select>
 								<button type="button" class="btn btn-danger btn-xs"
-									onclick="interestRemove('${dto.mbcategory_id }')">삭제</button>
+									onclick="interestRemove('${dto.mbCategory_id }')">삭제</button>
 								<button type="button" class="btn btn-default btn-xs"
-									onclick="interestModify('${dto.mbcategory_id}')">변경</button>
+									onclick="interestModify('${dto.mbCategory_id}')">변경</button>
 							</c:forEach>
 
 							<!-- 전체카테고리리스트 -->

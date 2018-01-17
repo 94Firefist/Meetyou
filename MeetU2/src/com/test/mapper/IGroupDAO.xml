@@ -413,7 +413,7 @@
 
 	</select>
 	
-	<select id="getGroupList" resultType="com.test.dto.NewGroupDTO">
+	<select id="getGroupList" resultType="com.test.dto.GroupDTO">
 		SELECT *
 		FROM TBL_GROUP
 	</select>

@@ -2,73 +2,67 @@ package com.test.dto;
 
 public class FAQDTO
 {
-	// FAQ 리스트
-	
-	// 번호 제목 작성일 작성자 조회수, 내용
-	private String no, title, faqDate, adminId, content;
-	private int count;
-	
-	// 사용자 id
-	private String userId;
+	private String faq_id, lmember_id, faq_title, faq_date, faq_hit, faq_content;
 
-	public String getUserId()
+	public String getFaq_id()
 	{
-		return userId;
-	}
-	public void setUserId(String userId)
-	{
-		this.userId = userId;
+		return faq_id;
 	}
 
-	public String getContent()
+	public void setFaq_id(String faq_id)
 	{
-		return content;
+		this.faq_id = faq_id;
 	}
-	public void setContent(String content)
+
+	public String getLmember_id()
 	{
-		this.content = content;
+		return lmember_id;
 	}
-	public String getNo()
+
+	public void setLmember_id(String lmember_id)
 	{
-		return no;
+		this.lmember_id = lmember_id;
 	}
-	public void setNo(String no)
+
+	public String getFaq_title()
 	{
-		this.no = no;
+		return faq_title;
 	}
-	public String getTitle()
+
+	public void setFaq_title(String faq_title)
 	{
-		return title;
+		this.faq_title = faq_title;
 	}
-	public void setTitle(String title)
+
+	public String getFaq_date()
 	{
-		this.title = title;
+		return faq_date;
 	}
-	public String getFaqDate()
+
+	public void setFaq_date(String faq_date)
 	{
-		return faqDate;
+		this.faq_date = faq_date;
 	}
-	public void setFaqDate(String faqDate)
+
+	public String getFaq_hit()
 	{
-		this.faqDate = faqDate;
+		return faq_hit;
 	}
-	public String getAdminId()
+
+	public void setFaq_hit(String faq_hit)
 	{
-		return adminId;
+		this.faq_hit = faq_hit;
 	}
-	public void setAdminId(String adminId)
+
+	public String getFaq_content()
 	{
-		this.adminId = adminId;
+		return faq_content;
 	}
-	public int getCount()
+
+	public void setFaq_content(String faq_content)
 	{
-		return count;
+		this.faq_content = faq_content;
 	}
-	public void setCount(int count)
-	{
-		this.count = count;
-	}
-	
 	
 	
 }

@@ -6,17 +6,11 @@
    
    String userkey = request.getParameter("userkey");
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="<%=cp%>/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="<%=cp%>/js/bootstrap.min.js"></script>
-
-</head>
-<body style="background-color: #f4f6f7;">
+<style>
+	body {
+		background-color: #f4f6f7;
+	}
+</style>
    <div style="border: 2px solid white; background-color:white; width: 1130px; height: 165px; margin: 0px auto;">
       <div style="width: 1130px; height: 100px;" >
          <h1 style="margin: 20px 50px;">${memberName}님의 홈페이지</h1>
@@ -44,5 +38,3 @@
       </nav>
       
    </div>
-</body>
-</html>

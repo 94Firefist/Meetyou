@@ -5,7 +5,7 @@
 	response.setContentType("text/xml");
 %><?xml version="1.0" encoding="UTF-8"?>
 <list>
-	<rep_type>${result.rep_type}</rep_type>
-	<rep_content>${result.rep_content }</rep_content>
-	<rep_date>${result.rep_date }</rep_date>
+	<rep_type>${result.repType_name}</rep_type>
+	<rep_content>${result.report_reason }</rep_content>
+	<rep_date>${result.report_date }</rep_date>
 </list>
